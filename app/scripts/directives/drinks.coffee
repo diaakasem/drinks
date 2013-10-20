@@ -1,9 +1,8 @@
-'use strict';
-
+controller = (Service, location, scope, element, attrs) ->
+    
 angular.module('drinksApp')
-  .directive('drinks', () ->
-    template: '<div></div>'
+  .directive 'drinks', (Service) ->
+    templateUrl: 'views/directives/drink.html'
     restrict: 'E'
-    link: (scope, element, attrs) ->
-      element.text 'this is the drinks directive'
-  )
+    scope: true
+    controller: ['Drink', '$location', '$scope', '$element', '$attrs', controller]
