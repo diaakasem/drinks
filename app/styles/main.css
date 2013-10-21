@@ -1,3 +1,6 @@
-/* Will be compiled down to a single stylesheet with your sass files */body {
+/* Will be compiled down to a single stylesheet with your sass files */body.drinks {
   width: 450px;
+}
+body.drinks .media-list .media {
+  margin: 5px;
 }

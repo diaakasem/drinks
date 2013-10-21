@@ -2,14 +2,16 @@
 (function() {
   var controller;
 
-  controller = function(Service, location, scope, element, attrs) {};
+  controller = function(location, scope, element, attrs) {};
 
-  angular.module('drinksApp').directive('drinks', function(Service) {
+  angular.module('drinksApp').directive('drinks', function() {
     return {
-      templateUrl: 'views/directives/drink.html',
+      templateUrl: 'views/directives/drinks.html',
       restrict: 'E',
       scope: true,
-      controller: ['Drink', '$location', '$scope', '$element', '$attrs', controller]
+      transclude: true,
+      replace: true,
+      controller: ['$location', '$scope', '$element', '$attrs', controller]
     };
   });
 

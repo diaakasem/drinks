@@ -1,10 +1,12 @@
 controller = (location, scope, element, attrs) ->
+  console.log scope
     
 angular.module('drinksApp')
-  .directive 'drinks', ->
-    templateUrl: 'views/directives/drinks.html'
+  .directive 'drink', ->
+    templateUrl: 'views/directives/drink.html'
     restrict: 'E'
-    scope: true
-    transclude: true
-    replace: true
+    scope:
+      name: '@'
+      description: '@'
+      img: '@'
     controller: ['$location', '$scope', '$element', '$attrs', controller]
