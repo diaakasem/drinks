@@ -1,6 +1,20 @@
 <navcontainer>
-<drinks>
-<drink ng-repeat="d in drinks"
-name="{{d.name}}" description="{{d.description}}" img="{{d.img}}"></drink>
-</drinks>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <td>Name</td>
+        <td>Description</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="d in drinks">
+        <td>{{d.name}}</td>
+        <td>{{d.description}}</td>
+        <td>Edit - Delete</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 </navcontainer>
