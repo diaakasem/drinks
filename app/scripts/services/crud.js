@@ -18,9 +18,9 @@
       list = function(cb, errCB) {
         return rest.all(handler(cb, errCB));
       };
-      get = withCache(function(id, cb, errCB) {
+      get = function(id, cb, errCB) {
         return rest.get(id, handler(cb, errCB));
-      });
+      };
       create = function(obj, cb, errCB) {
         return rest.put(Date.now(), obj, handler(cb, errCB));
       };

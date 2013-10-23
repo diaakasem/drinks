@@ -2,7 +2,7 @@
 (function() {
   var service;
 
-  service = function() {
+  service = function(Crud) {
     var crud, newCoffee, newWater;
     newWater = function(name, cal) {
       if (name == null) {
@@ -28,12 +28,12 @@
         cal: cal
       };
     };
-    crud = crud().config("drink");
+    crud = Crud().config("drink");
     crud.newCoffee = newCoffee;
     return crud;
   };
 
-  angular.module('drinksApp').factory('Drink', ['Crud', service]);
+  angular.module('drinksApp').factory('DrinkService', ['Crud', service]);
 
 }).call(this);
 

@@ -1,5 +1,5 @@
-service = ->
-  crud().config "settings"
+service = (Crud)->
+  Crud().config "settings"
 angular.module('drinksApp')
   .factory 'Settings',
     ['Crud', service]

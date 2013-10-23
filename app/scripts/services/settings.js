@@ -2,8 +2,8 @@
 (function() {
   var service;
 
-  service = function() {
-    return crud().config("settings");
+  service = function(Crud) {
+    return Crud().config("settings");
   };
 
   angular.module('drinksApp').factory('Settings', ['Crud', service]);

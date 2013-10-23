@@ -1,9 +1,6 @@
-'use strict'
+controller = (scope, Service)->
+  Service.create Service.newCoffee()
 
 angular.module('drinksApp')
-  .controller 'DrinkViewCtrl', ($scope) ->
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ]
+  .controller 'DrinkViewCtrl',
+  ['$scope', 'DrinkService', controller]

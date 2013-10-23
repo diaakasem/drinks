@@ -6,11 +6,13 @@
     return console.log('hello');
   };
 
-  angular.module('drinksApp').directive('navmenu', function() {
+  angular.module('drinksApp').directive('navcontainer', function() {
     return {
       templateUrl: "views/directives/nav.html",
       restrict: 'E',
       scope: true,
+      transclude: true,
+      replace: true,
       controller: ['$location', '$scope', '$element', '$attrs', controller]
     };
   });

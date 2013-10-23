@@ -1,9 +1,8 @@
-'use strict'
+controller = (scope, Service) ->
+
+  scope.create = (form)->
+    debugger;
 
 angular.module('drinksApp')
-  .controller 'DrinkAddCtrl', ($scope) ->
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ]
+  .controller 'DrinkAddCtrl',
+  ['$scope', 'DrinkService', controller]

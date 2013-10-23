@@ -12,7 +12,7 @@ crud = ->
     list = (cb, errCB)->
       rest.all handler(cb, errCB)
 
-    get = withCache (id, cb, errCB)->
+    get = (id, cb, errCB)->
       rest.get id, handler(cb, errCB)
 
     create = (obj, cb, errCB)->

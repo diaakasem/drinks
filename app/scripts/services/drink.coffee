@@ -1,4 +1,4 @@
-service = ->
+service = (Crud)->
   newWater = (name='Water', cal=0)->
     name: "#{name}"
     cal: cal
@@ -7,11 +7,11 @@ service = ->
     name: "#{name}"
     cal: cal
 
-  crud = crud().config "drink"
+  crud = Crud().config "drink"
   crud.newCoffee = newCoffee
   crud
 
 
 angular.module('drinksApp')
-  .factory 'Drink',
+  .factory 'DrinkService',
     ['Crud', service]
