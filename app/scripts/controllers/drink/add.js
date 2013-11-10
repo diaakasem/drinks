@@ -11,7 +11,8 @@
       scope.model.type = 'drink';
       return drink.save(scope.model, {
         success: function(object) {
-          return console.log("Drink has been saved");
+          console.log("Drink has been saved");
+          return scope.go('/drink/list');
         },
         error: function(_, err) {
           return console.log(err);

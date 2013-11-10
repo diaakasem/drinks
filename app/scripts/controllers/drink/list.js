@@ -26,18 +26,17 @@
     return scope.remove = function(id) {
       Drink = Parse.Object.extend("Product");
       query = new Parse.Query(Drink);
-      query.equalTo("type", "drink");
-      query.equalTo("id", id);
-      return query.first({
-        success: function(results) {
+      return query.get(id, {
+        success: function(result) {
           return scope.$apply(function() {
-            _.each(results, function(result) {
-              return result.destroy();
-            });
+            result.destroy();
             return scope.drinks = _.filter(scope.drinks, function(d) {
               return d.id !== id;
             });
           });
+        },
+        error: function(e) {
+          return console.log(e);
         }
       });
     };

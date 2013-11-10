@@ -7,20 +7,29 @@
     scope.model = {};
     Drink = Parse.Object.extend("Product");
     query = new Parse.Query(Drink);
-    query.equalTo("type", "drink");
-    query.equalTo("id", params.id);
-    query.find({
-      success: function(results) {
+    query.get(params.id, {
+      success: function(result) {
+        scope.obj = result;
         return scope.$apply(function() {
-          return _.first(results, function(result) {
-            return scope.model = result;
-          });
+          return scope.model = result._serverData;
         });
+      },
+      error: function(e) {
+        return console.log(e);
       }
     });
     return scope.update = function(form) {
-      Drink = Parse.Object.extend("Product");
-      return scope.model.save();
+      _.each(scope.model, function(v, k) {
+        return scope.obj.set(k, v);
+      });
+      return scope.obj.save({
+        success: function(r) {
+          return scope.go("/drink/view/" + params.id);
+        },
+        error: function(e) {
+          return console.log(e);
+        }
+      });
     };
   };
 

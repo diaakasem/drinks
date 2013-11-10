@@ -11,7 +11,7 @@ config = ($routeProvider, $compileProvider) ->
   ).when('/drink/edit/:id',
     templateUrl: 'views/drink/edit.html',
     controller: 'DrinkEditCtrl'
-  ).when('/drink/view',
+  ).when('/drink/view/:id',
     templateUrl: 'views/drink/view.html',
     controller: 'DrinkViewCtrl'
   ).when('/drink/list',
@@ -20,8 +20,11 @@ config = ($routeProvider, $compileProvider) ->
   ).otherwise redirectTo: "/"
 
 app = angular.module("drinksApp", ['ngRoute']).config config
-app.run ->
+app.run ($rootScope, $location)->
   window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
   window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction
   window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
   Parse.initialize("WSGMmizuVjklAI6SpdIMBypeDCzKPUAo05QpWUnV", "OVNmBrjWj4ggScDNvKf159pVQM89vyNTlRIOIh4u")
+  $rootScope.go = (location)->
+    $location.path location
+

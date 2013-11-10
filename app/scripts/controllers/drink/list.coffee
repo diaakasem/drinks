@@ -17,15 +17,14 @@ controller = (scope)->
   scope.remove = (id)->
     Drink = Parse.Object.extend "Product"
     query = new Parse.Query Drink
-    query.equalTo("type", "drink")
-    query.equalTo("id", id)
-    query.first
-      success: (results)->
+    query.get id,
+      success: (result)->
         scope.$apply ->
-          _.each results, (result)->
-            result.destroy()
+          result.destroy()
           scope.drinks = _.filter scope.drinks, (d)->
             d.id != id
+      error: (e)->
+        console.log e
 
 angular.module('drinksApp')
   .controller 'DrinkListCtrl',

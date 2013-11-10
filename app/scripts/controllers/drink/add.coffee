@@ -9,8 +9,10 @@ controller = (scope) ->
     drink.save scope.model,
       success: (object)->
          console.log "Drink has been saved"
+         scope.go '/drink/list'
       error: (_, err)->
         console.log err
+
 
 
 angular.module('drinksApp')
