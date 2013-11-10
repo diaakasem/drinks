@@ -2,9 +2,9 @@
 (function() {
   var controller;
 
-  controller = function(scope, Service) {};
+  controller = function(scope) {};
 
-  angular.module('drinksApp').controller('DrinkEditCtrl', ['$scope', 'DrinkService', controller]);
+  angular.module('drinksApp').controller('DrinkEditCtrl', ['$scope', controller]);
 
 }).call(this);
 

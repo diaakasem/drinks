@@ -92,7 +92,7 @@ Indexed.prototype.all = transaction('readonly', function(store, tr, cb) {
     var cursor = this.result;
     if (cursor) {
       result.push(cursor.value);
-      cursor['continue']();
+      cursor.continue();
     } else {
       cb(null, result);
     }
@@ -133,7 +133,7 @@ Indexed.prototype.clear = transaction('readwrite', function(store, tr, cb) {
  */
 
 Indexed.prototype.del = transaction('readwrite', function(store, tr, key, cb) {
-  request(store['delete'](key), tr, cb);
+  request(store.delete(key), tr, cb);
 });
 
 /**
@@ -165,7 +165,7 @@ Indexed.prototype._getStore = function(mode, cb) {
   this._getDb(function(err, db) {
     if (err) return cb(err);
 
-    var transaction = db.transaction(this.name, mode);
+    var transaction = db.transaction([this.name], mode);
     var objectStore = transaction.objectStore(this.name);
     cb.call(this, null, objectStore, transaction);
   });

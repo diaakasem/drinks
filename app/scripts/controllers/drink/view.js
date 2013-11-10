@@ -2,11 +2,11 @@
 (function() {
   var controller;
 
-  controller = function(scope, Service) {
+  controller = function(scope) {
     return Service.create(Service.newCoffee());
   };
 
-  angular.module('drinksApp').controller('DrinkViewCtrl', ['$scope', 'DrinkService', controller]);
+  angular.module('drinksApp').controller('DrinkViewCtrl', ['$scope', controller]);
 
 }).call(this);
 

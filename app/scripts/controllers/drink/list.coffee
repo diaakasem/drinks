@@ -1,4 +1,4 @@
-controller = (scope, Service)->
+controller = (scope)->
 
   scope.drinks = [
     name: 'Espresso'
@@ -41,4 +41,4 @@ controller = (scope, Service)->
 
 angular.module('drinksApp')
   .controller 'DrinkListCtrl',
-  ['$scope', 'DrinkService', controller]
+  ['$scope', controller]

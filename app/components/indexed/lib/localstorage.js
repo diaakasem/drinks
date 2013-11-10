@@ -46,7 +46,7 @@ Indexed.dropDb = function(name, cb) {
 };
 
 // Always supported
-Indexed.supported = store.enabled;
+Indexed.supported = true;
 
 /**
  * Returns all values from the store.

@@ -1,5 +1,5 @@
-controller = (scope, Service) ->
+controller = (scope) ->
 
 angular.module('drinksApp')
   .controller 'DrinkEditCtrl',
-  ['$scope', 'DrinkService', controller]
+  ['$scope', controller]

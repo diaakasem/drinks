@@ -2,7 +2,7 @@
 (function() {
   var controller;
 
-  controller = function(scope, Service) {
+  controller = function(scope) {
     return scope.drinks = [
       {
         name: 'Espresso',
@@ -44,7 +44,7 @@
     ];
   };
 
-  angular.module('drinksApp').controller('DrinkListCtrl', ['$scope', 'DrinkService', controller]);
+  angular.module('drinksApp').controller('DrinkListCtrl', ['$scope', controller]);
 
 }).call(this);
 

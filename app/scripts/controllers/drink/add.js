@@ -2,13 +2,20 @@
 (function() {
   var controller;
 
-  controller = function(scope, Service) {
+  controller = function(scope) {
     return scope.create = function(form) {
-      debugger;
+      var Drink, drink;
+      Drink = Parse.Object.extend("Drink");
+      drink = new Drink();
+      return drink.save(form, {
+        success: function(object) {
+          return Alert.success("Drink has been saved");
+        }
+      });
     };
   };
 
-  angular.module('drinksApp').controller('DrinkAddCtrl', ['$scope', 'DrinkService', controller]);
+  angular.module('drinksApp').controller('DrinkAddCtrl', ['$scope', controller]);
 
 }).call(this);
 
