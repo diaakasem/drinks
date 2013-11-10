@@ -1,6 +1,4 @@
 controller = (location, scope, element, attrs) ->
-  console.log 'hello'
-    
 
 angular.module('drinksApp')
   .directive 'navcontainer', ->

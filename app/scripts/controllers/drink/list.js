@@ -3,45 +3,43 @@
   var controller;
 
   controller = function(scope) {
-    return scope.drinks = [
-      {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
-      }, {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
-      }, {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
-      }, {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
-      }, {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
-      }, {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
-      }, {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
-      }, {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
-      }, {
-        name: 'Espresso',
-        description: 'Coffee Drink',
-        img: "http://placehold.it/50x50"
+    var Drink, query;
+    scope.drinks = [];
+    Drink = Parse.Object.extend("Product");
+    query = new Parse.Query(Drink);
+    query.equalTo("type", "drink");
+    query.find({
+      success: function(results) {
+        return scope.$apply(function() {
+          return scope.drinks = _.map(results, function(d) {
+            var x;
+            x = d._serverData;
+            x.id = d.id;
+            return x;
+          });
+        });
+      },
+      error: function(error) {
+        return console.log(error);
       }
-    ];
+    });
+    return scope.remove = function(id) {
+      Drink = Parse.Object.extend("Product");
+      query = new Parse.Query(Drink);
+      query.equalTo("type", "drink");
+      return query.find({
+        success: function(results) {
+          return scope.$apply(function() {
+            _.each(results, function(result) {
+              return result.destroy();
+            });
+            return scope.drinks = _.filter(scope.drinks, function(d) {
+              return d.id !== id;
+            });
+          });
+        }
+      });
+    };
   };
 
   angular.module('drinksApp').controller('DrinkListCtrl', ['$scope', controller]);

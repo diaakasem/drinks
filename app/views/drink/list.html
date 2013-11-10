@@ -12,7 +12,11 @@
       <tr ng-repeat="d in drinks">
         <td>{{d.name}}</td>
         <td>{{d.description}}</td>
-        <td>Edit - Delete</td>
+        <td>
+          <a class="btn" href='#/drink/edit/{{d.id}}'>Edit</a> 
+          -
+          <button class="btn" ng-click="remove(d.id)">Delete</button> 
+          </td>
       </tr>
     </tbody>
   </table>

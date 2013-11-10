@@ -1,11 +1,14 @@
-config = ($routeProvider) ->
+config = ($routeProvider, $compileProvider) ->
+
+  $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+
   $routeProvider.when("/",
     templateUrl: "views/main.html"
     controller: "MainCtrl"
   ).when('/drink/add',
     templateUrl: 'views/drink/add.html',
     controller: 'DrinkAddCtrl'
-  ).when('/drink/edit',
+  ).when('/drink/edit/:id',
     templateUrl: 'views/drink/edit.html',
     controller: 'DrinkEditCtrl'
   ).when('/drink/view',
