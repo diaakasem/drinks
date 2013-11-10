@@ -18,7 +18,8 @@ controller = (scope)->
     Drink = Parse.Object.extend "Product"
     query = new Parse.Query Drink
     query.equalTo("type", "drink")
-    query.find
+    query.equalTo("id", id)
+    query.first
       success: (results)->
         scope.$apply ->
           _.each results, (result)->

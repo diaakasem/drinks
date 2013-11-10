@@ -27,7 +27,8 @@
       Drink = Parse.Object.extend("Product");
       query = new Parse.Query(Drink);
       query.equalTo("type", "drink");
-      return query.find({
+      query.equalTo("id", id);
+      return query.first({
         success: function(results) {
           return scope.$apply(function() {
             _.each(results, function(result) {

@@ -2,9 +2,29 @@
 (function() {
   var controller;
 
-  controller = function(scope) {};
+  controller = function(scope, params) {
+    var Drink, query;
+    scope.model = {};
+    Drink = Parse.Object.extend("Product");
+    query = new Parse.Query(Drink);
+    query.equalTo("type", "drink");
+    query.equalTo("id", params.id);
+    query.find({
+      success: function(results) {
+        return scope.$apply(function() {
+          return _.first(results, function(result) {
+            return scope.model = result;
+          });
+        });
+      }
+    });
+    return scope.update = function(form) {
+      Drink = Parse.Object.extend("Product");
+      return scope.model.save();
+    };
+  };
 
-  angular.module('drinksApp').controller('DrinkEditCtrl', ['$scope', controller]);
+  angular.module('drinksApp').controller('DrinkEditCtrl', ['$scope', '$routeParams', controller]);
 
 }).call(this);
 
