@@ -3,13 +3,18 @@
   var controller;
 
   controller = function(scope) {
+    scope.model = {};
     return scope.create = function(form) {
       var Drink, drink;
-      Drink = Parse.Object.extend("Drink");
+      Drink = Parse.Object.extend("Product");
       drink = new Drink();
-      return drink.save(form, {
+      scope.model.type = 'drink';
+      return drink.save(scope.model, {
         success: function(object) {
-          return Alert.success("Drink has been saved");
+          return console.log("Drink has been saved");
+        },
+        error: function(_, err) {
+          return console.log(err);
         }
       });
     };
