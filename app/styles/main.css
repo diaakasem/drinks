@@ -1,4 +1,4 @@
-/* Will be compiled down to a single stylesheet with your sass files */body.drinks {
+/** Grey **//** Redish **//** Bluish **//** Yellowish **//** Whitish **/body.drinks {
   width: 450px;
 }
 body.drinks .media-list {
@@ -10,7 +10,7 @@ body.drinks .media-list .media {
   width: 100%;
   margin: 5px;
   min-height: 50px;
-  border: 1px solid black;
+  border: 1px solid #00b9ff;
   border-radius: 5px;
   padding: 5px;
 }
@@ -18,8 +18,8 @@ body.drinks .media-list .media .counter {
   display: inline-block;
   width: 50px;
   height: 50px;
-  color: red;
-  background-color: yellow;
+  color: #4b96b2;
+  background-color: #f3f3f3;
   border-radius: 25px;
   font-size: 2em;
   padding: 5px;
@@ -27,10 +27,10 @@ body.drinks .media-list .media .counter {
 }
 body.drinks .media-list .media .media-body {
   display: inline-block;
-  color: black;
+  color: #4b96b2;
   height: 50px;
-  background-color: green;
+  background-color: #b2aa1e;
 }
 .active > a {
-  color: #1a1a1a !important;
+  color: #ff5a7d !important;
 }
