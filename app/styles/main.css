@@ -31,6 +31,9 @@ body.drinks .media-list .media .media-body {
   height: 50px;
   background-color: #b2aa1e;
 }
+body.drinks .media-list .media .media-actions {
+  margin-top: 5px;
+}
 .active > a {
   color: #ff5a7d !important;
 }
