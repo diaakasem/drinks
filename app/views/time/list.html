@@ -1,14 +1,15 @@
 <navcontainer>
-<h1 class="pull-left">
-  Pomodoros
-</h1>
-<div class="entitynav pull-right">
-  <span>
-    <button class="btn btn-small btn-primary" ng-click="add()">
-      <i class="glyphicon glyphicon-plus"></i> Add </button>
-  </span>
-</div>
-<ul class="media-list">
-  <durable ng-repeat="e in entities" model="e" entity="time" remove="onRemove" change="onChange"></durable>
+
+<ul class="nav nav-pills">
+  <li id="pomodoro" class="active"><a ng-click="show('pomodoro')">Pomodoro</a></li>
+  <li id="todo"><a ng-click="show('todo')">TODO</a></li>
 </ul>
+<div id='content' class="tab-content">
+  <div class="tab-pane active" id="pomodoro">
+    <pomodorolist></pomodorolist>
+  </div>
+  <div class="tab-pane" id="todo">
+    welcome
+  </div>
+</div>
 </navcontainer>

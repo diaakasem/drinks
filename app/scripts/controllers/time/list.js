@@ -3,66 +3,12 @@
   var controller;
 
   controller = function(scope) {
-    var Time, pomodoro, query;
-    pomodoro = null;
-    scope.entities = [];
-    Time = Parse.Object.extend("Time");
-    query = new Parse.Query(Time);
-    query.equalTo("type", "pomodoro");
-    query.find({
-      success: function(results) {
-        return scope.$apply(function() {
-          return scope.entities = results;
-        });
-      },
-      error: function(error) {
-        return console.log(error);
-      }
-    });
-    scope.remove = function(model) {
-      return model.destroy({
-        success: function() {
-          return scope.$apply(function() {
-            return scope.entities = _.filter(scope.entities, function(d) {
-              return d.id !== model.id;
-            });
-          });
-        },
-        error: function(e) {
-          return console.log(e);
-        }
-      });
-    };
-    scope.add = function() {
-      pomodoro = new Time();
-      pomodoro.set('sprint', 25);
-      pomodoro.set('break', 5);
-      pomodoro.set("type", "pomodoro");
-      pomodoro.set("status", "work");
-      return pomodoro.save({
-        success: function(result) {
-          return scope.$apply(function() {
-            pomodoro = result;
-            return scope.entities.push(result);
-          });
-        },
-        error: function(e) {
-          return console.log(e);
-        }
-      });
-    };
-    scope.onRemove = function(model) {
-      return scope.remove(model);
-    };
-    return scope.onChange = function(model) {
-      return model.save({
-        success: function() {
-          return console.log('updated');
-        },
-        error: function(e) {
-          return console.log(e);
-        }
-      });
+    return scope.show = function(id) {
+      $('.nav .active').removeClass('active');
+      $('.tab-pane.active').removeClass('active');
+      $('.nav-pills li#' + id).addClass('active');
+      $('.tab-pane#' + id).addClass('active');
+      return '';
     };
   };
 
