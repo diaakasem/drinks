@@ -4,3 +4,6 @@
 body.drinks .media-list .media {
   margin: 5px;
 }
+.active > a {
+  color: #1a1a1a !important;
+}
