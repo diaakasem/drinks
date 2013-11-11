@@ -3,23 +3,38 @@
   var app, config;
 
   config = function($routeProvider, $compileProvider) {
+    var entities;
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
-    return $routeProvider.when("/", {
+    $routeProvider.when("/", {
       templateUrl: "views/main.html",
       controller: "MainCtrl"
-    }).when('/drink/add', {
-      templateUrl: 'views/drink/add.html',
-      controller: 'DrinkAddCtrl'
-    }).when('/drink/edit/:id', {
-      templateUrl: 'views/drink/edit.html',
-      controller: 'DrinkEditCtrl'
-    }).when('/drink/view/:id', {
-      templateUrl: 'views/drink/view.html',
-      controller: 'DrinkViewCtrl'
-    }).when('/drink/list', {
-      templateUrl: 'views/drink/list.html',
-      controller: 'DrinkListCtrl'
-    }).otherwise({
+    });
+    entities = {
+      'Drink': ['Add', '_Edit', 'List', '_View'],
+      'Time': ['List', '_View'],
+      'Cash': [],
+      'Idea': []
+    };
+    _.each(entities, function(pages, e) {
+      var id, le, lp, p, _i, _len, _results;
+      console.log(e);
+      console.log(pages);
+      le = e.toLowerCase();
+      _results = [];
+      for (_i = 0, _len = pages.length; _i < _len; _i++) {
+        p = pages[_i];
+        id = p[0] === '_' ? '/:id' : '';
+        p = p[0] === '_' ? p.substring(1) : p;
+        lp = p.toLowerCase();
+        console.log(p);
+        _results.push($routeProvider.when("/" + le + "/" + lp + id, {
+          templateUrl: "views/" + le + "/" + lp + ".html",
+          controller: "" + e + p + "Ctrl"
+        }));
+      }
+      return _results;
+    });
+    return $routeProvider.otherwise({
       redirectTo: "/"
     });
   };

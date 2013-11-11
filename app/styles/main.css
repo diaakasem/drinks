@@ -1,8 +1,35 @@
 /* Will be compiled down to a single stylesheet with your sass files */body.drinks {
   width: 450px;
 }
+body.drinks .media-list {
+  clear: both;
+  padding-top: 20px;
+}
 body.drinks .media-list .media {
+  display: block;
+  width: 100%;
   margin: 5px;
+  min-height: 50px;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+body.drinks .media-list .media .counter {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  color: red;
+  background-color: yellow;
+  border-radius: 25px;
+  font-size: 2em;
+  padding: 5px;
+  text-align: center;
+}
+body.drinks .media-list .media .media-body {
+  display: inline-block;
+  color: black;
+  height: 50px;
+  background-color: green;
 }
 .active > a {
   color: #1a1a1a !important;

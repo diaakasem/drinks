@@ -1,0 +1,14 @@
+<navcontainer>
+<h4>
+  Listing Pomodoros
+</h4>
+<div class="entitynav pull-right">
+  <span>
+    <button class="btn btn-small btn-primary" ng-click="add()">
+      <i class="glyphicon glyphicon-plus"></i> Add </button>
+  </span>
+</div>
+<ul class="media-list">
+  <durable ng-repeat="e in entities" model="e" entity="time" remove="onRemove" change="onChange"></durable>
+</ul>
+</navcontainer>

@@ -1,0 +1,16 @@
+<navcontainer>
+<form role="form" name="form" novalidate ng-submit="update(form)"
+  ng-model="model">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" id="name" name="name"
+    placeholder="Name" ng-model="model.name">
+  </div>
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea class="form-control" id="description" name="description"
+      placeholder="Description" ng-model="model.description"></textarea>
+  </div>
+  <button type="submit" class="btn btn-default">Save</button>
+</form>
+</navcontainer>

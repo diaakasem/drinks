@@ -1,5 +1,4 @@
 controller = (location, scope, element, attrs) ->
-  console.log scope
     
 angular.module('drinksApp')
   .directive 'drink', ->

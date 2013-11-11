@@ -13,7 +13,6 @@
             var $collapse, $li, pattern, regexp;
             $li = angular.element(li);
             pattern = $li.attr("matches");
-            console.log(pattern);
             regexp = new RegExp("^" + pattern + "$", ["i"]);
             if (regexp.test(newValue)) {
               $li.addClass("active");

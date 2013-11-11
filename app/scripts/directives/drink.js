@@ -2,9 +2,7 @@
 (function() {
   var controller;
 
-  controller = function(location, scope, element, attrs) {
-    return console.log(scope);
-  };
+  controller = function(location, scope, element, attrs) {};
 
   angular.module('drinksApp').directive('drink', function() {
     return {

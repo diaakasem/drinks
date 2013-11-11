@@ -11,7 +11,6 @@ angular.module("drinksApp").directive "activenavitem", ($location) ->
         $li = angular.element(li)
         # data('match-route') does not work with dynamic attributes
         pattern = $li.attr("matches")
-        console.log pattern
         regexp = new RegExp("^" + pattern + "$", ["i"])
         if regexp.test(newValue)
           $li.addClass "active"
