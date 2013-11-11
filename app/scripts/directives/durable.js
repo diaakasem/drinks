@@ -5,24 +5,30 @@
   controller = function(scope, timeout) {
     var everySecond, timer;
     timer = null;
+    if (!scope.model.get('count')) {
+      scope.model.set('count', scope.model.get('sprint'));
+    }
     everySecond = function() {
-      timer = timeout(everySecond, 1000);
+      timer = timeout(everySecond, 60000);
       if (!scope.model.get('pause')) {
-        scope.model.increment('count', -1);
-        if (scope.model.get('status') === 'work' && scope.model.get('count') <= 0) {
-          scope.model.set('count', scope.model.get('break'));
-          scope.model.set('status', 'rest');
-        }
-        if (scope.model.get('status') === 'rest' && scope.model.get('count') <= 0) {
-          scope.model.set('status', 'done');
-          scope.model.set('pause', true);
+        if (scope.model.get('count') > 0) {
+          scope.model.increment('count', -1);
+        } else {
+          if (scope.model.get('status') === 'work') {
+            scope.model.set('count', scope.model.get('break'));
+            scope.model.set('status', 'rest');
+          } else if (scope.model.get('status') === 'rest') {
+            scope.model.set('status', 'done');
+            scope.model.set('pause', true);
+            scope.model.set('count', scope.model.get('break') + scope.model.get('sprint'));
+          }
         }
         if (scope.model.get('status') !== 'done') {
           return scope.onChange()(scope.model);
         }
       }
     };
-    everySecond();
+    timeout(everySecond, 60000);
     scope.doPause = function() {
       scope.model.set('pause', !scope.model.get('pause'));
       return scope.onChange()(scope.model);

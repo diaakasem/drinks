@@ -4,10 +4,6 @@
 
   filter = function() {
     return function(input) {
-      input = parseInt(input, 10);
-      if (input > 59) {
-        input = parseInt(input / 60, 10);
-      }
       return "" + input;
     };
   };

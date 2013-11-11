@@ -24,8 +24,8 @@ controller = (scope)->
 
   scope.add = ()->
     pomodoro = new Time()
-    pomodoro.set 'count', 25*60
-    pomodoro.set 'break', 5*60
+    pomodoro.set 'sprint', 25
+    pomodoro.set 'break', 5
     pomodoro.set "type", "pomodoro"
     pomodoro.set "status", "work"
     pomodoro.save

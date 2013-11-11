@@ -39,7 +39,7 @@
     });
   };
 
-  app = angular.module("drinksApp", ['ngRoute']).config(config);
+  app = angular.module("drinksApp", ['ui.bootstrap', 'ngRoute']).config(config);
 
   app.run(function($rootScope, $location) {
     window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
