@@ -12,7 +12,7 @@ body.drinks .media-list .media {
   min-height: 50px;
   border: 1px solid #00b9ff;
   border-radius: 5px;
-  padding: 5px;
+  padding: 12px;
 }
 body.drinks .media-list .media .counter {
   display: inline-block;
