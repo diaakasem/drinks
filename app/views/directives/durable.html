@@ -1,5 +1,5 @@
 <div class="media row {{model.get('status')}}">
-  <div class="col-xs-3 col-sm-2 col-md-2">
+  <div class="col-xs-4 col-sm-2 col-md-2 col-lg-1">
     <span class="counter {{model.get('status')}}"
       ng-show="model.get('status')!='done'">
       {{count | timer}}
@@ -9,14 +9,20 @@
       <i class="glyphicon glyphicon-ok"></i>
     </span>
   </div>
-  <div class="media-body col-lg-8 col-md-7 col-sm-6 col-xs-9">
+  <div class="media-body col-lg-9 col-md-7 col-sm-6 col-xs-4">
     <h4 class="media-heading"> {{model.get('name')}} </h4>
   </div>
-  <div class="media-actions col-md-3 col-sm-4 col-xs-12 col-lg-2">
-    <button class="btn btn-danger" ng-click="doRemove()">Remove</button>
+  <div class="media-actions col-md-3 col-sm-4 col-xs-4 col-lg-2">
+    <button class="btn btn-danger" ng-click="doRemove()">
+      <i class="glyphicon glyphicon-remove"></i>
+      </button>
     <button class="btn btn-default" ng-click="doPause()"
-      ng-show=" model.get('status')!='done' && model.get('pause').start">Resume</button>
+      ng-show=" model.get('status')!='done' && model.get('pause').start">
+      <i class="glyphicon glyphicon-play"></i>
+    </button>
     <button class="btn btn-default" ng-click="doPause()"
-      ng-show="model.get('status')!='done' && !model.get('pause').start">Pause</button>
+      ng-show="model.get('status')!='done' && !model.get('pause').start">
+      <i class="glyphicon glyphicon-pause"></i>
+    </button>
   </div>
 </div>
