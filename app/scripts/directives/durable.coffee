@@ -2,6 +2,7 @@ controller =  (scope, timeout) ->
   timer = null
   if not scope.model.get('count')
     scope.model.set('count', scope.model.get('sprint'))
+    console.log scope.model.get('count')
 
   everySecond = ->
     timer = timeout everySecond, 60000
@@ -41,7 +42,6 @@ angular.module('drinksApp')
     restrict: 'E'
     scope:
       model:'='
-      entity:'@'
       onChange: '&change'
       remove: '&remove'
     replace: yes

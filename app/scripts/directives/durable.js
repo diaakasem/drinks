@@ -7,6 +7,7 @@
     timer = null;
     if (!scope.model.get('count')) {
       scope.model.set('count', scope.model.get('sprint'));
+      console.log(scope.model.get('count'));
     }
     everySecond = function() {
       timer = timeout(everySecond, 60000);
@@ -45,7 +46,6 @@
       restrict: 'E',
       scope: {
         model: '=',
-        entity: '@',
         onChange: '&change',
         remove: '&remove'
       },

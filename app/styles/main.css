@@ -9,10 +9,11 @@ body.drinks .media-list .media {
   display: block;
   width: 100%;
   margin: 5px;
-  min-height: 50px;
+  min-height: 74px;
   border: 1px solid #00b9ff;
   border-radius: 5px;
   padding: 12px;
+  overflow: visible;
 }
 body.drinks .media-list .media .counter {
   display: inline-block;
@@ -29,7 +30,9 @@ body.drinks .media-list .media .media-body {
   display: inline-block;
   color: #4b96b2;
   height: 50px;
-  background-color: #b2aa1e;
+}
+body.drinks .media-list .media .media-body h4 {
+  padding: 12px 0;
 }
 body.drinks .media-list .media .media-actions {
   margin-top: 5px;

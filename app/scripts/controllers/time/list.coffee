@@ -1,4 +1,5 @@
 controller = (scope)->
+
   scope.show = (id)->
     $('.nav .active').removeClass('active')
     $('.tab-pane.active').removeClass('active')

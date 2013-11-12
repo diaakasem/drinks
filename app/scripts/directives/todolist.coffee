@@ -1,10 +1,11 @@
 controller = (scope)->
 
-  pomodoro = null
 
   scope.entities = []
-  Pomodoro = Parse.Object.extend "Pomodoro"
-  query = new Parse.Query Pomodoro
+  scope.name = ''
+
+  Task = Parse.Object.extend "Task"
+  query = new Parse.Query Task
   query.find
     success: (results)->
       scope.$apply ->
@@ -21,17 +22,15 @@ controller = (scope)->
       error: (e)->
         console.log e
 
-  scope.add = ()->
-    pomodoro = new Pomodoro()
-    pomodoro.set 'sprint', 25
-    pomodoro.set 'count', 25
-    pomodoro.set 'break', 5
-    pomodoro.set "status", "work"
-    pomodoro.save
+  scope.add = (form)->
+    todo = new Task()
+    todo.set "status", "created"
+    todo.set "name", scope.name
+    todo.save
       success: (result)->
         scope.$apply ->
-          pomodoro = result
           scope.entities.push result
+          scope.name = ''
       error: (e)->
         console.log e
 
@@ -47,8 +46,8 @@ controller = (scope)->
 
 
 angular.module('drinksApp')
-  .directive('pomodorolist', () ->
-    templateUrl: "views/directives/pomodorolist.html"
+  .directive('todolist', () ->
+    templateUrl: "views/directives/todolist.html"
     restrict: 'E'
     scope: true
     controller: ['$scope', controller]

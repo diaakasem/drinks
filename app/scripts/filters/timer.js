@@ -4,6 +4,10 @@
 
   filter = function() {
     return function(input) {
+      console.log(input);
+      if (input == null) {
+        input = 0;
+      }
       return "" + input;
     };
   };

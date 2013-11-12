@@ -3,10 +3,10 @@
 </h1>
 <div class="entitynav pull-right">
   <span>
-    <button class="btn btn-small btn-primary" ng-click="add()">
+    <button class="btn btn-small btn-primary" ng-click="add()" type="button">
       <i class="glyphicon glyphicon-plus"></i> Add </button>
   </span>
 </div>
 <ul class="media-list">
-  <durable ng-repeat="e in entities" model="e" entity="time" remove="onRemove" change="onChange"></durable>
+  <durable ng-repeat="e in entities" model="e" remove="onRemove" change="onChange"></durable>
 </ul>

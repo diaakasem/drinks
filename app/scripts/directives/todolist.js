@@ -3,11 +3,11 @@
   var controller;
 
   controller = function(scope) {
-    var Pomodoro, pomodoro, query;
-    pomodoro = null;
+    var Task, query;
     scope.entities = [];
-    Pomodoro = Parse.Object.extend("Pomodoro");
-    query = new Parse.Query(Pomodoro);
+    scope.name = '';
+    Task = Parse.Object.extend("Task");
+    query = new Parse.Query(Task);
     query.find({
       success: function(results) {
         return scope.$apply(function() {
@@ -32,17 +32,16 @@
         }
       });
     };
-    scope.add = function() {
-      pomodoro = new Pomodoro();
-      pomodoro.set('sprint', 25);
-      pomodoro.set('count', 25);
-      pomodoro.set('break', 5);
-      pomodoro.set("status", "work");
-      return pomodoro.save({
+    scope.add = function(form) {
+      var todo;
+      todo = new Task();
+      todo.set("status", "created");
+      todo.set("name", scope.name);
+      return todo.save({
         success: function(result) {
           return scope.$apply(function() {
-            pomodoro = result;
-            return scope.entities.push(result);
+            scope.entities.push(result);
+            return scope.name = '';
           });
         },
         error: function(e) {
@@ -65,9 +64,9 @@
     };
   };
 
-  angular.module('drinksApp').directive('pomodorolist', function() {
+  angular.module('drinksApp').directive('todolist', function() {
     return {
-      templateUrl: "views/directives/pomodorolist.html",
+      templateUrl: "views/directives/todolist.html",
       restrict: 'E',
       scope: true,
       controller: ['$scope', controller]
@@ -77,5 +76,5 @@
 }).call(this);
 
 /*
-//@ sourceMappingURL=pomodorolist.map
+//@ sourceMappingURL=todolist.map
 */
