@@ -1,14 +1,17 @@
-<div class="media">
-  <a class="counter pull-left"
-    href="#/{{entity}}/view/{{model.id}}">{{model.get('count') | timer}}</a>
-  <div class="media-body pull-left">
+<div class="media row">
+  <div class="col-xs-3 col-sm-2 col-md-2">
+    <span class="counter {{model.get('status')}}">
+      {{model.get('count') | timer}}
+    </span>
+  </div>
+  <div class="media-body col-lg-8 col-md-7 col-sm-6 col-xs-9">
     <h4 class="media-heading"> {{model.get('name')}} </h4>
   </div>
-  <div class="media-actions pull-right">
-    <button class="btn btn-primary" ng-click="doPause()"
-      ng-show=" model.get('status')!='done' && model.get('pause')">Resume</button>
-    <button class="btn btn-primary" ng-click="doPause()"
-      ng-show="model.get('status')!='done' && !model.get('pause')">Pause</button>
+  <div class="media-actions col-md-3 col-sm-4 col-xs-12 col-lg-2">
     <button class="btn btn-danger" ng-click="doRemove()">Remove</button>
+    <button class="btn btn-default" ng-click="doPause()"
+      ng-show=" model.get('status')!='done' && model.get('pause')">Resume</button>
+    <button class="btn btn-default" ng-click="doPause()"
+      ng-show="model.get('status')!='done' && !model.get('pause')">Pause</button>
   </div>
 </div>

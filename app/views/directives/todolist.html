@@ -1,12 +1,8 @@
-<h1 class="pull-left">
-  ToDo List
-</h1>
-
-<form role="form" class="form-inline pull-right"
-  ng-submit="add(form)" name="form" novalidate>
+<div class="row">
+<form role="form" class="pull-right form-inline" ng-submit="add(form)" name="form" novalidate>
 
   <div class="form-group">
-    <input type="text" class="form-control" id="task" placeholder="New task..."
+    <input type="text" class="form-control input-xl" id="task" placeholder="New task..."
     ng-model="name" required>
   </div>
 
@@ -15,7 +11,8 @@
     Add 
   </button>
 </form>
+</div>
 
-<ul class="media-list">
+<ul class="media-list row">
   <doable ng-repeat="e in entities" model="e" entity="time" remove="onRemove" change="onChange"></doable>
 </ul>

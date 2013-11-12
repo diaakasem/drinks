@@ -1,41 +1,39 @@
 /** Grey **//** Redish **//** Bluish **//** Yellowish **//** Whitish **/body.drinks {
-  width: 450px;
+  min-width: 450px;
+}
+body.drinks .row {
+  margin: 10px auto;
 }
 body.drinks .media-list {
   clear: both;
-  padding-top: 20px;
 }
 body.drinks .media-list .media {
-  display: block;
-  width: 100%;
-  margin: 5px;
-  min-height: 74px;
   border: 1px solid #00b9ff;
   border-radius: 5px;
-  padding: 12px;
+  padding: 5px;
   overflow: visible;
 }
 body.drinks .media-list .media .counter {
-  display: inline-block;
   width: 50px;
-  height: 50px;
   color: #4b96b2;
   background-color: #f3f3f3;
   border-radius: 25px;
   font-size: 2em;
-  padding: 5px;
+  padding: 5px 12px;
   text-align: center;
 }
+body.drinks .media-list .media .counter.rest {
+  background-color: #ff5a7d;
+  color: #f3f3f3;
+}
+body.drinks .media-list .media .counter.done {
+  background-color: #a1a1a1;
+}
 body.drinks .media-list .media .media-body {
-  display: inline-block;
   color: #4b96b2;
-  height: 50px;
 }
-body.drinks .media-list .media .media-body h4 {
-  padding: 12px 0;
-}
-body.drinks .media-list .media .media-actions {
-  margin-top: 5px;
+body.drinks .media-list .media .media-body .media-heading {
+  padding-top: 10px;
 }
 .active > a {
   color: #ff5a7d !important;
