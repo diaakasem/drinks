@@ -1,7 +1,7 @@
 <div class="media row {{model.get('status')}}">
   <div class="col-xs-3 col-sm-2 col-md-2">
     <span class="counter {{model.get('status')}}">
-      {{model.get('count') | timer}}
+      {{count | timer}}
     </span>
   </div>
   <div class="media-body col-lg-8 col-md-7 col-sm-6 col-xs-9">
@@ -10,8 +10,8 @@
   <div class="media-actions col-md-3 col-sm-4 col-xs-12 col-lg-2">
     <button class="btn btn-danger" ng-click="doRemove()">Remove</button>
     <button class="btn btn-default" ng-click="doPause()"
-      ng-show=" model.get('status')!='done' && model.get('pause')">Resume</button>
+      ng-show=" model.get('status')!='done' && model.get('pause').start">Resume</button>
     <button class="btn btn-default" ng-click="doPause()"
-      ng-show="model.get('status')!='done' && !model.get('pause')">Pause</button>
+      ng-show="model.get('status')!='done' && !model.get('pause').start">Pause</button>
   </div>
 </div>

@@ -3,41 +3,63 @@
   var controller;
 
   controller = function(scope, timeout) {
-    var everySecond, timer;
+    var everySecond, pausesTime, timer;
     timer = null;
-    if (!scope.model.get('count')) {
-      scope.model.set('count', scope.model.get('sprint'));
-      console.log(scope.model.get('count'));
+    pausesTime = _.reduce(_.map(scope.model.get('pauses'), function(p) {
+      if (p.end) {
+        return p.end - p.start;
+      } else {
+        return 0;
+      }
+    }), function(x, y) {
+      return x + y;
+    });
+    if (pausesTime == null) {
+      pausesTime = 0;
     }
+    scope.count = (new Date() - scope.model.createdAt - pausesTime) / 1000;
+    scope.count = scope.model.get('sprint') + scope.model.get('rest') - scope.count;
     everySecond = function() {
-      timer = timeout(everySecond, 60000);
-      if (!scope.model.get('pause')) {
-        if (scope.model.get('count') > 0) {
-          scope.model.increment('count', -1);
-        } else {
-          if (scope.model.get('status') === 'work') {
-            scope.model.set('count', scope.model.get('break'));
+      var pause;
+      timer = timeout(everySecond, 1000);
+      pause = scope.model.get('pause');
+      if (!(pause.start || scope.model.get('status') === 'done')) {
+        if (scope.count > 0) {
+          scope.count -= 1;
+          if (scope.model.get('status') === 'work' && scope.count <= scope.model.get('rest')) {
             scope.model.set('status', 'rest');
-          } else if (scope.model.get('status') === 'rest') {
-            scope.model.set('status', 'done');
-            scope.model.set('pause', true);
-            scope.model.set('count', scope.model.get('break') + scope.model.get('sprint'));
+            return scope.onChange()(scope.model);
           }
-        }
-        if (scope.model.get('status') !== 'done') {
+        } else {
+          scope.model.set('status', 'done');
           return scope.onChange()(scope.model);
         }
       }
     };
-    timeout(everySecond, 60000);
+    timeout(everySecond, 1000);
     scope.doPause = function() {
-      scope.model.set('pause', !scope.model.get('pause'));
+      var pause;
+      pause = scope.model.get('pause');
+      if (!pause.start) {
+        scope.model.set('pause', {
+          start: new Date(),
+          end: null
+        });
+      } else {
+        pause.end = new Date();
+        scope.model.add('pauses', pause);
+        scope.model.set('pause', {});
+      }
       return scope.onChange()(scope.model);
     };
-    return scope.doRemove = function() {
+    scope.doRemove = function() {
       timeout.cancel(timer);
       return scope.remove()(scope.model);
     };
+    return scope.$on('$routeChangeStart', function(next, current) {
+      timeout.cancel(timer);
+      return scope.onChange()(scope.model);
+    });
   };
 
   angular.module('drinksApp').directive('durable', function() {

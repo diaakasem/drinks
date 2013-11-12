@@ -1,8 +1,8 @@
 filter = ->
   (input) ->
-    console.log input
-    input ?= 0
-    "#{input}"
+    if input > 60
+      input /= 60
+    "#{parseInt(input, 10)}"
     
 angular.module('drinksApp')
   .filter 'timer', filter
