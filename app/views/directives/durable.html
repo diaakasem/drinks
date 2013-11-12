@@ -1,4 +1,4 @@
-<div class="media row">
+<div class="media row {{model.get('status')}}">
   <div class="col-xs-3 col-sm-2 col-md-2">
     <span class="counter {{model.get('status')}}">
       {{model.get('count') | timer}}
