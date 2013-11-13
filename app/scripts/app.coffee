@@ -1,10 +1,13 @@
 config = ($routeProvider, $compileProvider) ->
 
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/)
-  $routeProvider.when("/",
-    templateUrl: "views/main.html"
-    controller: "MainCtrl"
-  )
+  #$routeProvider.when("/",
+    #templateUrl: "views/main.html"
+    #controller: "MainCtrl"
+  #)
+
+  # Temporary
+  $routeProvider.when '/', redirectTo: "/time/list"
 
   entities =
     'Drink':['Add', '_Edit', 'List', '_View']
@@ -13,19 +16,16 @@ config = ($routeProvider, $compileProvider) ->
     'Idea':[]
 
   _.each entities, (pages, e)->
-    console.log e
-    console.log pages
     le = e.toLowerCase()
     for p in pages
       id = if p[0] == '_' then '/:id'  else ''
       p = if p[0] == '_' then p.substring(1) else p
       lp = p.toLowerCase()
-      console.log p
       $routeProvider.when "/#{le}/#{lp}#{id}",
         templateUrl: "views/#{le}/#{lp}.html"
         controller: "#{e}#{p}Ctrl"
 
-  $routeProvider.otherwise redirectTo: "/"
+  $routeProvider.otherwise redirectTo: '/'
 
 app = angular.module("drinksApp", ['ui.bootstrap', 'ngRoute']).config config
 app.run ($rootScope, $location)->
