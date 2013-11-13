@@ -2,7 +2,7 @@ controller =  (scope, timeout) ->
   timer = null
 
   pausesTime =  _.reduce _.map(scope.model.get('pauses'), (p)->
-    if p.end then p.end - p.start else 0
+    if p.end then p.end - p.start else new Date() - p.start
   ), (x, y)->
       x + y
 

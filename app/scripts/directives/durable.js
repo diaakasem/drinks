@@ -9,7 +9,7 @@
       if (p.end) {
         return p.end - p.start;
       } else {
-        return 0;
+        return new Date() - p.start;
       }
     }), function(x, y) {
       return x + y;
