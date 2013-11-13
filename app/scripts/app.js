@@ -12,7 +12,7 @@
       'Drink': ['Add', '_Edit', 'List', '_View'],
       'Time': ['List', '_View'],
       'Cash': [],
-      'Idea': []
+      'Idea': ['List']
     };
     _.each(entities, function(pages, e) {
       var id, le, lp, p, _i, _len, _results;

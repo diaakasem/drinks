@@ -4,6 +4,7 @@
 
   controller = function(scope, Service) {
     scope.entities = [];
+    scope.name = '';
     Service.list(function(results) {
       return scope.$apply(function() {
         return scope.entities = results;
@@ -18,14 +19,15 @@
         });
       });
     };
-    scope.add = function(name) {
+    scope.add = function() {
       var cb;
       cb = function(result) {
         return scope.$apply(function() {
-          return scope.entities.push(result);
+          scope.entities.push(result);
+          return scope.name = '';
         });
       };
-      return Service.add(cb, name);
+      return Service.add(cb, scope.name);
     };
     scope.onRemove = function(model) {
       return scope.remove(model);

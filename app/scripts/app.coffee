@@ -13,7 +13,7 @@ config = ($routeProvider, $compileProvider) ->
     'Drink':['Add', '_Edit', 'List', '_View']
     'Time':['List', '_View']
     'Cash':[]
-    'Idea':[]
+    'Idea':['List']
 
   _.each entities, (pages, e)->
     le = e.toLowerCase()

@@ -1,6 +1,7 @@
 controller = (scope, Service)->
 
   scope.entities = []
+  scope.name = ''
 
   Service.list (results)->
     scope.$apply ->
@@ -12,12 +13,13 @@ controller = (scope, Service)->
         scope.entities = _.filter scope.entities, (d)->
           d.id != model.id
 
-  scope.add = (name)->
+  scope.add = ->
     cb = (result)->
       scope.$apply ->
         scope.entities.push result
+        scope.name = ''
 
-    Service.add cb, name
+    Service.add cb, scope.name
 
   scope.onRemove = (model)->
     scope.remove model

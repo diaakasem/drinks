@@ -1,31 +1,24 @@
-controller = (scope)->
+controller = (scope, Service)->
 
-  scope.drinks = []
-  Drink = Parse.Object.extend "Product"
-  query = new Parse.Query Drink
-  query.equalTo("type", "drink")
-  query.find
-    success: (results)->
+  scope.entities = []
+
+  Service.list (results)->
+    scope.$apply ->
+      scope.entities = results
+
+  scope.remove = (model)->
+    Service.remove model, ->
       scope.$apply ->
-        scope.drinks = _.map results, (d)->
-          x = d._serverData
-          x.id = d.id
-          x
-    error: (error)->
-      console.log error
+        scope.entities = _.filter scope.entities, (d)->
+          d.id != model.id
 
-  scope.remove = (id)->
-    Drink = Parse.Object.extend "Product"
-    query = new Parse.Query Drink
-    query.get id,
-      success: (result)->
-        scope.$apply ->
-          result.destroy()
-          scope.drinks = _.filter scope.drinks, (d)->
-            d.id != id
-      error: (e)->
-        console.log e
+  addCB = (result)->
+    scope.$apply ->
+      scope.entities.push result
+
+  scope.add = ->
+    Service.add addCB, scope.name
 
 angular.module('drinksApp')
-  .controller 'DrinkListCtrl',
-  ['$scope', controller]
+  .controller 'IdeaListCtrl',
+  ['$scope', 'Idea', controller]

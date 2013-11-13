@@ -1,8 +1,17 @@
 <div class="row">
-  <button class="btn btn-small btn-primary pull-right" ng-click="add()" type="button">
-    <i class="glyphicon glyphicon-plus"></i>
-    Add
-  </button>
+  <form role="form" class="row form-inline" ng-submit="add()" name="form" novalidate>
+
+    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 pull-right">
+      <div class="input-group pull-right">
+        <input type="text" class="form-control" id="idea" placeholder="Pomodoro title..."
+        ng-model="name" required>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <i class="glyphicon glyphicon-plus"></i> Add </button>
+        </span>
+      </div>
+    </div>
+  </form>
 </div>
 <ul class="media-list row">
   <durable ng-repeat="e in entities" model="e" remove="onRemove" change="onChange"></durable>

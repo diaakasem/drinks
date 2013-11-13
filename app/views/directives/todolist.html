@@ -1,16 +1,17 @@
 <div class="row">
-<form role="form" class="pull-right form-inline" ng-submit="add(form)" name="form" novalidate>
+  <form role="form" class="row form-inline" ng-submit="add(name)" name="form" novalidate>
 
-  <div class="form-group">
-    <input type="text" class="form-control input-xl" id="task" placeholder="New task..."
-    ng-model="name" required>
-  </div>
-
-  <button type="submit" class="btn btn-default btn-primary">
-    <i class="glyphicon glyphicon-plus"></i>
-    Add 
-  </button>
-</form>
+    <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 pull-right">
+      <div class="input-group pull-right">
+        <input type="text" class="form-control" id="task" placeholder="New task..."
+        ng-model="name" required>
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <i class="glyphicon glyphicon-plus"></i> Add </button>
+        </span>
+      </div>
+    </div>
+  </form>
 </div>
 
 <ul class="media-list row">
