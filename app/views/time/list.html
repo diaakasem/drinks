@@ -1,8 +1,18 @@
 <navcontainer>
 
 <ul class="nav nav-pills">
-  <li id="pomodoro" class="active"><a ng-click="show('pomodoro')">Pomodoro</a></li>
-  <li id="todo"><a ng-click="show('todo')">TODO</a></li>
+  <li id="pomodoro" class="active">
+  <a ng-click="show('pomodoro')">
+    <i class="glyphicon glyphicon-ok-circle"></i>
+    Pomodoro
+  </a>
+  </li>
+  <li id="todo">
+  <a ng-click="show('todo')">
+    <i class="glyphicon glyphicon-list"></i>
+    TODO
+  </a>
+  </li>
 </ul>
 <div id='content' class="tab-content">
   <div class="tab-pane active" id="pomodoro">
