@@ -10,7 +10,7 @@
     return scope.id = parts[3];
   };
 
-  angular.module('drinksApp').directive('entitynav', function() {
+  angular.module('manageApp').directive('entitynav', function() {
     return {
       templateUrl: 'views/directives/entitynav.html',
       restrict: 'E',
@@ -20,7 +20,3 @@
   });
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=entitynav.map
-*/

@@ -66,7 +66,7 @@
     };
   };
 
-  angular.module('drinksApp').directive('pomodorolist', function() {
+  angular.module('manageApp').directive('pomodorolist', function() {
     return {
       templateUrl: "views/directives/pomodorolist.html",
       restrict: 'E',
@@ -75,7 +75,3 @@
   });
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=pomodorolist.map
-*/

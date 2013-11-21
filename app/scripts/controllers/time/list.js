@@ -12,10 +12,6 @@
     };
   };
 
-  angular.module('drinksApp').controller('TimeListCtrl', ['$scope', controller]);
+  angular.module('manageApp').controller('TimeListCtrl', ['$scope', controller]);
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=list.map
-*/

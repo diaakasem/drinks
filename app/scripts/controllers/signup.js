@@ -4,10 +4,6 @@
 
   controller = function($scope) {};
 
-  angular.module("manageApp").controller("MainCtrl", ['$scope', controller]);
+  angular.module('manageApp').controller('SignupCtrl', ['$scope', controller]);
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=main.map
-*/

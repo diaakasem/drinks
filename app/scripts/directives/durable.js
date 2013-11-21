@@ -39,7 +39,7 @@
     };
   };
 
-  angular.module('drinksApp').directive('durable', function() {
+  angular.module('manageApp').directive('durable', function() {
     return {
       templateUrl: 'views/directives/durable.html',
       restrict: 'E',
@@ -55,7 +55,3 @@
   });
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=durable.map
-*/

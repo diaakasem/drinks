@@ -4,14 +4,14 @@
 
   controller = function(scope) {
     var Drink, query;
-    scope.drinks = [];
+    scope.manage = [];
     Drink = Parse.Object.extend("Product");
     query = new Parse.Query(Drink);
     query.equalTo("type", "drink");
     query.find({
       success: function(results) {
         return scope.$apply(function() {
-          return scope.drinks = _.map(results, function(d) {
+          return scope.manage = _.map(results, function(d) {
             var x;
             x = d._serverData;
             x.id = d.id;
@@ -30,7 +30,7 @@
         success: function(result) {
           return scope.$apply(function() {
             result.destroy();
-            return scope.drinks = _.filter(scope.drinks, function(d) {
+            return scope.manage = _.filter(scope.manage, function(d) {
               return d.id !== id;
             });
           });
@@ -42,10 +42,6 @@
     };
   };
 
-  angular.module('drinksApp').controller('DrinkListCtrl', ['$scope', controller]);
+  angular.module('manageApp').controller('DrinkListCtrl', ['$scope', controller]);
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=list.map
-*/

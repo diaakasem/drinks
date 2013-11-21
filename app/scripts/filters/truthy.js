@@ -12,10 +12,6 @@
     };
   };
 
-  angular.module('drinksApp').filter('truthy', filter);
+  angular.module('manageApp').filter('truthy', filter);
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=truthy.map
-*/

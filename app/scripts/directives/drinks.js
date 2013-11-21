@@ -4,9 +4,9 @@
 
   controller = function(location, scope, element, attrs) {};
 
-  angular.module('drinksApp').directive('drinks', function() {
+  angular.module('manageApp').directive('manage', function() {
     return {
-      templateUrl: 'views/directives/drinks.html',
+      templateUrl: 'views/directives/manage.html',
       restrict: 'E',
       scope: true,
       transclude: true,
@@ -16,7 +16,3 @@
   });
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=drinks.map
-*/

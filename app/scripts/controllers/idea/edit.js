@@ -33,10 +33,6 @@
     };
   };
 
-  angular.module('drinksApp').controller('DrinkEditCtrl', ['$scope', '$routeParams', controller]);
+  angular.module('manageApp').controller('DrinkEditCtrl', ['$scope', '$routeParams', controller]);
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=edit.map
-*/

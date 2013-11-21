@@ -13,12 +13,26 @@
 
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse navbar-ex1-collapse">
-  <ul class="nav navbar-nav" activenavitem>
+  <ul class="nav navbar-nav" activenavitem ng-show="user">
     <li matches="/drink.*"><a href="#/drink/list"><i class="glyphicon glyphicon-flash"></i> Fitness </a></li>
     <li matches="/cash.*"><a href="#/cash/list"><i class="glyphicon glyphicon-usd"></i> Cash Flow </a></li>
     <li matches="/time.*"><a href="#/time/list"><i class="glyphicon glyphicon-time"></i> Time </a></li>
     <li matches="/idea.*"><a href="#/idea/list"><i class="glyphicon glyphicon-leaf"></i> Ideas </a></li>
     <li><a href="#/settings"><i class="glyphicon glyphicon-cog"></i> Settings </a></li>
+  </ul>
+  <ul class="nav navbar-nav pull-right" activenavitem ng-show="!user">
+    <li>
+      <a href="#/signin">
+        <i class="glyphicon glyphicon-log-in"></i>
+        Sign in
+      </a>
+    </li>
+    <li>
+    <a href="#/signup">
+      <i class="glyphicon glyphicon-edit"></i>
+      Sign up
+    </a>
+    </li>
   </ul>
 </div><!-- /.navbar-collapse -->
 </nav>

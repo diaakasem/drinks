@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "signup.js",
+  "sourceRoot": "",
+  "sources": [
+    "signup.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;CAAA,KAAA,IAAA;;CAAA,CAAA,CAAa,GAAA,GAAC,CAAd;;CAAA,CAEA,IAAA,CAAO,CAEH,EAFJ,CAAA,CAAA;CAFA"
+}

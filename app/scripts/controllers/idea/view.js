@@ -21,10 +21,6 @@
     });
   };
 
-  angular.module('drinksApp').controller('DrinkViewCtrl', ['$scope', '$routeParams', controller]);
+  angular.module('manageApp').controller('DrinkViewCtrl', ['$scope', '$routeParams', controller]);
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=view.map
-*/

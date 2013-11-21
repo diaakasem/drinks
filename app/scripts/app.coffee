@@ -25,9 +25,18 @@ config = ($routeProvider, $compileProvider) ->
         templateUrl: "views/#{le}/#{lp}.html"
         controller: "#{e}#{p}Ctrl"
 
+  $routeProvider.when '/signin',
+    templateUrl: 'views/signin.html',
+    controller: 'SigninCtrl'
+
+  $routeProvider.when '/signup',
+    templateUrl: 'views/signup.html',
+    controller: 'SignupCtrl'
+
   $routeProvider.otherwise redirectTo: "/"
 
-app = angular.module("manageApp", ['ui.bootstrap', 'ngRoute']).config config
+dependencies = ['ui.bootstrap', 'ngRoute', 'dng.parse']
+app = angular.module("manageApp", dependencies).config config
 app.run ($rootScope, $location)->
   window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
   window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction

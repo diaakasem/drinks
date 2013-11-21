@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="drinksApp" class="drinks">
+  <body ng-app="manageApp" class="drinks">
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -38,6 +38,11 @@
     <script src="components/angular-route/angular-route.js"></script>
     <script src="components/angular-cookies/angular-cookies.js"></script>
     <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+    <script src="components/dng/app/scripts/app.js"></script>
+    <script src="components/dng/app/scripts/directives/register.js"></script>
+    <script src="components/dng/app/scripts/directives/login.js"></script>
+    <script src="components/dng/app/scripts/directives/logout.js"></script>
 
     <!-- build:js scripts/scripts.js -->
     <script src="scripts/app.js"></script>
@@ -71,6 +76,8 @@
     <script src="scripts/directives/durable.js"></script>
     <script src="scripts/filters/timer.js"></script>
     <script src="scripts/directives/pomodorolist.js"></script>
+    <script src="scripts/controllers/signin.js"></script>
+    <script src="scripts/controllers/signup.js"></script>
     <!-- endbuild -->
 
     <script type="text/javascript">

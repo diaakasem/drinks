@@ -8,10 +8,6 @@
     };
   };
 
-  angular.module('drinksApp').filter('timer', filter);
+  angular.module('manageApp').filter('timer', filter);
 
 }).call(this);
-
-/*
-//@ sourceMappingURL=timer.map
-*/
