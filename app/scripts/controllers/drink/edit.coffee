@@ -21,6 +21,6 @@ controller = (scope, params) ->
       error: (e)->
         console.log e
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .controller 'DrinkEditCtrl',
   ['$scope', '$routeParams', controller]

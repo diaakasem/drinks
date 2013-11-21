@@ -1,5 +1,5 @@
 "use strict"
-angular.module("drinksApp").directive "activenavitem", ($location) ->
+angular.module("manageApp").directive "activenavitem", ($location) ->
   restrict: "A"
   link: postLink = (scope, element, attrs, controller) ->
     

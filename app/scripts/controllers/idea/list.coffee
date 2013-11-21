@@ -1,13 +1,13 @@
 controller = (scope)->
 
-  scope.drinks = []
+  scope.manage = []
   Drink = Parse.Object.extend "Product"
   query = new Parse.Query Drink
   query.equalTo("type", "drink")
   query.find
     success: (results)->
       scope.$apply ->
-        scope.drinks = _.map results, (d)->
+        scope.manage = _.map results, (d)->
           x = d._serverData
           x.id = d.id
           x
@@ -21,11 +21,11 @@ controller = (scope)->
       success: (result)->
         scope.$apply ->
           result.destroy()
-          scope.drinks = _.filter scope.drinks, (d)->
+          scope.manage = _.filter scope.manage, (d)->
             d.id != id
       error: (e)->
         console.log e
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .controller 'DrinkListCtrl',
   ['$scope', controller]

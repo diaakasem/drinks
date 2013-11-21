@@ -47,7 +47,7 @@ controller = (scope)->
         console.log e
 
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .directive('pomodorolist', () ->
     templateUrl: "views/directives/pomodorolist.html"
     restrict: 'E'

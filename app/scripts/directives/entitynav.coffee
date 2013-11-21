@@ -4,7 +4,7 @@ controller = (location, scope, element, attrs) ->
   scope.action = parts[2]
   scope.id = parts[3]
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .directive 'entitynav', ->
     templateUrl: 'views/directives/entitynav.html'
     restrict: 'E'

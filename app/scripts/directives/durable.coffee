@@ -35,7 +35,7 @@ controller =  (scope, timeout) ->
     scope.remove() scope.model
 
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .directive 'durable', ->
     templateUrl: 'views/directives/durable.html'
     restrict: 'E'

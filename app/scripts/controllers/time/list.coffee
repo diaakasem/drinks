@@ -6,6 +6,6 @@ controller = (scope)->
     $('.tab-pane#'+id).addClass 'active'
     ''
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .controller 'TimeListCtrl',
   ['$scope', controller]

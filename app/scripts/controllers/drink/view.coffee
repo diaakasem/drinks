@@ -13,6 +13,6 @@ controller = (scope, params) ->
       console.log e
       console.log err
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .controller 'DrinkViewCtrl',
   ['$scope', '$routeParams', controller]

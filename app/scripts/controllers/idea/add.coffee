@@ -15,6 +15,6 @@ controller = (scope) ->
 
 
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .controller 'DrinkAddCtrl',
   ['$scope', controller]

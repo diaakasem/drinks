@@ -1,8 +1,8 @@
 controller = (location, scope, element, attrs) ->
     
-angular.module('drinksApp')
-  .directive 'drinks', ->
-    templateUrl: 'views/directives/drinks.html'
+angular.module('manageApp')
+  .directive 'manage', ->
+    templateUrl: 'views/directives/manage.html'
     restrict: 'E'
     scope: true
     transclude: true

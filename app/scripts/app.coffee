@@ -27,7 +27,7 @@ config = ($routeProvider, $compileProvider) ->
 
   $routeProvider.otherwise redirectTo: "/"
 
-app = angular.module("drinksApp", ['ui.bootstrap', 'ngRoute']).config config
+app = angular.module("manageApp", ['ui.bootstrap', 'ngRoute']).config config
 app.run ($rootScope, $location)->
   window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
   window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction

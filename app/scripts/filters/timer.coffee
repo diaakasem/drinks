@@ -2,5 +2,5 @@ filter = ->
   (input) ->
     "#{input}"
     
-angular.module('drinksApp')
+angular.module('manageApp')
   .filter 'timer', filter
