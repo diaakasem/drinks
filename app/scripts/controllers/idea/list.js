@@ -2,46 +2,37 @@
 (function() {
   var controller;
 
-  controller = function(scope) {
-    var Drink, query;
-    scope.manage = [];
-    Drink = Parse.Object.extend("Product");
-    query = new Parse.Query(Drink);
-    query.equalTo("type", "drink");
-    query.find({
-      success: function(results) {
+  controller = function(scope, Service) {
+    var addCB;
+    scope.entities = [];
+    Service.list(function(results) {
+      return scope.$apply(function() {
+        return scope.entities = results;
+      });
+    });
+    scope.remove = function(model) {
+      return Service.remove(model, function() {
         return scope.$apply(function() {
-          return scope.manage = _.map(results, function(d) {
-            var x;
-            x = d._serverData;
-            x.id = d.id;
-            return x;
+          return scope.entities = _.filter(scope.entities, function(d) {
+            return d.id !== model.id;
           });
         });
-      },
-      error: function(error) {
-        return console.log(error);
-      }
-    });
-    return scope.remove = function(id) {
-      Drink = Parse.Object.extend("Product");
-      query = new Parse.Query(Drink);
-      return query.get(id, {
-        success: function(result) {
-          return scope.$apply(function() {
-            result.destroy();
-            return scope.manage = _.filter(scope.manage, function(d) {
-              return d.id !== id;
-            });
-          });
-        },
-        error: function(e) {
-          return console.log(e);
-        }
       });
+    };
+    addCB = function(result) {
+      return scope.$apply(function() {
+        return scope.entities.push(result);
+      });
+    };
+    return scope.add = function() {
+      return Service.add(addCB, scope.name);
     };
   };
 
-  angular.module('manageApp').controller('DrinkListCtrl', ['$scope', controller]);
+  angular.module('drinksApp').controller('IdeaListCtrl', ['$scope', 'Idea', controller]);
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=list.map
+*/

@@ -1,0 +1,26 @@
+<div class="media row {{model.get('status')}}">
+  <div class="media-body col-lg-10 col-md-9 col-sm-8 col-xs-12">
+    <h4 class="media-heading"> {{model.get('name')}} </h4>
+  </div>
+  <div class="media-actions col-lg-2 col-md-3 col-sm-4 col-xs-12">
+    <div class="pull-right">
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary dropdown-toggle"
+          ng-class="{'btn-success': model.get('status')=='done'}"
+          data-toggle="dropdown">
+          {{model.get('status') | capital}}
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <li ng-repeat="s in statuses"><a ng-click="update(s)">
+            {{s | capital}}
+          </a></li>
+        </ul>
+      </div>
+
+      <button class="btn btn-danger" ng-click="doRemove()">
+        <i class="glyphicon glyphicon-remove"></i>
+      </button>
+    </div>
+  </div>
+</div>

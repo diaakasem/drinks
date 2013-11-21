@@ -8,7 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title></title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, user-scalable=no">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.css">
@@ -28,11 +29,12 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="container" ng-view></div>
+    <div ng-view></div>
 
     <script src="components/jquery/jquery.js"></script>
     <script src="components/parse-js-sdk/lib/parse.js"></script>
     <script src="components/lodash/dist/lodash.js"></script>
+    <script src="components/underscore.string/dist/underscore.string.min.js"></script>
     <script src="components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="components/angular/angular.js"></script>
     <script src="components/angular-route/angular-route.js"></script>
@@ -76,6 +78,11 @@
     <script src="scripts/directives/durable.js"></script>
     <script src="scripts/filters/timer.js"></script>
     <script src="scripts/directives/pomodorolist.js"></script>
+    <script src="scripts/directives/todolist.js"></script>
+    <script src="scripts/directives/doable.js"></script>
+    <script src="scripts/filters/capital.js"></script>
+    <script src="scripts/services/pomodoro.js"></script>
+    <script src="scripts/services/idea.js"></script>
     <script src="scripts/controllers/signin.js"></script>
     <script src="scripts/controllers/signup.js"></script>
     <!-- endbuild -->
@@ -94,6 +101,13 @@
        })();
 
     </script>
-
+    <script type='text/javascript'>
+      (function (d, t) {
+      var bh = d.createElement(t), s = d.getElementsByTagName(t)[0];
+      bh.type = 'text/javascript';
+      bh.src = '//www.bugherd.com/sidebarv2.js?apikey=3x9vvxblfvxuwipxwqyxig';
+      s.parentNode.insertBefore(bh, s);
+      })(document, 'script');
+    </script>
   </body>
- </html>
+</html>

@@ -1,30 +1,29 @@
 config = ($routeProvider, $compileProvider) ->
 
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/)
-  $routeProvider.when("/",
-    templateUrl: "views/main.html"
-    controller: "MainCtrl"
-  )
+  #$routeProvider.when("/",
+    #templateUrl: "views/main.html"
+    #controller: "MainCtrl"
+  #)
+
+  # Temporary
+  $routeProvider.when '/', redirectTo: "/time/list"
 
   entities =
     'Drink':['Add', '_Edit', 'List', '_View']
     'Time':['List', '_View']
     'Cash':[]
-    'Idea':[]
+    'Idea':['List']
 
   _.each entities, (pages, e)->
-    console.log e
-    console.log pages
     le = e.toLowerCase()
     for p in pages
       id = if p[0] == '_' then '/:id'  else ''
       p = if p[0] == '_' then p.substring(1) else p
       lp = p.toLowerCase()
-      console.log p
       $routeProvider.when "/#{le}/#{lp}#{id}",
         templateUrl: "views/#{le}/#{lp}.html"
         controller: "#{e}#{p}Ctrl"
-
   $routeProvider.when '/signin',
     templateUrl: 'views/signin.html',
     controller: 'SigninCtrl'
@@ -32,8 +31,7 @@ config = ($routeProvider, $compileProvider) ->
   $routeProvider.when '/signup',
     templateUrl: 'views/signup.html',
     controller: 'SignupCtrl'
-
-  $routeProvider.otherwise redirectTo: "/"
+  $routeProvider.otherwise redirectTo: '/'
 
 dependencies = ['ui.bootstrap', 'ngRoute', 'dng.parse']
 app = angular.module("manageApp", dependencies).config config

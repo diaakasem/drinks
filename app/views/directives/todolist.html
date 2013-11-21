@@ -1,9 +1,9 @@
 <div class="row">
-  <form role="form" class="row form-inline" ng-submit="add()" name="form" novalidate>
+  <form role="form" class="row form-inline" ng-submit="add(name)" name="form" novalidate>
 
     <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 pull-right">
       <div class="input-group pull-right">
-        <input type="text" class="form-control" id="idea" placeholder="Pomodoro title..."
+        <input type="text" class="form-control" id="task" placeholder="New task..."
         ng-model="name" required>
         <span class="input-group-btn">
           <button class="btn btn-default" type="submit">
@@ -13,6 +13,7 @@
     </div>
   </form>
 </div>
+
 <ul class="media-list row">
-  <durable ng-repeat="e in entities" model="e" remove="onRemove" change="onChange"></durable>
+  <doable ng-repeat="e in entities" model="e" entity="time" remove="onRemove" change="onChange"></doable>
 </ul>

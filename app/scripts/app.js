@@ -5,20 +5,17 @@
   config = function($routeProvider, $compileProvider) {
     var entities;
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
-    $routeProvider.when("/", {
-      templateUrl: "views/main.html",
-      controller: "MainCtrl"
+    $routeProvider.when('/', {
+      redirectTo: "/time/list"
     });
     entities = {
       'Drink': ['Add', '_Edit', 'List', '_View'],
       'Time': ['List', '_View'],
       'Cash': [],
-      'Idea': []
+      'Idea': ['List']
     };
     _.each(entities, function(pages, e) {
       var id, le, lp, p, _i, _len, _results;
-      console.log(e);
-      console.log(pages);
       le = e.toLowerCase();
       _results = [];
       for (_i = 0, _len = pages.length; _i < _len; _i++) {
@@ -26,7 +23,6 @@
         id = p[0] === '_' ? '/:id' : '';
         p = p[0] === '_' ? p.substring(1) : p;
         lp = p.toLowerCase();
-        console.log(p);
         _results.push($routeProvider.when("/" + le + "/" + lp + id, {
           templateUrl: "views/" + le + "/" + lp + ".html",
           controller: "" + e + p + "Ctrl"
@@ -43,7 +39,7 @@
       controller: 'SignupCtrl'
     });
     return $routeProvider.otherwise({
-      redirectTo: "/"
+      redirectTo: '/'
     });
   };
 
