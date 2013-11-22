@@ -35,7 +35,7 @@
     scope.count = scope.model.get('sprint') + scope.model.get('rest') - scope.count;
     everyCount = 1000;
     everySecond = function() {
-      var pause, _ref;
+      var pause;
       timer = timeout(everySecond, everyCount);
       pause = scope.model.get('pause');
       if (!(pause.start || scope.model.get('status') === 'done')) {
@@ -44,9 +44,6 @@
           play(sounds.tick);
           if (scope.model.get('status') === 'work' && scope.count <= scope.model.get('rest')) {
             play(sounds.alarm);
-            if ((_ref = sounds.current) != null) {
-              _ref.pause();
-            }
             scope.model.set('status', 'rest');
             return scope.onChange()(scope.model);
           }

@@ -32,7 +32,6 @@ controller =  (scope, timeout) ->
         play sounds.tick
         if scope.model.get('status') is 'work' and scope.count <= scope.model.get('rest')
           play sounds.alarm
-          sounds.current?.pause()
           scope.model.set('status', 'rest')
           scope.onChange() scope.model
       else
