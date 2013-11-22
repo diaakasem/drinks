@@ -4,6 +4,9 @@
 
   controller = function(scope, timeout) {
     var everyCount, everySecond, pausesTime, play, sounds, timer;
+    if (!scope.show) {
+      return;
+    }
     timer = null;
     sounds = {
       tick: 'sounds/tick.mp3',
@@ -95,7 +98,8 @@
       scope: {
         model: '=',
         onChange: '&change',
-        remove: '&remove'
+        remove: '&remove',
+        show: '='
       },
       replace: true,
       controller: ['$scope', '$timeout', controller]

@@ -1,4 +1,8 @@
 controller =  (scope, timeout) ->
+
+  if not scope.show
+    return
+
   timer = null
   sounds =
     tick: 'sounds/tick.mp3'
@@ -75,5 +79,6 @@ angular.module('manageApp')
       model:'='
       onChange: '&change'
       remove: '&remove'
+      show: '='
     replace: yes
     controller: ['$scope', '$timeout', controller]

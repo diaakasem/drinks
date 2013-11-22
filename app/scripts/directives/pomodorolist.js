@@ -32,8 +32,15 @@
     scope.onRemove = function(model) {
       return scope.remove(model);
     };
-    return scope.onChange = function(model) {
+    scope.onChange = function(model) {
       return Service.update(model);
+    };
+    return scope.today = function(model) {
+      var dayMS, output, res;
+      res = moment().diff(moment(model.createdAt));
+      dayMS = moment().diff(moment().startOf('day'));
+      output = res < dayMS;
+      return output;
     };
   };
 
@@ -47,3 +54,7 @@
   });
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=pomodorolist.map
+*/
