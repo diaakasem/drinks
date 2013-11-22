@@ -1,5 +1,15 @@
 controller =  (scope, timeout) ->
   timer = null
+  sounds =
+    tick: 'sounds/tick.mp3'
+    crank: 'sounds/crank.mp3'
+    alarm: 'sounds/alarm.mp3'
+    current: null
+
+  play = (song)->
+    sounds.current?.pause()
+    sounds.current = new Audio song
+    sounds.current?.play()
 
   pausesTime =  _.reduce _.map(scope.model.get('pauses'), (p)->
     if p.end then p.end - p.start else new Date() - p.start
@@ -11,22 +21,27 @@ controller =  (scope, timeout) ->
   scope.count = (new Date() - scope.model.createdAt - pausesTime) / 1000
   scope.count = scope.model.get('sprint') + scope.model.get('rest') - scope.count
 
+  everyCount = 1000
   everySecond = ->
-    timer = timeout everySecond, 1000
-
+    timer = timeout everySecond, everyCount
     pause = scope.model.get('pause')
     unless pause.start or scope.model.get('status') is 'done'
       if scope.count > 0
         scope.count -= 1
         if scope.model.get('status') is 'work' and scope.count <= scope.model.get('rest')
+          sounds.current?.pause()
           scope.model.set('status', 'rest')
           scope.onChange() scope.model
       else
-
+          play sounds.alarm
           scope.model.set('status', 'done')
           scope.onChange() scope.model
+    else
+      play sounds.tick
+
         
-  timeout everySecond, 1000
+  timeout everySecond, everyCount
+  play sounds.crank
 
   scope.doPause = ->
     pause = scope.model.get 'pause'
@@ -47,6 +62,7 @@ controller =  (scope, timeout) ->
   scope.$on '$routeChangeStart', (next, current)->
     timeout.cancel timer
     scope.onChange() scope.model
+    sounds.current?.pause()
 
 
 angular.module('manageApp')

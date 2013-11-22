@@ -3,8 +3,22 @@
   var controller;
 
   controller = function(scope, timeout) {
-    var everySecond, pausesTime, timer;
+    var everyCount, everySecond, pausesTime, play, sounds, timer;
     timer = null;
+    sounds = {
+      tick: 'sounds/tick.mp3',
+      crank: 'sounds/crank.mp3',
+      alarm: 'sounds/alarm.mp3',
+      current: null
+    };
+    play = function(song) {
+      var _ref, _ref1;
+      if ((_ref = sounds.current) != null) {
+        _ref.pause();
+      }
+      sounds.current = new Audio(song);
+      return (_ref1 = sounds.current) != null ? _ref1.play() : void 0;
+    };
     pausesTime = _.reduce(_.map(scope.model.get('pauses'), function(p) {
       if (p.end) {
         return p.end - p.start;
@@ -19,24 +33,32 @@
     }
     scope.count = (new Date() - scope.model.createdAt - pausesTime) / 1000;
     scope.count = scope.model.get('sprint') + scope.model.get('rest') - scope.count;
+    everyCount = 1000;
     everySecond = function() {
-      var pause;
-      timer = timeout(everySecond, 1000);
+      var pause, _ref;
+      timer = timeout(everySecond, everyCount);
       pause = scope.model.get('pause');
       if (!(pause.start || scope.model.get('status') === 'done')) {
         if (scope.count > 0) {
           scope.count -= 1;
           if (scope.model.get('status') === 'work' && scope.count <= scope.model.get('rest')) {
+            if ((_ref = sounds.current) != null) {
+              _ref.pause();
+            }
             scope.model.set('status', 'rest');
             return scope.onChange()(scope.model);
           }
         } else {
+          play(sounds.alarm);
           scope.model.set('status', 'done');
           return scope.onChange()(scope.model);
         }
+      } else {
+        return play(sounds.tick);
       }
     };
-    timeout(everySecond, 1000);
+    timeout(everySecond, everyCount);
+    play(sounds.crank);
     scope.doPause = function() {
       var pause;
       pause = scope.model.get('pause');
@@ -57,8 +79,10 @@
       return scope.remove()(scope.model);
     };
     return scope.$on('$routeChangeStart', function(next, current) {
+      var _ref;
       timeout.cancel(timer);
-      return scope.onChange()(scope.model);
+      scope.onChange()(scope.model);
+      return (_ref = sounds.current) != null ? _ref.pause() : void 0;
     });
   };
 
@@ -77,3 +101,7 @@
   });
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=durable.map
+*/

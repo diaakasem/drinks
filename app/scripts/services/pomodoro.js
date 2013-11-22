@@ -61,7 +61,7 @@
 
   })();
 
-  angular.module('drinksApp').service('Pomodoro', service);
+  angular.module('manageApp').service('Pomodoro', service);
 
 }).call(this);
 
