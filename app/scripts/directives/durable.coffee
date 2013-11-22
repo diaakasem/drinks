@@ -60,6 +60,7 @@ controller =  (scope, timeout) ->
   scope.doRemove = ->
     timeout.cancel timer
     scope.remove() scope.model
+    sounds.current?.pause()
 
   scope.$on '$routeChangeStart', (next, current)->
     timeout.cancel timer
