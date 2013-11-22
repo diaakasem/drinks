@@ -78,8 +78,10 @@
       return scope.onChange()(scope.model);
     };
     scope.doRemove = function() {
+      var _ref;
       timeout.cancel(timer);
-      return scope.remove()(scope.model);
+      scope.remove()(scope.model);
+      return (_ref = sounds.current) != null ? _ref.pause() : void 0;
     };
     return scope.$on('$routeChangeStart', function(next, current) {
       var _ref;

@@ -4,11 +4,14 @@ config = ($routeProvider, $compileProvider) ->
                    "OVNmBrjWj4ggScDNvKf159pVQM89vyNTlRIOIh4u")
 
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/)
-  $routeProvider.when("/",
-    templateUrl: "views/main.html"
-    controller: "MainCtrl"
-    access: 'user'
-  )
+  #$routeProvider.when("/",
+    #templateUrl: "views/main.html"
+    #controller: "MainCtrl"
+    #access: 'user'
+  #)
+  $routeProvider.when "/",
+    redirectTo: '/time/list'
+  
 
   # Temporary
 
@@ -21,6 +24,7 @@ config = ($routeProvider, $compileProvider) ->
   _.each entities, (pages, e)->
     le = e.toLowerCase()
     for p in pages
+      # The underscore indicates path needs /:id appended
       id = if p[0] == '_' then '/:id'  else ''
       p = if p[0] == '_' then p.substring(1) else p
       lp = p.toLowerCase()

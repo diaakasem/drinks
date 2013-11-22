@@ -7,9 +7,7 @@
     Parse.initialize("WSGMmizuVjklAI6SpdIMBypeDCzKPUAo05QpWUnV", "OVNmBrjWj4ggScDNvKf159pVQM89vyNTlRIOIh4u");
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
     $routeProvider.when("/", {
-      templateUrl: "views/main.html",
-      controller: "MainCtrl",
-      access: 'user'
+      redirectTo: '/time/list'
     });
     entities = {
       'Drink': ['Add', '_Edit', 'List', '_View'],
