@@ -20,6 +20,11 @@
     <li matches="/idea.*"><a href="#/idea/list"><i class="glyphicon glyphicon-leaf"></i> Ideas </a></li>
     <li><a href="#/settings"><i class="glyphicon glyphicon-cog"></i> Settings </a></li>
   </ul>
+  <ul class="nav navbar-nav pull-right" activenavitem ng-show="user">
+    <li>
+    <logout></logout>
+    </li>
+  </ul>
   <ul class="nav navbar-nav pull-right" activenavitem ng-show="!user">
     <li>
       <a href="#/signin">

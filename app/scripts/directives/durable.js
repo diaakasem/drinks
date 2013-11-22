@@ -41,7 +41,9 @@
       if (!(pause.start || scope.model.get('status') === 'done')) {
         if (scope.count > 0) {
           scope.count -= 1;
+          play(sounds.tick);
           if (scope.model.get('status') === 'work' && scope.count <= scope.model.get('rest')) {
+            play(sounds.alarm);
             if ((_ref = sounds.current) != null) {
               _ref.pause();
             }
@@ -53,14 +55,15 @@
           scope.model.set('status', 'done');
           return scope.onChange()(scope.model);
         }
-      } else {
-        return play(sounds.tick);
       }
     };
     timeout(everySecond, everyCount);
     play(sounds.crank);
     scope.doPause = function() {
-      var pause;
+      var pause, _ref;
+      if ((_ref = sounds.current) != null) {
+        _ref.pause();
+      }
       pause = scope.model.get('pause');
       if (!pause.start) {
         scope.model.set('pause', {

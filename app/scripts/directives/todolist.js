@@ -37,6 +37,7 @@
       todo = new Task();
       todo.set("status", "created");
       todo.set("name", scope.name);
+      todo.setACL(new Parse.ACL(Parse.User.current()));
       return todo.save({
         success: function(result) {
           return scope.$apply(function() {

@@ -38,6 +38,7 @@
       idea = new this.Entity();
       pomodoro.set("parent", name);
       pomodoro.set("name", name);
+      pomodoro.setACL(new Parse.ACL(Parse.User.current()));
       return pomodoro.save({
         success: cb,
         error: onError

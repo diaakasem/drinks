@@ -7,6 +7,7 @@ controller =  (scope, timeout) ->
     current: null
 
   play = (song)->
+    #console.log "Playing #{song}"
     sounds.current?.pause()
     sounds.current = new Audio song
     sounds.current?.play()
@@ -28,7 +29,9 @@ controller =  (scope, timeout) ->
     unless pause.start or scope.model.get('status') is 'done'
       if scope.count > 0
         scope.count -= 1
+        play sounds.tick
         if scope.model.get('status') is 'work' and scope.count <= scope.model.get('rest')
+          play sounds.alarm
           sounds.current?.pause()
           scope.model.set('status', 'rest')
           scope.onChange() scope.model
@@ -36,14 +39,13 @@ controller =  (scope, timeout) ->
           play sounds.alarm
           scope.model.set('status', 'done')
           scope.onChange() scope.model
-    else
-      play sounds.tick
 
         
   timeout everySecond, everyCount
   play sounds.crank
 
   scope.doPause = ->
+    sounds.current?.pause()
     pause = scope.model.get 'pause'
     unless pause.start
       scope.model.set 'pause',

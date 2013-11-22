@@ -21,6 +21,7 @@ class service
     idea = new @Entity()
     pomodoro.set "parent", name
     pomodoro.set "name", name
+    pomodoro.setACL(new Parse.ACL(Parse.User.current()))
     pomodoro.save
       success: cb
       error: onError

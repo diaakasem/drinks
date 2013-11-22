@@ -24,6 +24,7 @@ class service
     pomodoro.set "status", "work"
     pomodoro.set "name", name
     pomodoro.set "pause", {}
+    pomodoro.setACL(new Parse.ACL(Parse.User.current()))
     pomodoro.save
       success: cb
       error: onError

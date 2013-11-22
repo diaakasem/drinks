@@ -1,13 +1,16 @@
 config = ($routeProvider, $compileProvider) ->
 
+  Parse.initialize("WSGMmizuVjklAI6SpdIMBypeDCzKPUAo05QpWUnV",
+                   "OVNmBrjWj4ggScDNvKf159pVQM89vyNTlRIOIh4u")
+
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/)
-  #$routeProvider.when("/",
-    #templateUrl: "views/main.html"
-    #controller: "MainCtrl"
-  #)
+  $routeProvider.when("/",
+    templateUrl: "views/main.html"
+    controller: "MainCtrl"
+    access: 'user'
+  )
 
   # Temporary
-  $routeProvider.when '/', redirectTo: "/time/list"
 
   entities =
     'Drink':['Add', '_Edit', 'List', '_View']
@@ -24,22 +27,35 @@ config = ($routeProvider, $compileProvider) ->
       $routeProvider.when "/#{le}/#{lp}#{id}",
         templateUrl: "views/#{le}/#{lp}.html"
         controller: "#{e}#{p}Ctrl"
+        access: 'user'
+
   $routeProvider.when '/signin',
     templateUrl: 'views/signin.html',
     controller: 'SigninCtrl'
+    access: 'public'
 
   $routeProvider.when '/signup',
     templateUrl: 'views/signup.html',
     controller: 'SignupCtrl'
+    access: 'public'
+
   $routeProvider.otherwise redirectTo: '/'
 
 dependencies = ['ui.bootstrap', 'ngRoute', 'dng.parse']
 app = angular.module("manageApp", dependencies).config config
-app.run ($rootScope, $location)->
-  window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB
-  window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction
-  window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange
-  Parse.initialize("WSGMmizuVjklAI6SpdIMBypeDCzKPUAo05QpWUnV", "OVNmBrjWj4ggScDNvKf159pVQM89vyNTlRIOIh4u")
-  $rootScope.go = (location)->
-    $location.path location
 
+rootController = (root, location)->
+
+  root.go = (url)->
+    location.path('/' + url)
+
+  root.$on '$routeChangeStart', (event, next)->
+    if next.access isnt 'public' and not root.user
+      root.go 'signin'
+
+  if Parse.User.current()
+    root.user = Parse.User.current()
+  else
+    root.user = null
+
+app.run ['$rootScope', '$location', rootController]
