@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, timeout) {
-    var everyPeriod, originalCount, pausesTime, play, runInterval, sounds, timer;
+    var count, everyPeriod, originalCount, pausesTime, play, runInterval, sounds, timePassed, timer;
     if (!scope.show) {
       return;
     }
@@ -35,21 +35,30 @@
     if (pausesTime == null) {
       pausesTime = 0;
     }
-    scope.count = (new Date() - scope.model.createdAt - pausesTime) / 1000;
-    if (scope.count < 1) {
+    timePassed = (new Date() - scope.model.createdAt - pausesTime) / 1000;
+    if (timePassed < 1) {
       play(sounds.crank);
     }
     originalCount = scope.model.get('sprint') + scope.model.get('rest');
-    scope.count = originalCount - scope.count;
+    count = function() {
+      return originalCount - timePassed;
+    };
+    scope.getTime = function() {
+      if (count() - scope.model.get('rest') > 0) {
+        return count() - scope.model.get('rest');
+      } else {
+        return count();
+      }
+    };
     everyPeriod = 1000;
     runInterval = function() {
       var pause, _ref, _ref1;
       timer = timeout(runInterval, everyPeriod);
       pause = scope.model.get('pause');
+      timePassed = (new Date() - scope.model.createdAt - pausesTime) / 1000;
       if (!pause.start) {
         if (scope.model.get('status') !== 'done') {
-          if (scope.count > 0) {
-            scope.count -= 1;
+          if (count() > 0) {
             if (!scope.mute) {
               play(sounds.tick);
             } else {
@@ -57,7 +66,7 @@
                 _ref.pause();
               }
             }
-            if (scope.model.get('status') === 'work' && scope.count <= scope.model.get('rest')) {
+            if (scope.model.get('status') === 'work' && count() <= scope.model.get('rest')) {
               play(sounds.alarm);
               scope.model.set('status', 'rest');
               return scope.onChange()(scope.model);

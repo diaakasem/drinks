@@ -26,28 +26,37 @@ controller =  (scope, timeout) ->
 
   pausesTime ?= 0
 
-  scope.count = (new Date() - scope.model.createdAt - pausesTime) / 1000
-  if scope.count < 1
+  timePassed = (new Date() - scope.model.createdAt - pausesTime) / 1000
+  if timePassed < 1
     play sounds.crank
 
   originalCount = scope.model.get('sprint') + scope.model.get('rest')
-  scope.count = originalCount - scope.count
+
+  count = ->
+    originalCount - timePassed
+
+  scope.getTime = ->
+    if count() - scope.model.get('rest') > 0
+      count() - scope.model.get('rest')
+    else
+      count()
 
   everyPeriod = 1000 # 1 second
   runInterval = ->
     timer = timeout runInterval, everyPeriod
     pause = scope.model.get('pause')
+    timePassed = (new Date() - scope.model.createdAt - pausesTime) / 1000
     unless pause.start
       if scope.model.get('status') isnt 'done'
 
-        if scope.count > 0
-          scope.count -= 1
+        if count() > 0
+
           unless scope.mute
             play sounds.tick
           else
             sounds.current?.pause()
 
-          if scope.model.get('status') is 'work' and scope.count <= scope.model.get('rest')
+          if scope.model.get('status') is 'work' and count() <= scope.model.get('rest')
             play sounds.alarm
             scope.model.set('status', 'rest')
             scope.onChange() scope.model
