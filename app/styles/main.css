@@ -32,6 +32,9 @@ body.drinks .media-list .media .media-body {
 body.drinks .media-list .media .media-body .media-heading {
   padding-top: 10px;
 }
+body.drinks .media-list .media .media-actions > * {
+  margin: 5px;
+}
 body.drinks .media-list .media.rest .counter > span {
   background-color: #ff5a7d;
   color: #f3f3f3;
