@@ -5,7 +5,7 @@ controller = (scope, Service)->
 
   Service.list (results)->
     scope.$apply ->
-      scope.entities = results
+      scope.entities = _.sortBy(results, 'createdAt').reverse()
 
   scope.remove = (model)->
     Service.remove model, ->

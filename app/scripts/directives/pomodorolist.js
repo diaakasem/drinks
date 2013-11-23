@@ -7,7 +7,7 @@
     scope.name = '';
     Service.list(function(results) {
       return scope.$apply(function() {
-        return scope.entities = results;
+        return scope.entities = _.sortBy(results, 'createdAt').reverse();
       });
     });
     scope.remove = function(model) {

@@ -10,17 +10,20 @@ body.drinks .media-list {
 body.drinks .media-list .media {
   border: 1px solid #00b9ff;
   border-radius: 5px;
-  padding: 5px;
   overflow: visible;
 }
 body.drinks .media-list .media .counter {
-  width: 50px;
+  margin: 5px;
+  display: inline-block;
+}
+body.drinks .media-list .media .counter span {
+  display: inline-block;
+  border-radius: 5px;
   color: #4b96b2;
   background-color: #f3f3f3;
-  border-radius: 25px;
-  font-size: 2em;
-  padding: 5px 12px;
+  font-size: 1.8em;
   text-align: center;
+  padding: 0 5px;
 }
 body.drinks .media-list .media .media-body {
   color: #4b96b2;
@@ -28,11 +31,11 @@ body.drinks .media-list .media .media-body {
 body.drinks .media-list .media .media-body .media-heading {
   padding-top: 10px;
 }
-body.drinks .media-list .media.rest .counter {
+body.drinks .media-list .media.rest .counter > span {
   background-color: #ff5a7d;
   color: #f3f3f3;
 }
-body.drinks .media-list .media.done .counter {
+body.drinks .media-list .media.done .counter > span {
   background-color: #a1a1a1;
 }
 body.drinks .media-list .media.done .media-body {
