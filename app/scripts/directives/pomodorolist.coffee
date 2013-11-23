@@ -27,11 +27,14 @@ controller = (scope, Service)->
   scope.onChange = (model)->
     Service.update model
 
-  scope.today = (model)->
-    res = moment().diff moment(model.createdAt)
-    dayMS = moment().diff moment().startOf('day')
-    output = res < dayMS
-    output
+  scope.today = (->
+    m = moment()
+    dayMS = m.diff moment().startOf('day')
+    console.log dayMS
+    (model)->
+      res = m.diff moment(model.createdAt)
+      res < dayMS
+  )()
 
 angular.module('manageApp')
   .directive('pomodorolist', () ->

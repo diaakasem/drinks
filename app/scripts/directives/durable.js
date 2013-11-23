@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, timeout) {
-    var everyCount, everySecond, pausesTime, play, sounds, timer;
+    var everyPeriod, pausesTime, play, runInterval, sounds, timer;
     if (!scope.show) {
       return;
     }
@@ -36,28 +36,35 @@
     }
     scope.count = (new Date() - scope.model.createdAt - pausesTime) / 1000;
     scope.count = scope.model.get('sprint') + scope.model.get('rest') - scope.count;
-    everyCount = 1000;
-    everySecond = function() {
-      var pause;
-      timer = timeout(everySecond, everyCount);
+    everyPeriod = 1000;
+    runInterval = function() {
+      var pause, _ref;
+      timer = timeout(runInterval, everyPeriod);
       pause = scope.model.get('pause');
-      if (!(pause.start || scope.model.get('status') === 'done')) {
-        if (scope.count > 0) {
-          scope.count -= 1;
-          play(sounds.tick);
-          if (scope.model.get('status') === 'work' && scope.count <= scope.model.get('rest')) {
+      if (!pause.start) {
+        if (scope.model.get('status') !== 'done') {
+          if (scope.count > 0) {
+            scope.count -= 1;
+            play(sounds.tick);
+            if (scope.model.get('status') === 'work' && scope.count <= scope.model.get('rest')) {
+              play(sounds.alarm);
+              scope.model.set('status', 'rest');
+              return scope.onChange()(scope.model);
+            }
+          } else {
             play(sounds.alarm);
-            scope.model.set('status', 'rest');
+            scope.model.set('status', 'done');
             return scope.onChange()(scope.model);
           }
         } else {
-          play(sounds.alarm);
-          scope.model.set('status', 'done');
+          timeout.cancel(timer);
           return scope.onChange()(scope.model);
         }
+      } else {
+        return (_ref = sounds.current) != null ? _ref.pause() : void 0;
       }
     };
-    timeout(everySecond, everyCount);
+    timeout(runInterval, everyPeriod);
     play(sounds.crank);
     scope.doPause = function() {
       var pause, _ref;

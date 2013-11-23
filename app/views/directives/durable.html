@@ -1,11 +1,11 @@
 <div class="media row {{model.get('status')}}" ng-show="show">
   <div class="col-xs-4 col-sm-2 col-md-2 col-lg-1">
     <span class="counter {{model.get('status')}}"
-      ng-show="model.get('status')!=='done'">
-      {{count | timer}}
+      ng-show="model.get('status')!='done'">
+      {{count - model.get('rest') > 0 ? count - model.get('rest') : count | timer}}
     </span>
     <span class="counter {{model.get('status')}}"
-      ng-show="model.get('status')==='done'">
+      ng-show="model.get('status')=='done'">
       <i class="glyphicon glyphicon-ok"></i>
     </span>
   </div>

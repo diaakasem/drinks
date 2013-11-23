@@ -35,13 +35,17 @@
     scope.onChange = function(model) {
       return Service.update(model);
     };
-    return scope.today = function(model) {
-      var dayMS, output, res;
-      res = moment().diff(moment(model.createdAt));
-      dayMS = moment().diff(moment().startOf('day'));
-      output = res < dayMS;
-      return output;
-    };
+    return scope.today = (function() {
+      var dayMS, m;
+      m = moment();
+      dayMS = m.diff(moment().startOf('day'));
+      console.log(dayMS);
+      return function(model) {
+        var res;
+        res = m.diff(moment(model.createdAt));
+        return res < dayMS;
+      };
+    })();
   };
 
   angular.module('manageApp').directive('pomodorolist', function() {
