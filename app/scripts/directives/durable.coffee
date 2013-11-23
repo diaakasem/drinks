@@ -3,6 +3,9 @@ controller =  (scope, timeout) ->
   if not scope.show
     return
 
+  # Mute by default
+  scope.mute = yes
+
   timer = null
   sounds =
     tick: 'sounds/tick.mp3'

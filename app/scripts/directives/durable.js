@@ -7,6 +7,7 @@
     if (!scope.show) {
       return;
     }
+    scope.mute = true;
     timer = null;
     sounds = {
       tick: 'sounds/tick.mp3',
