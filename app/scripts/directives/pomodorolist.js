@@ -23,7 +23,7 @@
       var cb;
       cb = function(result) {
         return scope.$apply(function() {
-          scope.entities.push(result);
+          scope.entities.unshift(result);
           return scope.name = '';
         });
       };

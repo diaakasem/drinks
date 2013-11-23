@@ -16,7 +16,7 @@ controller = (scope, Service)->
   scope.add = ->
     cb = (result)->
       scope.$apply ->
-        scope.entities.push result
+        scope.entities.unshift result
         scope.name = ''
 
     Service.add cb, scope.name

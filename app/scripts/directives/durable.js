@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, timeout) {
-    var everyPeriod, pausesTime, play, runInterval, sounds, timer;
+    var everyPeriod, originalCount, pausesTime, play, runInterval, sounds, timer;
     if (!scope.show) {
       return;
     }
@@ -36,7 +36,11 @@
       pausesTime = 0;
     }
     scope.count = (new Date() - scope.model.createdAt - pausesTime) / 1000;
-    scope.count = scope.model.get('sprint') + scope.model.get('rest') - scope.count;
+    if (scope.count < 1) {
+      play(sounds.crank);
+    }
+    originalCount = scope.model.get('sprint') + scope.model.get('rest');
+    scope.count = originalCount - scope.count;
     everyPeriod = 1000;
     runInterval = function() {
       var pause, _ref, _ref1;
@@ -72,7 +76,6 @@
       }
     };
     timeout(runInterval, everyPeriod);
-    play(sounds.crank);
     scope.doPause = function() {
       var pause, _ref;
       if ((_ref = sounds.current) != null) {
