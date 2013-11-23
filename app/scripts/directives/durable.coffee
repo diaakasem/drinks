@@ -34,7 +34,11 @@ controller =  (scope, timeout) ->
       if scope.model.get('status') isnt 'done'
         if scope.count > 0
           scope.count -= 1
-          play sounds.tick
+          unless scope.mute
+            play sounds.tick
+          else
+            sounds.current?.pause()
+
           if scope.model.get('status') is 'work' and scope.count <= scope.model.get('rest')
             play sounds.alarm
             scope.model.set('status', 'rest')
@@ -76,6 +80,10 @@ controller =  (scope, timeout) ->
     timeout.cancel timer
     scope.onChange() scope.model
     sounds.current?.pause()
+
+
+  scope.whenDone = (model)->
+     model.get('status') is 'done'
 
 
 angular.module('manageApp')

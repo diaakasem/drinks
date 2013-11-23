@@ -38,14 +38,20 @@
     scope.count = scope.model.get('sprint') + scope.model.get('rest') - scope.count;
     everyPeriod = 1000;
     runInterval = function() {
-      var pause, _ref;
+      var pause, _ref, _ref1;
       timer = timeout(runInterval, everyPeriod);
       pause = scope.model.get('pause');
       if (!pause.start) {
         if (scope.model.get('status') !== 'done') {
           if (scope.count > 0) {
             scope.count -= 1;
-            play(sounds.tick);
+            if (!scope.mute) {
+              play(sounds.tick);
+            } else {
+              if ((_ref = sounds.current) != null) {
+                _ref.pause();
+              }
+            }
             if (scope.model.get('status') === 'work' && scope.count <= scope.model.get('rest')) {
               play(sounds.alarm);
               scope.model.set('status', 'rest');
@@ -61,7 +67,7 @@
           return scope.onChange()(scope.model);
         }
       } else {
-        return (_ref = sounds.current) != null ? _ref.pause() : void 0;
+        return (_ref1 = sounds.current) != null ? _ref1.pause() : void 0;
       }
     };
     timeout(runInterval, everyPeriod);
@@ -90,12 +96,15 @@
       scope.remove()(scope.model);
       return (_ref = sounds.current) != null ? _ref.pause() : void 0;
     };
-    return scope.$on('$routeChangeStart', function(next, current) {
+    scope.$on('$routeChangeStart', function(next, current) {
       var _ref;
       timeout.cancel(timer);
       scope.onChange()(scope.model);
       return (_ref = sounds.current) != null ? _ref.pause() : void 0;
     });
+    return scope.whenDone = function(model) {
+      return model.get('status') === 'done';
+    };
   };
 
   angular.module('manageApp').directive('durable', function() {
