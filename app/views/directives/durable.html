@@ -1,4 +1,5 @@
 <div class="media row {{model.get('status')}}" ng-show="show">
+
   <div class="col-xs-2 col-sm-2 col-md-1 col-lg-1">
     <span class="counter {{model.get('status')}}"
       ng-show="!whenDone(model)">
@@ -9,9 +10,10 @@
       <span><i class="glyphicon glyphicon-ok"></i></span>
     </span>
   </div>
+
   <div class="media-body col-lg-11 col-md-11 col-sm-10 col-xs-10">
     <div class="media-body col-lg-9 col-md-8 col-sm-7 col-xs-12">
-      <h4 class="media-heading"> {{model.get('status')}} : {{model.get('name')}} </h4>
+      <h4 class="media-heading"> {{model.get('name')}} </h4>
     </div>
     <div class="media-actions col-lg-3 col-md-4 col-sm-5 col-xs-12 ">
       <div class="pull-right">
