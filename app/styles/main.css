@@ -29,6 +29,9 @@ body.drinks .media-list .media .counter span {
 body.drinks .media-list .media .media-body {
   color: #4b96b2;
 }
+body.drinks .media-list .media .media-body form {
+  margin-top: 5px;
+}
 body.drinks .media-list .media .media-body .media-heading {
   padding-top: 10px;
 }
@@ -44,7 +47,6 @@ body.drinks .media-list .media.done .counter > span {
 }
 body.drinks .media-list .media.done .media-body {
   text-decoration: line-through;
-  padding-top: 3px;
 }
 .active > a {
   color: #ff5a7d !important;
