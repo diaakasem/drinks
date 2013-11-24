@@ -33,9 +33,9 @@
     };
     timer = null;
     sounds = {
-      tick: 'sounds/tick.mp3',
-      crank: 'sounds/crank.mp3',
-      alarm: 'sounds/alarm.mp3',
+      tick: 'tickSound',
+      crank: 'crankSound',
+      alarm: 'alarmSound',
       current: null
     };
     play = function(song) {
@@ -43,7 +43,7 @@
       if ((_ref = sounds.current) != null) {
         _ref.pause();
       }
-      sounds.current = new Audio(song);
+      sounds.current = document.getElementById(song);
       return (_ref1 = sounds.current) != null ? _ref1.play() : void 0;
     };
     pausesTime = (function() {

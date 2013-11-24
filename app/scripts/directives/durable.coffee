@@ -26,15 +26,15 @@ controller =  (scope, timeout) ->
 
   timer = null
   sounds =
-    tick: 'sounds/tick.mp3'
-    crank: 'sounds/crank.mp3'
-    alarm: 'sounds/alarm.mp3'
+    tick: 'tickSound'
+    crank: 'crankSound'
+    alarm: 'alarmSound'
     current: null
 
   play = (song)->
     #console.log "Playing #{song}"
     sounds.current?.pause()
-    sounds.current = new Audio song
+    sounds.current = document.getElementById song
     sounds.current?.play()
 
   pausesTime = (->
