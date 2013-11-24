@@ -5,6 +5,7 @@
   controller = function(scope, Service) {
     scope.entities = [];
     scope.name = '';
+    scope.tags = '';
     Service.list(function(results) {
       return scope.$apply(function() {
         return scope.entities = _.sortBy(results, 'createdAt').reverse();
@@ -24,10 +25,11 @@
       cb = function(result) {
         return scope.$apply(function() {
           scope.entities.unshift(result);
-          return scope.name = '';
+          scope.name = '';
+          return scope.tags = '';
         });
       };
-      return Service.add(cb, scope.name);
+      return Service.add(cb, scope.name, scope.tags);
     };
     scope.onRemove = function(model) {
       return scope.remove(model);
@@ -38,6 +40,7 @@
     scope.onDone = function(model) {
       if (scope.continus) {
         scope.name = model.get('name');
+        scope.tags = model.get('tags');
         return scope.add();
       }
     };

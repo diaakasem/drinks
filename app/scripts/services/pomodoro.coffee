@@ -17,12 +17,13 @@ class service
       error: onError
 
 
-  add: (cb, name='', sprint=25*60, rest=5*60)->
+  add: (cb, name='', tags='', sprint=25*60, rest=5*60)->
     pomodoro = new @Pomodoro()
     pomodoro.set 'sprint', sprint
     pomodoro.set 'rest', rest
     pomodoro.set "status", "work"
     pomodoro.set "name", name
+    pomodoro.set "tags", tags
     pomodoro.set "pause", {}
     pomodoro.setACL(new Parse.ACL(Parse.User.current()))
     pomodoro.save

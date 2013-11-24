@@ -2,16 +2,6 @@
   <div class="row">
     <form role="form" class="row form-inline" ng-submit="add()" name="form" novalidate>
 
-      <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pull-right">
-        <div class="input-group pull-right">
-          <input type="text" class="form-control" id="tags" placeholder="Tags"
-          ng-model="tags" required>
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="submit">
-              <i class="glyphicon glyphicon-plus"></i> Add </button>
-          </span>
-        </div>
-      </div>
       <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 pull-right">
         <div class="input-group pull-right">
           <input type="text" class="form-control" id="pomodoroname" placeholder="Pomodoro title..."
@@ -22,6 +12,14 @@
           </span>
         </div>
       </div>
+
+      <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pull-right">
+        <div class="input-group pull-right">
+          <input type="text" class="form-control" id="tags" placeholder="Tags"
+          ng-model="tags" required>
+        </div>
+      </div>
+
     </form>
   </div>
   <div class="row">

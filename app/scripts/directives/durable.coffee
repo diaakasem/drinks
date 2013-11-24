@@ -15,9 +15,12 @@ controller =  (scope, timeout) ->
 
   # Mute by default
   scope.mute = yes
-  scope.newName = scope.model.get('name')
+  scope.name = scope.model.get('name')
+  scope.tags = scope.model.get('tags')
+
   scope.save = ->
-    scope.model.set('name', scope.newName)
+    scope.model.set('name', scope.name)
+    scope.model.set('tags', scope.tags)
     scope.model.save()
     scope.editing = false
 

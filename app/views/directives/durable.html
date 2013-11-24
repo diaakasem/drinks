@@ -14,14 +14,28 @@
   <div class="media-body col-lg-11 col-md-11 col-sm-10 col-xs-10">
     <div class="media-body col-lg-9 col-md-8 col-sm-7 col-xs-12"
       ng-click="editing=true" ng-show="!editing">
-      <h4 class="media-heading"> {{model.get('name')}} </h4>
+      <h4 class="media-heading">
+        <span class="tags" ng-show="model.get('tags')">
+          {{model.get('tags')}}
+        </span>
+        {{model.get('name')}} 
+      </h4>
     </div>
     <div class="media-body col-lg-9 col-md-8 col-sm-7 col-xs-12" ng-show="editing">
-      <form ng-submit="save()" role="form" class="form-inline">
-        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <input class="form-control" type="text" ng-model="newName"
-          value="{{model.get('name')}}" placeholder="Enter new name.">
+      <form ng-submit="save()" role="form" class="form-inline" name="form"
+        novalidate>
+
+        <div class="form-group col-xs-12 col-sm-4 col-md-3 col-lg-2">
+          <input class="form-control" id="tags" type="text" ng-model="tags"
+          name="tags" placeholder="Enter new tags.">
         </div>
+
+        <div class="form-group col-xs-10 col-sm-7 col-md-8 col-lg-9">
+          <input id="name" class="form-control" type="text" ng-model="name"
+          name="name" placeholder="Enter new name.">
+        </div>
+        <button class='btn pull-right' type="submit">Save</button>
+        
       </form>
     </div>
     <div class="media-actions col-lg-3 col-md-4 col-sm-5 col-xs-12 ">

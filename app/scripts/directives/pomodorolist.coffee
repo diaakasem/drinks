@@ -2,6 +2,7 @@ controller = (scope, Service)->
 
   scope.entities = []
   scope.name = ''
+  scope.tags = ''
 
   Service.list (results)->
     scope.$apply ->
@@ -18,8 +19,9 @@ controller = (scope, Service)->
       scope.$apply ->
         scope.entities.unshift result
         scope.name = ''
+        scope.tags = ''
 
-    Service.add cb, scope.name
+    Service.add cb, scope.name, scope.tags
 
   scope.onRemove = (model)->
     scope.remove model
@@ -30,6 +32,7 @@ controller = (scope, Service)->
   scope.onDone = (model)->
     if scope.continus
       scope.name = model.get('name')
+      scope.tags = model.get('tags')
       scope.add()
 
   scope.today = (->

@@ -23,9 +23,11 @@
       return;
     }
     scope.mute = true;
-    scope.newName = scope.model.get('name');
+    scope.name = scope.model.get('name');
+    scope.tags = scope.model.get('tags');
     scope.save = function() {
-      scope.model.set('name', scope.newName);
+      scope.model.set('name', scope.name);
+      scope.model.set('tags', scope.tags);
       scope.model.save();
       return scope.editing = false;
     };

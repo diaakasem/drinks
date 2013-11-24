@@ -27,10 +27,13 @@
       });
     };
 
-    service.prototype.add = function(cb, name, sprint, rest) {
+    service.prototype.add = function(cb, name, tags, sprint, rest) {
       var pomodoro;
       if (name == null) {
         name = '';
+      }
+      if (tags == null) {
+        tags = '';
       }
       if (sprint == null) {
         sprint = 25 * 60;
@@ -43,6 +46,7 @@
       pomodoro.set('rest', rest);
       pomodoro.set("status", "work");
       pomodoro.set("name", name);
+      pomodoro.set("tags", tags);
       pomodoro.set("pause", {});
       pomodoro.setACL(new Parse.ACL(Parse.User.current()));
       return pomodoro.save({
