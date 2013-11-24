@@ -3,6 +3,7 @@
 }
 body.drinks .row {
   margin: 10px auto;
+  margin-top: 2px;
 }
 body.drinks .pomodorolist .row h1,
 body.drinks .pomodorolist .row h2,
