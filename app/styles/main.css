@@ -4,6 +4,11 @@
 body.drinks .row {
   margin: 10px auto;
 }
+body.drinks .pomodorolist .row h1,
+body.drinks .pomodorolist .row h2,
+body.drinks .pomodorolist .row h3 {
+  margin-top: 0;
+}
 body.drinks .media-list {
   clear: both;
 }
