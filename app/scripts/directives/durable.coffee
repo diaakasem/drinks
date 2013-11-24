@@ -5,6 +5,11 @@ controller =  (scope, timeout) ->
 
   # Mute by default
   scope.mute = yes
+  scope.newName = scope.model.get('name')
+  scope.save = ->
+    scope.model.set('name', scope.newName)
+    scope.model.save()
+    scope.editing = false
 
   timer = null
   sounds =

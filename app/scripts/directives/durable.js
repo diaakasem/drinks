@@ -8,6 +8,12 @@
       return;
     }
     scope.mute = true;
+    scope.newName = scope.model.get('name');
+    scope.save = function() {
+      scope.model.set('name', scope.newName);
+      scope.model.save();
+      return scope.editing = false;
+    };
     timer = null;
     sounds = {
       tick: 'sounds/tick.mp3',

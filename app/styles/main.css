@@ -44,6 +44,7 @@ body.drinks .media-list .media.done .counter > span {
 }
 body.drinks .media-list .media.done .media-body {
   text-decoration: line-through;
+  padding-top: 3px;
 }
 .active > a {
   color: #ff5a7d !important;
