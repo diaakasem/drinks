@@ -72,11 +72,11 @@ controller =  (scope, timeout) ->
       else
         timeout.cancel timer
         scope.onChange() scope.model
+        scope.onDone() scope.model
     else
       sounds.current?.pause()
 
 
-        
   timeout runInterval, everyPeriod
 
   scope.doPause = ->
@@ -102,7 +102,6 @@ controller =  (scope, timeout) ->
     scope.onChange() scope.model
     sounds.current?.pause()
 
-
   scope.whenDone = (model)->
      model.get('status') is 'done'
 
@@ -116,5 +115,6 @@ angular.module('manageApp')
       onChange: '&change'
       remove: '&remove'
       show: '='
+      onDone: '&done'
     replace: yes
     controller: ['$scope', '$timeout', controller]

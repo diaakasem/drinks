@@ -35,7 +35,13 @@
     scope.onChange = function(model) {
       return Service.update(model);
     };
-    return scope.today = (function() {
+    scope.onDone = function(model) {
+      if (scope.continus) {
+        scope.name = model.get('name');
+        return scope.add();
+      }
+    };
+    scope.today = (function() {
       var dayMS, m;
       m = moment();
       dayMS = m.diff(moment().startOf('day'));
@@ -46,6 +52,7 @@
         return res < dayMS;
       };
     })();
+    return $('#dimension-switch').bootstrapSwitch('setSizeClass', '');
   };
 
   angular.module('manageApp').directive('pomodorolist', function() {

@@ -16,11 +16,19 @@
   </div>
   <div class="row">
     <h2 class="pull-left">Today</h2>
+    <button class="btn pull-right" ng-click="continus=!continus">
+      {{continus ? 'Continus': 'Planned' }}
+      <i class="glyphicon"
+        ng-class="{
+      'glyphicon-align-center':!continus,
+        'glyphicon-link':continus
+        }"></i>
+    </button>
   </div>
   <div class="row">
     <ul class="media-list row">
       <durable ng-repeat="e in entities" model="e" remove="onRemove"
-      show="today(e)" change="onChange"></durable>
+       done="onDone" change="onChange" show="today(e)"></durable>
     </ul>
   </div>
 
@@ -32,12 +40,13 @@
         'glyphicon-collapse-down':!visibleHistory,
         'glyphicon-collapse-up':visibleHistory
         }"></i>
+      {{visibleHistory ? 'Hide': 'Show' }}
     </button>
   </div>
   <div class="row">
     <ul class="media-list row" ng-show="visibleHistory">
       <durable ng-repeat="e in entities" model="e" remove="onRemove"
-      change="onChange" show="!today(e)"></durable>
+       done="onDone" change="onChange" show="!today(e)"></durable>
     </ul>
   </div>
 

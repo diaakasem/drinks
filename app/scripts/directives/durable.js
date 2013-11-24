@@ -84,7 +84,8 @@
           }
         } else {
           timeout.cancel(timer);
-          return scope.onChange()(scope.model);
+          scope.onChange()(scope.model);
+          return scope.onDone()(scope.model);
         }
       } else {
         return (_ref1 = sounds.current) != null ? _ref1.pause() : void 0;
@@ -134,7 +135,8 @@
         model: '=',
         onChange: '&change',
         remove: '&remove',
-        show: '='
+        show: '=',
+        onDone: '&done'
       },
       replace: true,
       controller: ['$scope', '$timeout', controller]

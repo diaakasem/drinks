@@ -15,7 +15,7 @@
     "parse-js-sdk": "~1.2.8",
     "d3": "~3.3.9",
     "angular-bootstrap": "~0.6.0",
-	"underscore.string": "~2.3.3",
+    "underscore.string": "~2.3.3",
     "dng": "zxeem/dng"
   },
   "devDependencies": {

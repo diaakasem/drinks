@@ -27,6 +27,11 @@ controller = (scope, Service)->
   scope.onChange = (model)->
     Service.update model
 
+  scope.onDone = (model)->
+    if scope.continus
+      scope.name = model.get('name')
+      scope.add()
+
   scope.today = (->
     m = moment()
     dayMS = m.diff moment().startOf('day')
@@ -35,6 +40,7 @@ controller = (scope, Service)->
       res = m.diff moment(model.createdAt)
       res < dayMS
   )()
+  $('#make-switch').bootstrapSwitch('setSizeClass', '');
 
 angular.module('manageApp')
   .directive('pomodorolist', () ->
