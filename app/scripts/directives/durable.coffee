@@ -50,8 +50,8 @@ controller =  (scope, timeout) ->
   runInterval = ->
     timer = timeout runInterval, everyPeriod
     pause = scope.model.get('pause')
-    timePassed = (new Date() - scope.model.createdAt - pausesTime) / 1000
     unless pause.start
+      timePassed = (new Date() - scope.model.createdAt - pausesTime) / 1000
       if scope.model.get('status') isnt 'done'
 
         if count() > 0

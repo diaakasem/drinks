@@ -61,8 +61,8 @@
       var pause, _ref, _ref1;
       timer = timeout(runInterval, everyPeriod);
       pause = scope.model.get('pause');
-      timePassed = (new Date() - scope.model.createdAt - pausesTime) / 1000;
       if (!pause.start) {
+        timePassed = (new Date() - scope.model.createdAt - pausesTime) / 1000;
         if (scope.model.get('status') !== 'done') {
           if (count() > 0) {
             if (!scope.mute) {
