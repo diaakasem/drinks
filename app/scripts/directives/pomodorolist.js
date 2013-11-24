@@ -41,7 +41,7 @@
         return scope.add();
       }
     };
-    scope.today = (function() {
+    return scope.today = (function() {
       var dayMS, m;
       m = moment();
       dayMS = m.diff(moment().startOf('day'));
@@ -52,7 +52,6 @@
         return res < dayMS;
       };
     })();
-    return $('#dimension-switch').bootstrapSwitch('setSizeClass', '');
   };
 
   angular.module('manageApp').directive('pomodorolist', function() {

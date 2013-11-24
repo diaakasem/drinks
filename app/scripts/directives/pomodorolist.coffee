@@ -40,7 +40,6 @@ controller = (scope, Service)->
       res = m.diff moment(model.createdAt)
       res < dayMS
   )()
-  $('#make-switch').bootstrapSwitch('setSizeClass', '');
 
 angular.module('manageApp')
   .directive('pomodorolist', () ->
