@@ -57,6 +57,7 @@ controller =  (scope, timeout) ->
   originalCount = scope.model.get('sprint') + scope.model.get('rest')
 
   count = memoize(->
+    return 0 if scope.model.get('status') is 'done'
     originalCount - timePassed()
   , 990)
 

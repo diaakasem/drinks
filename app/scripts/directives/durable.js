@@ -72,6 +72,9 @@
     }
     originalCount = scope.model.get('sprint') + scope.model.get('rest');
     count = memoize(function() {
+      if (scope.model.get('status') === 'done') {
+        return 0;
+      }
       return originalCount - timePassed();
     }, 990);
     scope.getTime = memoize(function() {
