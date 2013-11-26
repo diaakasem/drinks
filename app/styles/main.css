@@ -6,7 +6,7 @@
   ---------------------------------------------------*/
 /** Grey **//** Redish **//** Bluish **//** Yellowish **//** Whitish **/body.drinks {
   background: #f6f6f1 url('/images/bgpattern.png') 0 0 repeat;
-  font: 13px/1.7em 'Open Sans';
+  font: 'Open Sans';
   min-width: 320px;
 }
 body.drinks h1,
@@ -59,9 +59,9 @@ body.drinks .media-list .media .counter span {
   border-radius: 5px;
   color: #4b96b2;
   background-color: #f3f3f3;
-  font-size: 1.8em;
   text-align: center;
-  padding: 0 5px;
+  vertical-align: middle;
+  padding: 5px;
   min-width: 40px;
 }
 body.drinks .media-list .media .media-body {
