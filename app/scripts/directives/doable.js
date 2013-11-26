@@ -13,7 +13,7 @@
     };
   };
 
-  angular.module('drinksApp').directive('doable', function() {
+  angular.module('manageApp').directive('doable', function() {
     return {
       templateUrl: 'views/directives/doable.html',
       restrict: 'E',

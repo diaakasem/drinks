@@ -1,14 +1,43 @@
+/*---------------------------------------------------
+    LESS Elements 0.9
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
 /** Grey **//** Redish **//** Bluish **//** Yellowish **//** Whitish **/body.drinks {
+  background: #f6f6f1 url('/images/bgpattern.png') 0 0 repeat;
+  font: 13px/1.7em 'Open Sans';
   min-width: 320px;
+}
+body.drinks h1,
+body.drinks h2,
+body.drinks h3,
+body.drinks h4,
+body.drinks h5,
+body.drinks h6,
+body.drinks h7 {
+  margin-top: 0;
+  font-family: 'Ropa Sans', sans-serif;
+  color: #f3f3f3;
+}
+body.drinks .alert-danger {
+  color: #500000;
+}
+body.drinks .well {
+  background: #f3f3f3;
+  background: #464646;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgba(0, 0, 0, 0.7)), color-stop(1, rgba(0, 0, 0, 0.8)));
+  background: -ms-linear-gradient(bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.8));
+  background: -moz-linear-gradient(center bottom, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.8) 100%);
+  background: -o-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(0, 0, 0, 0.8)', endColorstr='rgba(0, 0, 0, 0.7)', GradientType=0);
 }
 body.drinks .row {
   margin: 10px auto;
   margin-top: 2px;
 }
-body.drinks .pomodorolist .row h1,
-body.drinks .pomodorolist .row h2,
-body.drinks .pomodorolist .row h3 {
-  margin-top: 0;
+body.drinks .signin {
+  border: 1px solid #464646;
 }
 body.drinks .media-list {
   clear: both;

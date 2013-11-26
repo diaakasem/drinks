@@ -56,7 +56,7 @@
 
   })();
 
-  angular.module('drinksApp').service('Idea', service);
+  angular.module('manageApp').service('Idea', service);
 
 }).call(this);
 

@@ -65,7 +65,7 @@
     };
   };
 
-  angular.module('drinksApp').directive('todolist', function() {
+  angular.module('manageApp').directive('todolist', function() {
     return {
       templateUrl: "views/directives/todolist.html",
       restrict: 'E',

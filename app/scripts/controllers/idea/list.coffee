@@ -19,6 +19,6 @@ controller = (scope, Service)->
   scope.add = ->
     Service.add addCB, scope.name
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .controller 'IdeaListCtrl',
   ['$scope', 'Idea', controller]

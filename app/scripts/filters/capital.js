@@ -6,7 +6,7 @@
     return _.str.capitalize;
   };
 
-  angular.module('drinksApp').filter('capital', filter);
+  angular.module('manageApp').filter('capital', filter);
 
 }).call(this);
 

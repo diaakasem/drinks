@@ -46,7 +46,7 @@ controller = (scope)->
         console.log e
 
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .directive('todolist', () ->
     templateUrl: "views/directives/todolist.html"
     restrict: 'E'

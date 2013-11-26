@@ -29,7 +29,7 @@
     };
   };
 
-  angular.module('drinksApp').controller('IdeaListCtrl', ['$scope', 'Idea', controller]);
+  angular.module('manageApp').controller('IdeaListCtrl', ['$scope', 'Idea', controller]);
 
 }).call(this);
 

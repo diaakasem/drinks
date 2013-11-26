@@ -10,7 +10,7 @@ controller =  (scope) ->
     scope.remove() scope.model
 
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .directive 'doable', ->
     templateUrl: 'views/directives/doable.html'
     restrict: 'E'

@@ -1,4 +1,4 @@
 filter = -> _.str.capitalize
 
-angular.module('drinksApp')
+angular.module('manageApp')
   .filter 'capital', filter

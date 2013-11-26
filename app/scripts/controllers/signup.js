@@ -2,8 +2,19 @@
 (function() {
   var controller;
 
-  controller = function($scope) {};
+  controller = function(scope) {
+    scope.onSuccess = function() {
+      return scope.go('/');
+    };
+    return scope.onError = function(user, error) {
+      return scope.error = "Please, check your username and password.";
+    };
+  };
 
   angular.module('manageApp').controller('SignupCtrl', ['$scope', controller]);
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=signup.map
+*/

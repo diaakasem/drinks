@@ -32,5 +32,5 @@ class service
       error: onError
 
   
-angular.module('drinksApp')
+angular.module('manageApp')
   .service 'Idea', service
