@@ -4,11 +4,11 @@
 
   memoize = function(fn, ttl) {
     var lastTime, m;
-    lastTime = +new Date();
+    lastTime = Date.now();
     m = _.memoize(fn);
     return function() {
       var now;
-      now = +new Date();
+      now = Date.now();
       if (now - lastTime >= ttl) {
         lastTime = now;
         m.cache = {};
@@ -59,13 +59,13 @@
         res = _.reduce(_.map(scope.model.get('pauses'), calcPauses), sum);
         p = scope.model.get('pause');
         if (p && p.start) {
-          res += new Date() - p.start;
+          res += Date.now() - p.start;
         }
         return res || 0;
       };
     })();
     timePassed = function() {
-      return (new Date() - scope.model.createdAt - pausesTime()) / 1000;
+      return (Date.now() - scope.model.createdAt - pausesTime()) / 1000;
     };
     if (timePassed() < 1) {
       play(sounds.crank);
@@ -131,11 +131,11 @@
       pause = scope.model.get('pause');
       if (!(pause && pause.start)) {
         scope.model.set('pause', {
-          start: new Date(),
+          start: Date.now(),
           end: undefined
         });
       } else {
-        pause.end = new Date();
+        pause.end = Date.now();
         scope.model.add('pauses', pause);
         scope.model.set('pause', {});
       }
