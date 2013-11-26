@@ -18,7 +18,8 @@ body.drinks h6,
 body.drinks h7 {
   margin-top: 0;
   font-family: 'Ropa Sans', sans-serif;
-  color: #f3f3f3;
+  /*color: @white;*/
+  color: #464646;
 }
 body.drinks .alert-danger {
   color: #500000;
@@ -46,7 +47,7 @@ body.drinks .media-list {
   clear: both;
 }
 body.drinks .media-list .media {
-  border: 1px solid #00b9ff;
+  border: 1px solid #5a5a51;
   border-radius: 5px;
   overflow: visible;
 }
@@ -67,6 +68,15 @@ body.drinks .media-list .media .counter span {
 body.drinks .media-list .media .media-body {
   color: #4b96b2;
 }
+body.drinks .media-list .media .media-body h1,
+body.drinks .media-list .media .media-body h2,
+body.drinks .media-list .media .media-body h3,
+body.drinks .media-list .media .media-body h4,
+body.drinks .media-list .media .media-body h5,
+body.drinks .media-list .media .media-body h6,
+body.drinks .media-list .media .media-body h7 {
+  color: #f3f3f3;
+}
 body.drinks .media-list .media .media-body form {
   margin-top: 5px;
 }
@@ -84,7 +94,7 @@ body.drinks .media-list .media.rest .counter > span {
   color: #f3f3f3;
 }
 body.drinks .media-list .media.done .counter > span {
-  background-color: #a1a1a1;
+  background-color: #f3f3f3;
 }
 body.drinks .media-list .media.done .media-body {
   text-decoration: line-through;

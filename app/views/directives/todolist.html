@@ -1,4 +1,4 @@
-<div class="row todolist well">
+<div class="row todolist">
   <form role="form" class="row form-inline" ng-submit="add(name)" name="form" novalidate>
 
     <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12 pull-right">
@@ -12,8 +12,8 @@
       </div>
     </div>
   </form>
-</div>
 
-<ul class="media-list row">
-  <doable ng-repeat="e in entities" model="e" entity="time" remove="onRemove" change="onChange"></doable>
-</ul>
+  <ul class="media-list row well">
+    <doable ng-repeat="e in entities" model="e" entity="time" remove="onRemove" change="onChange"></doable>
+  </ul>
+</div>

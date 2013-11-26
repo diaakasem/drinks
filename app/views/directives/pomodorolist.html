@@ -1,4 +1,4 @@
-<div class="row pomodorolist well">
+<div class="row pomodorolist">
   <form role="form" class="row form-inline" ng-submit="add()"
     name="form" novalidate>
 
@@ -21,7 +21,7 @@
   </form>
   <div class="row">
     <h2 class="pull-left">Today</h2>
-    <button class="btn pull-right" ng-click="continus=!continus">
+    <button class="btn btn-default pull-right" ng-click="continus=!continus">
       <i class="glyphicon"
         ng-class="{
         'glyphicon-align-center':!continus,
@@ -30,16 +30,14 @@
       {{continus ? 'Continus': 'Planned' }}
     </button>
   </div>
-  <div class="row">
-    <ul class="media-list row">
-      <durable ng-repeat="e in entities" model="e" remove="onRemove"
-      done="onDone" change="onChange" show="today(e)"></durable>
-    </ul>
-  </div>
+  <ul class="media-list row well">
+    <durable ng-repeat="e in entities" model="e" remove="onRemove"
+    done="onDone" change="onChange" show="today(e)"></durable>
+  </ul>
 
   <div class="row">
     <h2 class="pull-left">History</h2>
-    <button class="btn pull-right" ng-click="visibleHistory=!visibleHistory">
+    <button class="btn btn-default pull-right" ng-click="visibleHistory=!visibleHistory">
       <i class="glyphicon"
         ng-class="{
         'glyphicon-collapse-down':!visibleHistory,
@@ -48,11 +46,9 @@
       {{visibleHistory ? 'Hide': 'Show' }}
     </button>
   </div>
-  <div class="row">
-    <ul class="media-list row" ng-show="visibleHistory">
-      <durable ng-repeat="e in entities" model="e" remove="onRemove"
-      done="onDone" change="onChange" show="!today(e)"></durable>
-    </ul>
-  </div>
+  <ul class="media-list row well" ng-show="visibleHistory">
+    <durable ng-repeat="e in entities" model="e" remove="onRemove"
+    done="onDone" change="onChange" show="!today(e)"></durable>
+  </ul>
 
 </div>
