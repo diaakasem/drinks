@@ -23,6 +23,9 @@ body.drinks h7 {
 body.drinks .alert-danger {
   color: #500000;
 }
+body.drinks .btn {
+  height: 35px;
+}
 body.drinks .well {
   background: #f3f3f3;
   background: #464646;
