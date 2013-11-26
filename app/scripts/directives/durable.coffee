@@ -1,8 +1,11 @@
+timeNow = ->
+  new Date().getTime()
+
 memoize = (fn, ttl)->
-  lastTime = Date.now()
+  lastTime = timeNow()
   m = _.memoize fn
   ->
-    now = Date.now()
+    now = timeNow()
     if now - lastTime >= ttl
       lastTime = now
       m.cache = {}
@@ -44,12 +47,12 @@ controller =  (scope, timeout) ->
         res = _.reduce _.map(scope.model.get('pauses'), calcPauses), sum
         p = scope.model.get('pause')
         if p and p.start
-          res += Date.now() - p.start
+          res += timeNow() - p.start
         res or 0
   )()
 
   timePassed = ->
-    (Date.now() - scope.model.createdAt - pausesTime()) / 1000
+    (timeNow() - scope.model.createdAt - pausesTime()) / 1000
 
   if timePassed() < 1
     play sounds.crank
@@ -106,10 +109,10 @@ controller =  (scope, timeout) ->
     pause = scope.model.get 'pause'
     unless pause and pause.start
       scope.model.set 'pause',
-        start: Date.now()
+        start: timeNow()
         end: `undefined`
     else
-      pause.end = Date.now()
+      pause.end = timeNow()
       scope.model.add('pauses', pause)
       scope.model.set('pause', {})
     scope.onChange() scope.model
