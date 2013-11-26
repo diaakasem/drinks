@@ -52,9 +52,6 @@
   app = angular.module("manageApp", dependencies).config(config);
 
   rootController = function(root, location) {
-    document.body.addEventListener('touchmove', function(e) {
-      return e.preventDefault();
-    }, false);
     root.go = function(url) {
       return location.path('/' + url);
     };

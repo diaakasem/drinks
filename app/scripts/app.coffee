@@ -49,10 +49,6 @@ dependencies = ['ui.bootstrap', 'ngRoute', 'dng.parse']
 app = angular.module("manageApp", dependencies).config config
 
 rootController = (root, location)->
-  # Prevent iPad, iPhone bounce
-  document.body.addEventListener 'touchmove', (e)->
-    e.preventDefault()
-  , no
 
   root.go = (url)->
     location.path('/' + url)

@@ -21,6 +21,15 @@ body.drinks h7 {
   /*color: @white;*/
   color: #464646;
 }
+body.drinks .well h1,
+body.drinks .well h2,
+body.drinks .well h3,
+body.drinks .well h4,
+body.drinks .well h5,
+body.drinks .well h6,
+body.drinks .well h7 {
+  color: #f3f3f3;
+}
 body.drinks .alert-danger {
   color: #500000;
 }
