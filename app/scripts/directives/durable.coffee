@@ -13,8 +13,7 @@ memoize = (fn, ttl)->
 
 controller =  (scope, timeout) ->
 
-  if not scope.show
-    return
+  return unless scope.show
 
   # Mute by default
   scope.mute = yes
