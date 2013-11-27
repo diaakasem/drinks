@@ -62,11 +62,8 @@
         sounds.current = document.getElementById(song);
       }
       if (song !== (sounds.last != null)) {
-        if ((_ref4 = sounds.current) != null) {
-          _ref4.play();
-        }
+        return (_ref4 = sounds.current) != null ? _ref4.play() : void 0;
       }
-      return console.log("" + song + " : " + sounds.current.currentTime);
     };
     pausesTime = (function() {
       var calcPauses, sum;

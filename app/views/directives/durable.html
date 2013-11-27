@@ -5,8 +5,8 @@
       ng-show="!whenDone(model)">
       <span>{{getTime() | timer}}</span>
     </span>
-    <span class="counter {{model.get('status')}}"
-      ng-show="whenDone(model)">
+    <span class="counter done"
+      ng-show="model.get('status') != 'rest' && whenDone(model)">
       <span><i class="glyphicon glyphicon-ok"></i></span>
     </span>
   </div>
