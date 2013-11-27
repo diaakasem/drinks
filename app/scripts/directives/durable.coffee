@@ -43,11 +43,14 @@ controller =  (scope, timeout) ->
     calcPauses = (p)-> p.end - p.start
     sum = (x,y)-> x + y
     ->
-        res = _.reduce _.map(scope.model.get('pauses'), calcPauses), sum
-        p = scope.model.get('pause')
-        if p and p.start
-          res += timeNow() - p.start
-        res or 0
+      res = _.reduce _.map(scope.model.get('pauses'), calcPauses), sum
+      res ?= 0
+      p = scope.model.get('pause')
+      if p?.start
+        currentPause =  timeNow() - p.start
+        console.log currentPause
+        res += currentPause
+      res or 0
   )()
 
   timePassed = ->
@@ -59,8 +62,7 @@ controller =  (scope, timeout) ->
   originalCount = scope.model.get('sprint') + scope.model.get('rest')
 
   count = memoize(->
-    return 0 if scope.model.get('status') is 'done'
-    originalCount - timePassed()
+    if scope.model.get('status') is 'done' then 0 else originalCount - timePassed()
   , 990)
 
   scope.getTime = memoize(->

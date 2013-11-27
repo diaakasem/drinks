@@ -59,11 +59,16 @@
         return x + y;
       };
       return function() {
-        var p, res;
+        var currentPause, p, res;
         res = _.reduce(_.map(scope.model.get('pauses'), calcPauses), sum);
+        if (res == null) {
+          res = 0;
+        }
         p = scope.model.get('pause');
-        if (p && p.start) {
-          res += timeNow() - p.start;
+        if (p != null ? p.start : void 0) {
+          currentPause = timeNow() - p.start;
+          console.log(currentPause);
+          res += currentPause;
         }
         return res || 0;
       };
@@ -78,8 +83,9 @@
     count = memoize(function() {
       if (scope.model.get('status') === 'done') {
         return 0;
+      } else {
+        return originalCount - timePassed();
       }
-      return originalCount - timePassed();
     }, 990);
     scope.getTime = memoize(function() {
       if (scope.model.get('status') !== 'done') {
