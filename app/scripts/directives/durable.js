@@ -40,15 +40,33 @@
       tick: 'tickSound',
       crank: 'crankSound',
       alarm: 'alarmSound',
-      current: null
+      current: null,
+      last: null
     };
     play = function(song) {
-      var _ref, _ref1;
-      if ((_ref = sounds.current) != null) {
-        _ref.pause();
+      var _ref, _ref1, _ref2, _ref3, _ref4;
+      if (song === (sounds.last != null)) {
+        if ((_ref = sounds.current) != null) {
+          _ref.currentTime = 0;
+        }
+        if ((_ref1 = sounds.current) != null ? _ref1.paused : void 0) {
+          if ((_ref2 = sounds.current) != null) {
+            _ref2.play();
+          }
+        }
+      } else {
+        if ((_ref3 = sounds.current) != null) {
+          _ref3.pause();
+        }
+        sounds.last = song;
+        sounds.current = document.getElementById(song);
       }
-      sounds.current = document.getElementById(song);
-      return (_ref1 = sounds.current) != null ? _ref1.play() : void 0;
+      if (song !== (sounds.last != null)) {
+        if ((_ref4 = sounds.current) != null) {
+          _ref4.play();
+        }
+      }
+      return console.log("" + song + " : " + sounds.current.currentTime);
     };
     pausesTime = (function() {
       var calcPauses, sum;

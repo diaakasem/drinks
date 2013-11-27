@@ -32,12 +32,18 @@ controller =  (scope, timeout) ->
     crank: 'crankSound'
     alarm: 'alarmSound'
     current: null
+    last: null
 
   play = (song)->
-    #console.log "Playing #{song}"
-    sounds.current?.pause()
-    sounds.current = document.getElementById song
-    sounds.current?.play()
+    if song is sounds.last?
+      sounds.current?.currentTime = 0
+      sounds.current?.play() if sounds.current?.paused
+    else
+      sounds.current?.pause()
+      sounds.last = song
+      sounds.current = document.getElementById song
+    if song isnt sounds.last?
+      sounds.current?.play()
 
   pausesTime = (->
     calcPauses = (p)-> p.end - p.start
