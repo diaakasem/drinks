@@ -82,7 +82,6 @@
         p = scope.model.get('pause');
         if (p != null ? p.start : void 0) {
           currentPause = timeNow() - p.start;
-          console.log(currentPause);
           res += currentPause;
         }
         return res || 0;

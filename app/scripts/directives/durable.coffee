@@ -54,7 +54,6 @@ controller =  (scope, timeout) ->
       p = scope.model.get('pause')
       if p?.start
         currentPause =  timeNow() - p.start
-        console.log currentPause
         res += currentPause
       res or 0
   )()
