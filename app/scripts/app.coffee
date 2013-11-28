@@ -10,14 +10,14 @@ config = ($routeProvider, $compileProvider) ->
     #access: 'user'
   #)
   $routeProvider.when "/",
-    redirectTo: '/time/list'
+    redirectTo: '/pomodoro'
   
 
   # Temporary
 
   entities =
     'Drink':['Add', '_Edit', 'List', '_View']
-    'Time':['List', '_View']
+    'Todo':[]
     'Cash':[]
     'Idea':['List']
 
@@ -42,6 +42,16 @@ config = ($routeProvider, $compileProvider) ->
     templateUrl: 'views/signup.html',
     controller: 'SignupCtrl'
     access: 'public'
+
+  .when '/pomodoro',
+    templateUrl: 'views/pomodoro.html',
+    controller: 'PomodoroCtrl'
+    access: 'user'
+
+  .when '/todo',
+    templateUrl: 'views/todo.html',
+    controller: 'TodoCtrl'
+    access: 'user'
 
   $routeProvider.otherwise redirectTo: '/'
 

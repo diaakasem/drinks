@@ -17,7 +17,27 @@
   <ul class="nav navbar-nav" activenavitem ng-show="user">
     <li matches="/drink.*"><a href="#/drink/list"><i class="glyphicon glyphicon-flash"></i> Fitness </a></li>
     <li matches="/cash.*"><a href="#/cash/list"><i class="glyphicon glyphicon-usd"></i> Cash Flow </a></li>
-    <li matches="/time.*"><a href="#/time/list"><i class="glyphicon glyphicon-time"></i> Time </a></li>
+    <li matches="/time.*" class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+      <i class="glyphicon glyphicon-time"></i> Time
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li id="pomodoro">
+      <a href="#/pomodoro">
+        <i class="glyphicon glyphicon-ok-circle"></i>
+        Pomodoro
+      </a>
+      </li>
+      <li id="todo">
+      <a href="#/todo">
+        <i class="glyphicon glyphicon-list"></i>
+        TODO
+      </a>
+      </li>
+    </ul>
+
+    </li>
     <li matches="/idea.*"><a href="#/idea/list"><i class="glyphicon glyphicon-leaf"></i> Ideas </a></li>
     <li><a href="#/settings"><i class="glyphicon glyphicon-cog"></i> Settings </a></li>
   </ul>

@@ -7,11 +7,11 @@
     Parse.initialize("WSGMmizuVjklAI6SpdIMBypeDCzKPUAo05QpWUnV", "OVNmBrjWj4ggScDNvKf159pVQM89vyNTlRIOIh4u");
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
     $routeProvider.when("/", {
-      redirectTo: '/time/list'
+      redirectTo: '/pomodoro'
     });
     entities = {
       'Drink': ['Add', '_Edit', 'List', '_View'],
-      'Time': ['List', '_View'],
+      'Todo': [],
       'Cash': [],
       'Idea': ['List']
     };
@@ -41,6 +41,14 @@
       templateUrl: 'views/signup.html',
       controller: 'SignupCtrl',
       access: 'public'
+    }).when('/pomodoro', {
+      templateUrl: 'views/pomodoro.html',
+      controller: 'PomodoroCtrl',
+      access: 'user'
+    }).when('/todo', {
+      templateUrl: 'views/todo.html',
+      controller: 'TodoCtrl',
+      access: 'user'
     });
     return $routeProvider.otherwise({
       redirectTo: '/'
