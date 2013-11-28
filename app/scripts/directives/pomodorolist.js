@@ -3,6 +3,7 @@
   var controller;
 
   controller = function(scope, Service) {
+    scope.activeTab = 'pomodoro_today';
     scope.entities = [];
     scope.name = '';
     scope.tags = '';

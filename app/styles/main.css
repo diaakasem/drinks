@@ -108,6 +108,12 @@ body.drinks .media-list .media.done .counter > span {
 body.drinks .media-list .media.done .media-body {
   text-decoration: line-through;
 }
+body.drinks .nav-tabs li a {
+  color: #3e444c;
+}
+body.drinks .nav-tabs li a:hover {
+  color: white;
+}
 .active > a {
   color: #ff5a7d !important;
 }

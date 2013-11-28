@@ -19,36 +19,36 @@
     </div>
 
   </form>
-  <div class="row">
-    <h2 class="pull-left">Today</h2>
-    <button class="btn btn-default pull-right" ng-click="continus=!continus">
-      <i class="glyphicon"
-        ng-class="{
-        'glyphicon-align-center':!continus,
-        'glyphicon-link':continus
-        }"></i>
-      {{continus ? 'Continus': 'Planned' }}
-    </button>
-  </div>
-  <ul class="media-list row well">
-    <durable ng-repeat="e in entities" model="e" remove="onRemove"
-    done="onDone" change="onChange" show="today(e)"></durable>
+  
+  <button class="btn btn-default pull-right" ng-click="continus=!continus"
+    ng-show="activeTab == 'pomodoro_today'">
+    <i class="glyphicon"
+      ng-class="{
+      'glyphicon-align-center':!continus,
+      'glyphicon-link':continus
+      }"></i>
+    {{continus ? 'Continus': 'Planned' }}
+  </button>
+  <ul class="nav nav-tabs">
+    <li ng-class="{active: activeTab == 'pomodoro_today'}">
+    <a ng-click="activeTab='pomodoro_today'" data-toggle="tab" class="clickable"> Today </a>
+    </li>
+    <li ng-class="{active: activeTab == 'pomodoro_history'}">
+    <a ng-click="activeTab='pomodoro_history'" data-toggle="tab" class="clickable"> History </a>
+    </li>
   </ul>
-
-  <div class="row">
-    <h2 class="pull-left">History</h2>
-    <button class="btn btn-default pull-right" ng-click="visibleHistory=!visibleHistory">
-      <i class="glyphicon"
-        ng-class="{
-        'glyphicon-collapse-down':!visibleHistory,
-        'glyphicon-collapse-up':visibleHistory
-        }"></i>
-      {{visibleHistory ? 'Hide': 'Show' }}
-    </button>
+  <div class="tab-content">
+    <div class="tab-pane" id="pomodoro_today" ng-class="{active: activeTab == 'pomodoro_today'}">
+      <ul class="media-list row well">
+        <durable ng-repeat="e in entities" model="e" remove="onRemove"
+        done="onDone" change="onChange" show="today(e)"></durable>
+      </ul>
+    </div>
+    <div class="tab-pane" id="pomodoro_history" ng-class="{active: activeTab == 'pomodoro_history'}">
+      <ul class="media-list row well">
+        <durable ng-repeat="e in entities" model="e" remove="onRemove"
+        done="onDone" change="onChange" show="!today(e)"></durable>
+      </ul>
+    </div>
   </div>
-  <ul class="media-list row well" ng-show="visibleHistory">
-    <durable ng-repeat="e in entities" model="e" remove="onRemove"
-    done="onDone" change="onChange" show="!today(e)"></durable>
-  </ul>
-
 </div>
