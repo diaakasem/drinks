@@ -1,6 +1,6 @@
 controller = (scope, Service)->
 
-  scope.activeTab = 'pomodoro_today'
+  scope.tab = 'today'
   scope.entities = []
   scope.name = ''
   scope.tags = ''
@@ -36,7 +36,7 @@ controller = (scope, Service)->
       scope.tags = model.get('tags')
       scope.add()
 
-  scope.today = (->
+  scope.isToday = (->
     m = moment()
     dayMS = m.diff moment().startOf('day')
     console.log dayMS

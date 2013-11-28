@@ -1,24 +1,26 @@
 <navcontainer>
 
 <ul class="nav nav-pills">
-  <li id="pomodoro" class="active">
-  <a ng-click="show('pomodoro')">
+  <li id="pomodoro" ng-class="{active: tab=='pomodoro'}">
+  <a ng-click="tab='pomodoro'" class="clickable">
     <i class="glyphicon glyphicon-ok-circle"></i>
     Pomodoro
   </a>
   </li>
-  <li id="todo">
-  <a ng-click="show('todo')">
+
+  <li id="todo" ng-class="{active: tab=='todo'}">
+  <a ng-click="tab='todo'" class="clickable">
     <i class="glyphicon glyphicon-list"></i>
     TODO
   </a>
   </li>
 </ul>
+
 <div id='content' class="tab-content">
-  <div class="tab-pane active" id="pomodoro">
+  <div class="tab-pane" id="pomodoro" ng-class="{active: tab=='pomodoro'}">
     <pomodorolist></pomodorolist>
   </div>
-  <div class="tab-pane" id="todo">
+  <div class="tab-pane" id="todo" ng-class="{active: tab=='todo'}">
     <todolist></todolist>
   </div>
 </div>

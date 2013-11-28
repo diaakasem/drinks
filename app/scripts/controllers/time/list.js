@@ -3,15 +3,13 @@
   var controller;
 
   controller = function(scope) {
-    return scope.show = function(id) {
-      $('.nav-pills .active').removeClass('active');
-      $('.tab-pane.active').removeClass('active');
-      $('.nav-pills li#' + id).addClass('active');
-      $('.tab-pane#' + id).addClass('active');
-      return '';
-    };
+    return scope.tab = 'pomodoro';
   };
 
   angular.module('manageApp').controller('TimeListCtrl', ['$scope', controller]);
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=list.map
+*/

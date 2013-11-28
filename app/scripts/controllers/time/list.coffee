@@ -1,11 +1,5 @@
 controller = (scope)->
-
-  scope.show = (id)->
-    $('.nav-pills .active').removeClass('active')
-    $('.tab-pane.active').removeClass('active')
-    $('.nav-pills li#'+id).addClass 'active'
-    $('.tab-pane#'+id).addClass 'active'
-    ''
+  scope.tab = 'pomodoro'
 
 angular.module('manageApp')
   .controller 'TimeListCtrl',

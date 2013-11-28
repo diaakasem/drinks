@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, Service) {
-    scope.activeTab = 'pomodoro_today';
+    scope.tab = 'today';
     scope.entities = [];
     scope.name = '';
     scope.tags = '';
@@ -45,7 +45,7 @@
         return scope.add();
       }
     };
-    return scope.today = (function() {
+    return scope.isToday = (function() {
       var dayMS, m;
       m = moment();
       dayMS = m.diff(moment().startOf('day'));
