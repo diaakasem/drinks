@@ -3,11 +3,15 @@
   var controller;
 
   controller = function(scope) {
+    if (scope.user) {
+      scope.go('/');
+    }
     scope.onSuccess = function() {
       return scope.go('/');
     };
     return scope.onError = function(user, error) {
-      return scope.error = "Please, check your username and password.";
+      scope.error = "Please, check your username and password.";
+      return console.log(scope.error);
     };
   };
 
