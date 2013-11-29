@@ -11,9 +11,18 @@
       this.Pomodoro = Parse.Object.extend("Pomodoro");
     }
 
-    service.prototype.list = function(cb) {
+    service.prototype.list = function(end, start, cb) {
       var query;
+      if (end == null) {
+        end = new Date();
+      }
+      if (start == null) {
+        start = 0;
+      }
       query = new Parse.Query(this.Pomodoro);
+      query.lessThan('createdAt', new Date(end.getTime()));
+      query.greaterThan('createdAt', new Date(start.getTime()));
+      query.descending('createdAt');
       return query.find({
         success: cb,
         error: onError

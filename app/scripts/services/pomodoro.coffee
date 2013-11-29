@@ -5,8 +5,11 @@ class service
   constructor: ->
     @Pomodoro = Parse.Object.extend "Pomodoro"
 
-  list: (cb)->
+  list: (end=new Date(), start=0, cb)->
     query = new Parse.Query @Pomodoro
+    query.lessThan 'createdAt', new Date(end.getTime())
+    query.greaterThan 'createdAt', new Date(start.getTime())
+    query.descending('createdAt')
     query.find
       success: cb
       error: onError

@@ -34,20 +34,20 @@
     <a ng-click="tab='today'" class="clickable"> Today </a>
     </li>
     <li ng-class="{active: tab == 'history'}">
-    <a ng-click="tab='history'" class="clickable"> History </a>
+    <a ng-click="showHistory()" class="clickable"> History </a>
     </li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane" ng-class="{active: tab == 'today'}">
       <ul class="media-list row well">
         <durable ng-repeat="e in entities" model="e" remove="onRemove"
-        done="onDone" change="onChange" show="isToday(e)"></durable>
+        done="onDone" change="onChange" show="true"></durable>
       </ul>
     </div>
     <div class="tab-pane" ng-class="{active: tab == 'history'}">
       <ul class="media-list row well">
-        <durable ng-repeat="e in entities" model="e" remove="onRemove"
-        done="onDone" change="onChange" show="!isToday(e)"></durable>
+        <durable ng-repeat="e in history" model="e" remove="onRemove"
+        done="onDone" change="onChange" show="true"></durable>
       </ul>
     </div>
   </div>

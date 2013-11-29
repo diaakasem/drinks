@@ -1,13 +1,20 @@
 controller = (scope, Service)->
 
+  m = moment()
+  dayMS = m.diff moment().startOf('day')
+
   scope.tab = 'today'
   scope.entities = []
+  scope.history = []
   scope.name = ''
   scope.tags = ''
 
-  Service.list (results)->
+  # Listing today
+  now = new Date()
+  Service.list now, new Date(now - dayMS), (results)->
     scope.$apply ->
-      scope.entities = _.sortBy(results, 'createdAt').reverse()
+      console.log results
+      scope.entities = results
 
   scope.remove = (model)->
     Service.remove model, ->
@@ -36,14 +43,15 @@ controller = (scope, Service)->
       scope.tags = model.get('tags')
       scope.add()
 
-  scope.isToday = (->
-    m = moment()
-    dayMS = m.diff moment().startOf('day')
-    console.log dayMS
-    (model)->
-      res = m.diff moment(model.createdAt)
-      res < dayMS
-  )()
+  scope.showHistory = ->
+    scope.tab='history'
+
+    # Listing history
+    Service.list new Date(now - dayMS), new Date(0), (results)->
+      scope.$apply ->
+        console.log results
+        scope.history = results
+
 
 angular.module('manageApp')
   .directive('pomodorolist', () ->

@@ -3,13 +3,19 @@
   var controller;
 
   controller = function(scope, Service) {
+    var dayMS, m, now;
+    m = moment();
+    dayMS = m.diff(moment().startOf('day'));
     scope.tab = 'today';
     scope.entities = [];
+    scope.history = [];
     scope.name = '';
     scope.tags = '';
-    Service.list(function(results) {
+    now = new Date();
+    Service.list(now, new Date(now - dayMS), function(results) {
       return scope.$apply(function() {
-        return scope.entities = _.sortBy(results, 'createdAt').reverse();
+        console.log(results);
+        return scope.entities = results;
       });
     });
     scope.remove = function(model) {
@@ -45,17 +51,15 @@
         return scope.add();
       }
     };
-    return scope.isToday = (function() {
-      var dayMS, m;
-      m = moment();
-      dayMS = m.diff(moment().startOf('day'));
-      console.log(dayMS);
-      return function(model) {
-        var res;
-        res = m.diff(moment(model.createdAt));
-        return res < dayMS;
-      };
-    })();
+    return scope.showHistory = function() {
+      scope.tab = 'history';
+      return Service.list(new Date(now - dayMS), new Date(0), function(results) {
+        return scope.$apply(function() {
+          console.log(results);
+          return scope.history = results;
+        });
+      });
+    };
   };
 
   angular.module('manageApp').directive('pomodorolist', function() {
