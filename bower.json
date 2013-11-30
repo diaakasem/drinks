@@ -16,7 +16,8 @@
     "d3": "~3.3.9",
     "angular-bootstrap": "~0.6.0",
     "underscore.string": "~2.3.3",
-    "dng": "zxeem/dng"
+    "dng": "zxeem/dng",
+    "nvd3": "~1.1.14-beta"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0-rc.1",

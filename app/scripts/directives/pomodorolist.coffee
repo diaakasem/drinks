@@ -51,6 +51,26 @@ controller = (scope, Service)->
       scope.$apply ->
         console.log results
         scope.history = results
+        chart = graph()
+        setTimeout ->
+          chart.update()
+        , 100
+
+  graph = ->
+    data = scope.history.reverse()
+    data = _.groupBy scope.history, (d)-> d.get('tags')
+    data = _.map data, (arr, k)->
+      days = _.groupBy(arr, (d)->moment(d.createdAt).startOf('day'))
+      v = _.map(days, (v, k)-> {x: k, y: v.length})
+      {key: k, values: v}
+    console.log data
+    nv.addGraph ->
+      chart = nv.models.multiBarChart()
+      chart.xAxis.tickFormat (d)-> moment(new Date(d)).format('MMM Do')
+      chart.yAxis.tickFormat d3.format(",.1f")
+      d3.select("#reports svg").datum(data).transition().call chart
+      nv.utils.windowResize chart.update
+      chart
 
 
 angular.module('manageApp')

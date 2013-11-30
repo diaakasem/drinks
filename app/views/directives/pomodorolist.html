@@ -36,6 +36,9 @@
     <li ng-class="{active: tab == 'history'}">
     <a ng-click="showHistory()" class="clickable"> History </a>
     </li>
+    <li ng-class="{active: tab == 'reports'}">
+    <a ng-click="tab='reports'" class="clickable"> Reports </a>
+    </li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane" ng-class="{active: tab == 'today'}">
@@ -49,6 +52,11 @@
         <durable ng-repeat="e in history" model="e" remove="onRemove"
         done="onDone" change="onChange" show="true"></durable>
       </ul>
+    </div>
+    <div class="tab-pane" ng-class="{active: tab == 'reports'}">
+      <div id="reports">
+        <svg width="100%" height="400"></svg>
+      </div>
     </div>
   </div>
 </div>

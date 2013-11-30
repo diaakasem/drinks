@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, Service) {
-    var dayMS, m, now;
+    var dayMS, graph, m, now;
     m = moment();
     dayMS = m.diff(moment().startOf('day'));
     scope.tab = 'today';
@@ -51,13 +51,53 @@
         return scope.add();
       }
     };
-    return scope.showHistory = function() {
+    scope.showHistory = function() {
       scope.tab = 'history';
       return Service.list(new Date(now - dayMS), new Date(0), function(results) {
         return scope.$apply(function() {
+          var chart;
           console.log(results);
-          return scope.history = results;
+          scope.history = results;
+          chart = graph();
+          return setTimeout(function() {
+            return chart.update();
+          }, 100);
         });
+      });
+    };
+    return graph = function() {
+      var data;
+      data = scope.history.reverse();
+      data = _.groupBy(scope.history, function(d) {
+        return d.get('tags');
+      });
+      data = _.map(data, function(arr, k) {
+        var days, v;
+        days = _.groupBy(arr, function(d) {
+          return moment(d.createdAt).startOf('day');
+        });
+        v = _.map(days, function(v, k) {
+          return {
+            x: k,
+            y: v.length
+          };
+        });
+        return {
+          key: k,
+          values: v
+        };
+      });
+      console.log(data);
+      return nv.addGraph(function() {
+        var chart;
+        chart = nv.models.multiBarChart();
+        chart.xAxis.tickFormat(function(d) {
+          return moment(new Date(d)).format('MMM Do');
+        });
+        chart.yAxis.tickFormat(d3.format(",.1f"));
+        d3.select("#reports svg").datum(data).transition().call(chart);
+        nv.utils.windowResize(chart.update);
+        return chart;
       });
     };
   };
