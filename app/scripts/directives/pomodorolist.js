@@ -69,43 +69,75 @@
         });
       }
     };
+    scope.isBar = true;
     return scope.showReports = function() {
       scope.tab = 'reports';
       return scope.showHistory(false, function(historyData) {
-        var data, e, s;
-        s = new Date();
-        data = historyData.concat(scope.entities);
-        data = _.groupBy(scope.history, function(d) {
-          return d.get('tags');
-        });
-        data = _.map(data, function(arr, k) {
-          var days, v;
-          days = _.groupBy(arr, function(d) {
-            return moment(d.createdAt).startOf('day');
+        var buildData, buildGraph;
+        buildData = function(isBar) {
+          var data;
+          data = scope.entities.concat(historyData);
+          data = _.groupBy(data, function(d) {
+            return d.get('tags');
           });
-          v = _.map(days, function(v, k) {
+          data = _.map(data, function(arr, tag) {
+            var days, v;
+            days = _.groupBy(arr, function(d) {
+              return moment(d.createdAt).startOf('day').unix() * 1000;
+            });
+            v = _.map(days, function(pomodoros, day) {
+              var count;
+              count = pomodoros ? pomodoros.length : 0;
+              day = parseInt(day);
+              if (isBar) {
+                return {
+                  x: day,
+                  y: count
+                };
+              } else {
+                return [day, count];
+              }
+            });
+            v = _.sortBy(v, function(d) {
+              var ret;
+              ret = isBar ? d.x : d[0];
+              return ret;
+            });
             return {
-              x: k,
-              y: v ? v.length : 0
+              key: tag,
+              values: v
             };
           });
-          return {
-            key: k,
-            values: v
-          };
-        });
-        e = new Date();
-        return nv.addGraph(function() {
-          var chart;
-          chart = nv.models.multiBarChart();
+          data = _.sortBy(data, 'key');
+          return data;
+        };
+        buildGraph = function() {
+          var chart, data;
+          d3.select('svg g').remove();
+          data = buildData(scope.isBar);
+          console.log(data);
+          if (scope.isBar) {
+            chart = nv.models.multiBarChart();
+          } else {
+            chart = nv.models.cumulativeLineChart().x(function(d) {
+              return d[0];
+            }).y(function(d) {
+              return d[1];
+            }).clipEdge(true);
+          }
           chart.xAxis.axisLabel('Dates').tickFormat(function(d) {
-            return moment(new Date(d)).format('MMM Do');
+            console.log(d);
+            return moment(d).format('MMM Do');
           });
-          chart.yAxis.axisLabel('Pomodoris');
+          chart.yAxis.axisLabel('Pomodoris').tickFormat(d3.format(",.1f"));
           d3.select("#reports svg").datum(data).transition().duration(1000).call(chart);
-          nv.utils.windowResize(chart.update);
-          return chart;
+          chart;
+          return nv.utils.windowResize(chart.update);
+        };
+        scope.$watch('isBar', function(isBar) {
+          return nv.addGraph(buildGraph);
         });
+        return nv.addGraph(buildGraph);
       });
     };
   };

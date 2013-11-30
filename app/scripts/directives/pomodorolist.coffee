@@ -54,32 +54,67 @@ controller = (scope, Service)->
           scope.history = results
           cb?(results)
 
+  scope.isBar = yes
   scope.showReports = ->
     scope.tab = 'reports'
     scope.showHistory no, (historyData)->
-      s = new Date()
-      data = historyData.concat(scope.entities)
-      data = _.groupBy scope.history, (d)-> d.get('tags')
-      data = _.map data, (arr, k)->
-        days = _.groupBy(arr, (d)->moment(d.createdAt).startOf('day'))
-        v = _.map(days, (v, k)-> {x: k, y: if v then v.length else 0})
-        {key: k, values: v}
-      e = new Date()
-      nv.addGraph ->
-        chart = nv.models.multiBarChart()
+
+      buildData = (isBar)->
+        data = scope.entities.concat(historyData)
+        data = _.groupBy data, (d)-> d.get('tags')
+        data = _.map data, (arr, tag)->
+          days = _.groupBy(arr, (d)->moment(d.createdAt).startOf('day').unix()*1000)
+          v = _.map(days, (pomodoros, day)->
+            count = if pomodoros then pomodoros.length else 0
+            day = parseInt day
+            if isBar then {x: day, y: count} else [day, count]
+          )
+
+          v = _.sortBy v, (d)->
+            ret = if isBar then d.x else d[0]
+            ret
+          {key: tag, values: v}
+
+        data = _.sortBy data, 'key'
+        return data
+
+
+      buildGraph = ->
+        d3.select('svg g').remove()
+
+        data = buildData(scope.isBar)
+        console.log data
+
+        if scope.isBar
+          chart = nv.models.multiBarChart()
+        else
+          chart = nv.models.cumulativeLineChart()
+                    .x((d)->d[0])
+                    .y((d)->d[1])
+                    .clipEdge(yes)
+
         chart.xAxis
           .axisLabel('Dates')
-          .tickFormat (d)-> moment(new Date(d)).format('MMM Do')
+          .tickFormat((d)->
+            console.log d
+            moment(d).format('MMM Do')
+          )
 
         chart.yAxis
           .axisLabel('Pomodoris')
-          #.tickFormat d3.format(",.1f")
+          .tickFormat d3.format(",.1f")
 
         d3.select("#reports svg").datum(data)
-          .transition().duration(1000)
-          .call chart
-        nv.utils.windowResize chart.update
+          .transition().duration(1000).call chart
+
         chart
+        nv.utils.windowResize chart.update
+
+
+      scope.$watch 'isBar', (isBar)->
+        nv.addGraph buildGraph
+
+      nv.addGraph buildGraph
 
 
 angular.module('manageApp')
