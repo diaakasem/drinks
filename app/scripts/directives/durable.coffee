@@ -139,6 +139,8 @@ controller =  (scope, timeout) ->
   scope.whenDone = (model)->
      model.get('status') is 'done'
 
+  $('.withtooltip').tooltip({})
+
 
 angular.module('manageApp')
   .directive 'durable', ->

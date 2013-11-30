@@ -148,7 +148,7 @@
       data = _.sortBy(data, 'key');
       return data;
     };
-    return scope.showReports = function() {
+    scope.showReports = function() {
       var graph;
       scope.tab = 'reports';
       graph = function(historyData) {
@@ -162,6 +162,8 @@
         return scope.showHistory(false, graph);
       }
     };
+    $('#whatispomodoro').popover({});
+    return $('.withtooltip').tooltip({});
   };
 
   angular.module('manageApp').directive('pomodorolist', function() {

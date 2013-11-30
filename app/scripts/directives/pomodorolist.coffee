@@ -123,6 +123,9 @@ controller = (scope, Service, timeout)->
     else
       scope.showHistory no, graph
 
+  $('#whatispomodoro').popover({})
+  $('.withtooltip').tooltip({})
+
 angular.module('manageApp')
   .directive('pomodorolist', () ->
     templateUrl: "views/directives/pomodorolist.html"

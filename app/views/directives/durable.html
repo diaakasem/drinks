@@ -41,26 +41,51 @@
     <div class="media-actions col-lg-3 col-md-4 col-sm-5 col-xs-12 ">
       <div class="pull-right">
 
-        <button class="btn btn-default" ng-click="anotherOne()">
+        <button class="btn btn-default withtooltip"
+          data-toggle="popover" title=""
+          data-container="body"
+          data-placement="left"
+          data-original-title="Start a similar Pomodori."
+          ng-click="anotherOne()">
           <i class="glyphicon glyphicon-new-window"></i>
         </button>
-        <button class="btn btn-default" ng-click="mute=true"
+        <button class="btn btn-default withtooltip" ng-click="mute=true"
+          data-toggle="popover" title=""
+          data-container="body"
+          data-placement="left"
+          data-original-title="Mute clock ticks."
           ng-show="!whenDone(model) && !mute">
           <i class="glyphicon glyphicon-volume-up"></i>
         </button>
-        <button class="btn btn-default" ng-click="mute=false"
+        <button class="btn btn-default withtooltip" ng-click="mute=false"
+          data-toggle="popover" title=""
+          data-container="body"
+          data-placement="left"
+          data-original-title="Listen to clock ticks."
           ng-show="!whenDone(model) && mute">
           <i class="glyphicon  glyphicon-volume-off"></i>
         </button>
-        <button class="btn btn-default" ng-click="doPause()"
+        <button class="btn btn-default withtooltip" ng-click="doPause()"
+          data-toggle="popover" title=""
+          data-container="body"
+          data-placement="left"
+          data-original-title="Resume counting down."
           ng-show="!whenDone(model) && model.get('pause').start">
           <i class="glyphicon glyphicon-play"></i>
         </button>
-        <button class="btn btn-default" ng-click="doPause()"
+        <button class="btn btn-default withtooltip" ng-click="doPause()"
+          data-toggle="popover" title=""
+          data-container="body"
+          data-placement="left"
+          data-original-title="Pause time counter."
           ng-show="!whenDone(model) && !model.get('pause').start">
           <i class="glyphicon glyphicon-pause"></i>
         </button>
-        <button class="btn btn-danger" ng-click="doRemove()">
+        <button class="btn btn-danger withtooltip" ng-click="doRemove()"
+          data-toggle="popover" title=""
+          data-container="body"
+          data-placement="left"
+          data-original-title="Remove this pomodori permenantly.">
           <i class="glyphicon glyphicon-remove"></i>
         </button>
       </div>

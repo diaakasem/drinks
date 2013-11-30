@@ -180,9 +180,10 @@
       scope.onChange()(scope.model);
       return (_ref = sounds.current) != null ? _ref.pause() : void 0;
     });
-    return scope.whenDone = function(model) {
+    scope.whenDone = function(model) {
       return model.get('status') === 'done';
     };
+    return $('.withtooltip').tooltip({});
   };
 
   angular.module('manageApp').directive('durable', function() {

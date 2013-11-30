@@ -25,20 +25,28 @@
     </div>
 
   </form>
-  <div class="help">
-    The Pomodoro Technique is a time management method developed by Francesco
-    Cirillo in the late 1980s.[1] The technique uses a timer to break down work
-    into intervals traditionally 25 minutes in length, separated by short
-    breaks. These intervals are known as "pomodori", from the Italian word
-    pomodoro for "tomato".[2] The method is based on the idea that frequent
-    breaks can improve mental agility
-  </div>
   
-  <button class="btn btn-default pull-right" ng-click="continus=!continus"
+  <button id="whatispomodoro" class="btn btn-default withtooltip pull-right"
+    data-toggle="popover" title=""
+    data-container="body"
+    data-placement="left"
+    data-original-title="What is pomodoro?"
+    data-content="The Pomodoro Technique is a time management method developed by Francesco
+    Cirillo in the late 1980s. The technique uses a timer to break down work
+    into intervals traditionally 25 minutes in length, separated by short
+    breaks. These intervals are known as 'pomodori', from the Italian word
+    pomodoro for 'tomato'. The method is based on the idea that frequent
+    breaks can improve mental agility." role="button"
+    data-original-title="What is pomodoro?">
+    <i class="glyphicon glyphicon-question-sign"></i>
+  </button>
+
+  <button class="btn btn-default pull-right withtooltip" ng-click="continus=!continus"
+    style="margin-right: 5px; margin-left: 5px;"
     ng-show="tab == 'today'"
     data-toggle="tooltip"
     data-placement="left"
-    data-original-title="When continus, a new pomodori is started when the current one ends." >
+    data-original-title="If continus, New pomodori starts after the current ends." >
     <i class="glyphicon"
       ng-class="{
       'glyphicon-align-center':!continus,
