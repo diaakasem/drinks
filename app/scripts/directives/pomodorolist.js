@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, Service) {
-    var dayMS, graph, m, now;
+    var dayMS, m, now;
     m = moment();
     dayMS = m.diff(moment().startOf('day'));
     scope.tab = 'today';
@@ -51,53 +51,61 @@
         return scope.add();
       }
     };
-    scope.showHistory = function() {
-      scope.tab = 'history';
-      return Service.list(new Date(now - dayMS), new Date(0), function(results) {
-        return scope.$apply(function() {
-          var chart;
-          console.log(results);
-          scope.history = results;
-          chart = graph();
-          return setTimeout(function() {
-            return chart.update();
-          }, 100);
+    scope.showHistory = function(switchtab, cb) {
+      if (switchtab == null) {
+        switchtab = true;
+      }
+      if (switchtab) {
+        scope.tab = 'history';
+      }
+      if (scope.history.length > 0) {
+        return typeof cb === "function" ? cb(scope.history) : void 0;
+      } else {
+        return Service.list(new Date(now - dayMS), new Date(0), function(results) {
+          return scope.$apply(function() {
+            scope.history = results;
+            return typeof cb === "function" ? cb(results) : void 0;
+          });
         });
-      });
+      }
     };
-    return graph = function() {
-      var data;
-      data = scope.history.reverse();
-      data = _.groupBy(scope.history, function(d) {
-        return d.get('tags');
-      });
-      data = _.map(data, function(arr, k) {
-        var days, v;
-        days = _.groupBy(arr, function(d) {
-          return moment(d.createdAt).startOf('day');
+    return scope.showReports = function() {
+      scope.tab = 'reports';
+      return scope.showHistory(false, function(historyData) {
+        var data, e, s;
+        s = new Date();
+        data = historyData.concat(scope.entities);
+        data = _.groupBy(scope.history, function(d) {
+          return d.get('tags');
         });
-        v = _.map(days, function(v, k) {
+        data = _.map(data, function(arr, k) {
+          var days, v;
+          days = _.groupBy(arr, function(d) {
+            return moment(d.createdAt).startOf('day');
+          });
+          v = _.map(days, function(v, k) {
+            return {
+              x: k,
+              y: v ? v.length : 0
+            };
+          });
           return {
-            x: k,
-            y: v.length
+            key: k,
+            values: v
           };
         });
-        return {
-          key: k,
-          values: v
-        };
-      });
-      console.log(data);
-      return nv.addGraph(function() {
-        var chart;
-        chart = nv.models.multiBarChart();
-        chart.xAxis.tickFormat(function(d) {
-          return moment(new Date(d)).format('MMM Do');
+        e = new Date();
+        return nv.addGraph(function() {
+          var chart;
+          chart = nv.models.multiBarChart();
+          chart.xAxis.axisLabel('Dates').tickFormat(function(d) {
+            return moment(new Date(d)).format('MMM Do');
+          });
+          chart.yAxis.axisLabel('Pomodoris');
+          d3.select("#reports svg").datum(data).transition().duration(1000).call(chart);
+          nv.utils.windowResize(chart.update);
+          return chart;
         });
-        chart.yAxis.tickFormat(d3.format(",.1f"));
-        d3.select("#reports svg").datum(data).transition().call(chart);
-        nv.utils.windowResize(chart.update);
-        return chart;
       });
     };
   };

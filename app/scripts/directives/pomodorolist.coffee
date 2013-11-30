@@ -43,34 +43,43 @@ controller = (scope, Service)->
       scope.tags = model.get('tags')
       scope.add()
 
-  scope.showHistory = ->
-    scope.tab='history'
-
+  scope.showHistory = (switchtab=yes, cb)->
+    scope.tab ='history' if switchtab
     # Listing history
-    Service.list new Date(now - dayMS), new Date(0), (results)->
-      scope.$apply ->
-        console.log results
-        scope.history = results
-        chart = graph()
-        setTimeout ->
-          chart.update()
-        , 100
+    if scope.history.length > 0
+      cb?(scope.history)
+    else
+      Service.list new Date(now - dayMS), new Date(0), (results)->
+        scope.$apply ->
+          scope.history = results
+          cb?(results)
 
-  graph = ->
-    data = scope.history.reverse()
-    data = _.groupBy scope.history, (d)-> d.get('tags')
-    data = _.map data, (arr, k)->
-      days = _.groupBy(arr, (d)->moment(d.createdAt).startOf('day'))
-      v = _.map(days, (v, k)-> {x: k, y: v.length})
-      {key: k, values: v}
-    console.log data
-    nv.addGraph ->
-      chart = nv.models.multiBarChart()
-      chart.xAxis.tickFormat (d)-> moment(new Date(d)).format('MMM Do')
-      chart.yAxis.tickFormat d3.format(",.1f")
-      d3.select("#reports svg").datum(data).transition().call chart
-      nv.utils.windowResize chart.update
-      chart
+  scope.showReports = ->
+    scope.tab = 'reports'
+    scope.showHistory no, (historyData)->
+      s = new Date()
+      data = historyData.concat(scope.entities)
+      data = _.groupBy scope.history, (d)-> d.get('tags')
+      data = _.map data, (arr, k)->
+        days = _.groupBy(arr, (d)->moment(d.createdAt).startOf('day'))
+        v = _.map(days, (v, k)-> {x: k, y: if v then v.length else 0})
+        {key: k, values: v}
+      e = new Date()
+      nv.addGraph ->
+        chart = nv.models.multiBarChart()
+        chart.xAxis
+          .axisLabel('Dates')
+          .tickFormat (d)-> moment(new Date(d)).format('MMM Do')
+
+        chart.yAxis
+          .axisLabel('Pomodoris')
+          #.tickFormat d3.format(",.1f")
+
+        d3.select("#reports svg").datum(data)
+          .transition().duration(1000)
+          .call chart
+        nv.utils.windowResize chart.update
+        chart
 
 
 angular.module('manageApp')
