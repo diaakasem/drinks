@@ -1,4 +1,4 @@
-controller = (scope, Service)->
+controller = (scope, Service, timeout)->
 
   m = moment()
   dayMS = m.diff moment().startOf('day')
@@ -9,12 +9,24 @@ controller = (scope, Service)->
   scope.name = ''
   scope.tags = ''
 
+  scope.tagsList = []
+  scope.namesList = []
+
+  buildLists = (entities)->
+    _.each entities, (e)->
+      scope.tagsList.push e.get('tags')
+      scope.namesList.push e.get('name')
+    scope.tagsList = _.uniq scope.tagsList
+    scope.namesList = _.uniq scope.namesList
+    console.log scope.tagsList
+    console.log scope.namesList
+  #
   # Listing today
   now = new Date()
   Service.list now, new Date(now - dayMS), (results)->
     scope.$apply ->
-      console.log results
       scope.entities = results
+      buildLists results
 
   scope.remove = (model)->
     Service.remove model, ->
@@ -57,6 +69,7 @@ controller = (scope, Service)->
       Service.list new Date(now - dayMS), new Date(0), (results)->
         scope.$apply ->
           scope.history = results
+          timeout -> buildLists results
           cb?(results)
 
   scope.isBar = yes
@@ -115,5 +128,5 @@ angular.module('manageApp')
     templateUrl: "views/directives/pomodorolist.html"
     restrict: 'E'
     scope: true
-    controller: ['$scope', 'Pomodoro', controller]
+    controller: ['$scope', 'Pomodoro', '$timeout', controller]
   )

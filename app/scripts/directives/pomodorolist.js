@@ -2,8 +2,8 @@
 (function() {
   var controller;
 
-  controller = function(scope, Service) {
-    var dayMS, m, now;
+  controller = function(scope, Service, timeout) {
+    var buildLists, dayMS, m, now;
     m = moment();
     dayMS = m.diff(moment().startOf('day'));
     scope.tab = 'today';
@@ -11,11 +11,23 @@
     scope.history = [];
     scope.name = '';
     scope.tags = '';
+    scope.tagsList = [];
+    scope.namesList = [];
+    buildLists = function(entities) {
+      _.each(entities, function(e) {
+        scope.tagsList.push(e.get('tags'));
+        return scope.namesList.push(e.get('name'));
+      });
+      scope.tagsList = _.uniq(scope.tagsList);
+      scope.namesList = _.uniq(scope.namesList);
+      console.log(scope.tagsList);
+      return console.log(scope.namesList);
+    };
     now = new Date();
     Service.list(now, new Date(now - dayMS), function(results) {
       return scope.$apply(function() {
-        console.log(results);
-        return scope.entities = results;
+        scope.entities = results;
+        return buildLists(results);
       });
     });
     scope.remove = function(model) {
@@ -69,6 +81,9 @@
         return Service.list(new Date(now - dayMS), new Date(0), function(results) {
           return scope.$apply(function() {
             scope.history = results;
+            timeout(function() {
+              return buildLists(results);
+            });
             return typeof cb === "function" ? cb(results) : void 0;
           });
         });
@@ -154,7 +169,7 @@
       templateUrl: "views/directives/pomodorolist.html",
       restrict: 'E',
       scope: true,
-      controller: ['$scope', 'Pomodoro', controller]
+      controller: ['$scope', 'Pomodoro', '$timeout', controller]
     };
   });
 
