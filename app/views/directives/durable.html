@@ -41,15 +41,17 @@
     <div class="media-actions col-lg-3 col-md-4 col-sm-5 col-xs-12 ">
       <div class="pull-right">
 
+        <button class="btn btn-default" ng-click="anotherOne()">
+          <i class="glyphicon glyphicon-new-window"></i>
+        </button>
         <button class="btn btn-default" ng-click="mute=true"
           ng-show="!whenDone(model) && !mute">
-          <i class="glyphicon glyphicon-volume-off"></i>
+          <i class="glyphicon glyphicon-volume-up"></i>
         </button>
         <button class="btn btn-default" ng-click="mute=false"
           ng-show="!whenDone(model) && mute">
-          <i class="glyphicon glyphicon-volume-up"></i>
+          <i class="glyphicon  glyphicon-volume-off"></i>
         </button>
-
         <button class="btn btn-default" ng-click="doPause()"
           ng-show="!whenDone(model) && model.get('pause').start">
           <i class="glyphicon glyphicon-play"></i>

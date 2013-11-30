@@ -112,6 +112,9 @@
         return 0;
       }
     }, 990);
+    scope.anotherOne = function() {
+      return scope.again()(scope.model);
+    };
     everyPeriod = 1000;
     runInterval = function() {
       var pause, _ref, _ref1;
@@ -191,7 +194,8 @@
         onChange: '&change',
         remove: '&remove',
         show: '=',
-        onDone: '&done'
+        onDone: '&done',
+        again: '&again'
       },
       replace: true,
       controller: ['$scope', '$timeout', controller]

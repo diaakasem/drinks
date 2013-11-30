@@ -51,6 +51,11 @@
         return scope.add();
       }
     };
+    scope.again = function(model) {
+      scope.name = model.get('name');
+      scope.tags = model.get('tags');
+      return scope.add();
+    };
     scope.showHistory = function(switchtab, cb) {
       if (switchtab == null) {
         switchtab = true;
@@ -70,75 +75,77 @@
       }
     };
     scope.isBar = true;
-    return scope.showReports = function() {
-      scope.tab = 'reports';
-      return scope.showHistory(false, function(historyData) {
-        var buildData, buildGraph;
-        buildData = function(isBar) {
-          var data;
-          data = scope.entities.concat(historyData);
-          data = _.groupBy(data, function(d) {
-            return d.get('tags');
-          });
-          data = _.map(data, function(arr, tag) {
-            var days, v;
-            days = _.groupBy(arr, function(d) {
-              return moment(d.createdAt).startOf('day').unix() * 1000;
-            });
-            v = _.map(days, function(pomodoros, day) {
-              var count;
-              count = pomodoros ? pomodoros.length : 0;
-              day = parseInt(day);
-              if (isBar) {
-                return {
-                  x: day,
-                  y: count
-                };
-              } else {
-                return [day, count];
-              }
-            });
-            v = _.sortBy(v, function(d) {
-              var ret;
-              ret = isBar ? d.x : d[0];
-              return ret;
-            });
-            return {
-              key: tag,
-              values: v
-            };
-          });
-          data = _.sortBy(data, 'key');
-          return data;
-        };
-        buildGraph = function() {
-          var chart, data;
-          d3.select('svg g').remove();
-          data = buildData(scope.isBar);
-          console.log(data);
-          if (scope.isBar) {
-            chart = nv.models.multiBarChart();
-          } else {
-            chart = nv.models.cumulativeLineChart().x(function(d) {
-              return d[0];
-            }).y(function(d) {
-              return d[1];
-            }).clipEdge(true);
-          }
-          chart.xAxis.axisLabel('Dates').tickFormat(function(d) {
-            console.log(d);
-            return moment(d).format('MMM Do');
-          });
-          chart.yAxis.axisLabel('Pomodoris').tickFormat(d3.format(",.1f"));
-          d3.select("#reports svg").datum(data).transition().duration(1000).call(chart);
-          chart;
-          return nv.utils.windowResize(chart.update);
-        };
-        scope.$watch('isBar', function(isBar) {
-          return nv.addGraph(buildGraph);
-        });
-        return nv.addGraph(buildGraph);
+    scope.buildGraph = function(data) {
+      var chart;
+      d3.select('svg g').remove();
+      data = scope.buildData(scope.isBar, data);
+      if (scope.isBar) {
+        chart = nv.models.multiBarChart();
+      } else {
+        chart = nv.models.cumulativeLineChart().x(function(d) {
+          return d[0];
+        }).y(function(d) {
+          return d[1];
+        }).clipEdge(true);
+      }
+      chart.xAxis.axisLabel('Dates').tickFormat(function(d) {
+        return moment(d).format('MMM Do');
       });
+      chart.yAxis.axisLabel('Pomodoris').tickFormat(d3.format(",.1f"));
+      d3.select("#reports svg").datum(data).transition().duration(500).call(chart);
+      nv.utils.windowResize(chart.update);
+      return chart;
+    };
+    scope.buildData = function(isBar, historyData) {
+      var data;
+      data = scope.entities.concat(historyData);
+      data = _.groupBy(data, function(d) {
+        return d.get('tags');
+      });
+      data = _.map(data, function(arr, tag) {
+        var days, v;
+        days = _.groupBy(arr, function(d) {
+          return moment(d.createdAt).startOf('day').unix() * 1000;
+        });
+        v = _.map(days, function(pomodoros, day) {
+          var count;
+          count = pomodoros ? pomodoros.length : 0;
+          day = parseInt(day);
+          if (isBar) {
+            return {
+              x: day,
+              y: count
+            };
+          } else {
+            return [day, count];
+          }
+        });
+        v = _.sortBy(v, function(d) {
+          var ret;
+          ret = isBar ? d.x : d[0];
+          return ret;
+        });
+        return {
+          key: tag,
+          values: v
+        };
+      });
+      data = _.sortBy(data, 'key');
+      return data;
+    };
+    return scope.showReports = function() {
+      var graph;
+      scope.tab = 'reports';
+      graph = function(historyData) {
+        return scope.$watch('isBar', function(isBar) {
+          return nv.addGraph(scope.buildGraph(historyData));
+        });
+      };
+      if (scope.history.length > 0) {
+        return graph(scope.history);
+      } else {
+        return scope.showHistory(false, graph);
+      }
     };
   };
 

@@ -43,6 +43,11 @@ controller = (scope, Service)->
       scope.tags = model.get('tags')
       scope.add()
 
+  scope.again = (model)->
+    scope.name = model.get('name')
+    scope.tags = model.get('tags')
+    scope.add()
+
   scope.showHistory = (switchtab=yes, cb)->
     scope.tab ='history' if switchtab
     # Listing history
@@ -55,67 +60,55 @@ controller = (scope, Service)->
           cb?(results)
 
   scope.isBar = yes
+
+  scope.buildGraph = (data)->
+    d3.select('svg g').remove()
+    data = scope.buildData(scope.isBar, data)
+    if scope.isBar
+      chart = nv.models.multiBarChart()
+    else
+      chart = nv.models.cumulativeLineChart()
+                .x((d)->d[0])
+                .y((d)->d[1])
+                .clipEdge(yes)
+    chart.xAxis
+      .axisLabel('Dates')
+      .tickFormat((d)-> moment(d).format('MMM Do'))
+    chart.yAxis
+      .axisLabel('Pomodoris')
+      .tickFormat d3.format(",.1f")
+    d3.select("#reports svg").datum(data)
+      .transition().duration(500).call chart
+    nv.utils.windowResize chart.update
+    chart
+
+  scope.buildData = (isBar, historyData)->
+    data = scope.entities.concat(historyData)
+    data = _.groupBy data, (d)-> d.get('tags')
+    data = _.map data, (arr, tag)->
+      days = _.groupBy(arr, (d)->moment(d.createdAt).startOf('day').unix()*1000)
+      v = _.map(days, (pomodoros, day)->
+        count = if pomodoros then pomodoros.length else 0
+        day = parseInt day
+        if isBar then {x: day, y: count} else [day, count]
+      )
+      v = _.sortBy v, (d)->
+        ret = if isBar then d.x else d[0]
+        ret
+      {key: tag, values: v}
+    data = _.sortBy data, 'key'
+    return data
+
   scope.showReports = ->
     scope.tab = 'reports'
-    scope.showHistory no, (historyData)->
-
-      buildData = (isBar)->
-        data = scope.entities.concat(historyData)
-        data = _.groupBy data, (d)-> d.get('tags')
-        data = _.map data, (arr, tag)->
-          days = _.groupBy(arr, (d)->moment(d.createdAt).startOf('day').unix()*1000)
-          v = _.map(days, (pomodoros, day)->
-            count = if pomodoros then pomodoros.length else 0
-            day = parseInt day
-            if isBar then {x: day, y: count} else [day, count]
-          )
-
-          v = _.sortBy v, (d)->
-            ret = if isBar then d.x else d[0]
-            ret
-          {key: tag, values: v}
-
-        data = _.sortBy data, 'key'
-        return data
-
-
-      buildGraph = ->
-        d3.select('svg g').remove()
-
-        data = buildData(scope.isBar)
-        console.log data
-
-        if scope.isBar
-          chart = nv.models.multiBarChart()
-        else
-          chart = nv.models.cumulativeLineChart()
-                    .x((d)->d[0])
-                    .y((d)->d[1])
-                    .clipEdge(yes)
-
-        chart.xAxis
-          .axisLabel('Dates')
-          .tickFormat((d)->
-            console.log d
-            moment(d).format('MMM Do')
-          )
-
-        chart.yAxis
-          .axisLabel('Pomodoris')
-          .tickFormat d3.format(",.1f")
-
-        d3.select("#reports svg").datum(data)
-          .transition().duration(1000).call chart
-
-        chart
-        nv.utils.windowResize chart.update
-
-
+    graph = (historyData)->
       scope.$watch 'isBar', (isBar)->
-        nv.addGraph buildGraph
+        nv.addGraph scope.buildGraph(historyData)
 
-      nv.addGraph buildGraph
-
+    if scope.history.length > 0
+      graph(scope.history)
+    else
+      scope.showHistory no, graph
 
 angular.module('manageApp')
   .directive('pomodorolist', () ->

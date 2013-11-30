@@ -80,6 +80,9 @@ controller =  (scope, timeout) ->
       0
   , 990)
 
+  scope.anotherOne = ->
+    scope.again() scope.model
+
   everyPeriod = 1000 # 1 second
   runInterval = ->
     timer = timeout runInterval, everyPeriod
@@ -147,5 +150,7 @@ angular.module('manageApp')
       remove: '&remove'
       show: '='
       onDone: '&done'
+      again: '&again'
+      
     replace: yes
     controller: ['$scope', '$timeout', controller]
