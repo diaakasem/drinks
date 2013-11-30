@@ -3,6 +3,7 @@ controller = (scope, Service, timeout)->
   m = moment()
   dayMS = m.diff moment().startOf('day')
 
+  scope.historyFilter = ''
   scope.tab = 'today'
   scope.entities = []
   scope.history = []
@@ -122,6 +123,12 @@ controller = (scope, Service, timeout)->
       graph(scope.history)
     else
       scope.showHistory no, graph
+
+  scope.filtered = (e)->
+    regex = new RegExp ".*#{scope.historyFilter}.*", 'i'
+    if scope.historyFilter
+      return regex.test(e.get('name'))
+    return yes
 
   $('#whatispomodoro').popover({})
   $('.withtooltip').tooltip({})

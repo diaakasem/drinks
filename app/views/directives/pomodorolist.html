@@ -54,6 +54,15 @@
       }"></i>
     {{continus ? 'Continus': 'Planned' }}
   </button>
+
+      <div class="input-group pull-right col-lg-6 col-md-6 col-sm-6 col-xs-6" ng-show="tab == 'history'">
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </span>
+        <input type="text" class="form-control" placeholder="Filter history..."
+        ng-model="historyFilter">
+      </div>
+
   <ul class="nav nav-tabs">
     <li ng-class="{active: tab == 'today'}">
     <a ng-click="tab='today'" class="clickable"> Today </a>
@@ -75,7 +84,8 @@
     <div class="tab-pane" ng-class="{active: tab == 'history'}">
       <ul class="media-list row well">
         <durable ng-repeat="e in history" model="e" remove="onRemove"
-        again="again" done="onDone" change="onChange" show="true"></durable>
+        again="again" done="onDone" change="onChange"
+        show="filtered(e)"></durable>
       </ul>
     </div>
     <div class="tab-pane" ng-class="{active: tab == 'reports'}">

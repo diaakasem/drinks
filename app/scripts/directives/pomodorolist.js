@@ -6,6 +6,7 @@
     var buildLists, dayMS, m, now;
     m = moment();
     dayMS = m.diff(moment().startOf('day'));
+    scope.historyFilter = '';
     scope.tab = 'today';
     scope.entities = [];
     scope.history = [];
@@ -161,6 +162,14 @@
       } else {
         return scope.showHistory(false, graph);
       }
+    };
+    scope.filtered = function(e) {
+      var regex;
+      regex = new RegExp(".*" + scope.historyFilter + ".*", 'i');
+      if (scope.historyFilter) {
+        return regex.test(e.get('name'));
+      }
+      return true;
     };
     $('#whatispomodoro').popover({});
     return $('.withtooltip').tooltip({});
