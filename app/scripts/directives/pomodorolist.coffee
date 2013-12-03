@@ -113,11 +113,39 @@ controller = (scope, Service, timeout)->
     data = _.sortBy data, 'key'
     return data
 
+  amonthAgo = +(moment().subtract('days', 31).startOf('day'))
+  aDay = 86400000
+  today = +(moment().startOf('day')) + aDay
+  scope.lastMonth = _.range(amonthAgo, today, aDay)
+
+  indent = (arr)->
+    lastMonth = (0 for i in [0..scope.lastMonth.length])
+    for a in arr
+      day = +(moment(a.createdAt).startOf('day'))
+      index = _.indexOf scope.lastMonth, day
+      continue unless index >= 0
+      lastMonth[index]++
+
+    return lastMonth
+
+  scope.c3BuildData = (historyData)->
+    data = scope.entities.concat(historyData)
+    data = _.groupBy data, (d)-> d.get('tags')
+    res = _.map data, (v, k)-> [k].concat indent(v)
+    res
+
   scope.showReports = ->
     scope.tab = 'reports'
-    graph = (historyData)->
-      scope.$watch 'isBar', (isBar)->
-        nv.addGraph scope.buildGraph(historyData)
+    graph = (historyData, type="bar")->
+      data = scope.c3BuildData historyData
+      chart = c3.generate
+        data:
+          columns: data
+          types: _.zipObject _.map(data, (d)->[d[0], type])
+          groups: [_.map(data, (d)->d[0])]
+        axis:
+          x:
+            type: "categorized"
 
     if scope.history.length > 0
       graph(scope.history)

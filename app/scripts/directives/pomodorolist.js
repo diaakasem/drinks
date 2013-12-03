@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, Service, timeout) {
-    var buildLists, dayMS, m, now;
+    var aDay, amonthAgo, buildLists, dayMS, indent, m, now, today;
     m = moment();
     dayMS = m.diff(moment().startOf('day'));
     scope.historyFilter = '';
@@ -149,12 +149,68 @@
       data = _.sortBy(data, 'key');
       return data;
     };
+    amonthAgo = +(moment().subtract('days', 31).startOf('day'));
+    aDay = 86400000;
+    today = +(moment().startOf('day')) + aDay;
+    scope.lastMonth = _.range(amonthAgo, today, aDay);
+    indent = function(arr) {
+      var a, day, i, index, lastMonth, _i, _len;
+      lastMonth = (function() {
+        var _i, _ref, _results;
+        _results = [];
+        for (i = _i = 0, _ref = scope.lastMonth.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+          _results.push(0);
+        }
+        return _results;
+      })();
+      for (_i = 0, _len = arr.length; _i < _len; _i++) {
+        a = arr[_i];
+        day = +(moment(a.createdAt).startOf('day'));
+        index = _.indexOf(scope.lastMonth, day);
+        if (!(index >= 0)) {
+          continue;
+        }
+        lastMonth[index]++;
+      }
+      return lastMonth;
+    };
+    scope.c3BuildData = function(historyData) {
+      var data, res;
+      data = scope.entities.concat(historyData);
+      data = _.groupBy(data, function(d) {
+        return d.get('tags');
+      });
+      res = _.map(data, function(v, k) {
+        return [k].concat(indent(v));
+      });
+      return res;
+    };
     scope.showReports = function() {
       var graph;
       scope.tab = 'reports';
-      graph = function(historyData) {
-        return scope.$watch('isBar', function(isBar) {
-          return nv.addGraph(scope.buildGraph(historyData));
+      graph = function(historyData, type) {
+        var chart, data;
+        if (type == null) {
+          type = "bar";
+        }
+        data = scope.c3BuildData(historyData);
+        return chart = c3.generate({
+          data: {
+            columns: data,
+            types: _.zipObject(_.map(data, function(d) {
+              return [d[0], type];
+            })),
+            groups: [
+              _.map(data, function(d) {
+                return d[0];
+              })
+            ]
+          },
+          axis: {
+            x: {
+              type: "categorized"
+            }
+          }
         });
       };
       if (scope.history.length > 0) {
