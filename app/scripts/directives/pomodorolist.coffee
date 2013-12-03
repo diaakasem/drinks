@@ -147,10 +147,9 @@ controller = (scope, Service, timeout)->
           x_format: '%m %d'
           columns: columns
           types: types
-          groups: [_.map(data, (d)->d[0])]
+          groups: [_.map(data, _.first)]
         axis:
           x:
-            #type: "categorized"
             type : 'timeseries'
         subchart:
           show: yes
@@ -167,6 +166,11 @@ controller = (scope, Service, timeout)->
     if scope.historyFilter
       return regex.test(e.get('name'))
     return yes
+
+  scope.switch = ->
+    $('#chart').empty()
+    scope.isBar = not scope.isBar
+    scope.showReports()
 
   $('#whatispomodoro').popover({})
   $('.withtooltip').tooltip({})

@@ -203,11 +203,7 @@
             x_format: '%m %d',
             columns: columns,
             types: types,
-            groups: [
-              _.map(data, function(d) {
-                return d[0];
-              })
-            ]
+            groups: [_.map(data, _.first)]
           },
           axis: {
             x: {
@@ -233,6 +229,11 @@
         return regex.test(e.get('name'));
       }
       return true;
+    };
+    scope["switch"] = function() {
+      $('#chart').empty();
+      scope.isBar = !scope.isBar;
+      return scope.showReports();
     };
     $('#whatispomodoro').popover({});
     return $('.withtooltip').tooltip({});

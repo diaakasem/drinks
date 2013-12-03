@@ -89,6 +89,13 @@
       </ul>
     </div>
     <div class="tab-pane" ng-class="{active: tab == 'reports'}">
+      <div class="row">
+        <button ng-click="switch()" class="btn btn-default pull-right">
+          <i class="glyphicon"
+            ng-class="{'glyphicon-stats': !isBar, 'glyphicon-flash': isBar}"></i>
+          {{isBar?'Lines':'Bars'}}
+        </button>
+      </div>
       <div id="reports" style="padding: 10px;">
         <div id="chart"></div>
       </div>
