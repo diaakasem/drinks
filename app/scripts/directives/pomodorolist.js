@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, Service, timeout) {
-    var aDay, amonthAgo, buildLists, dayMS, indent, m, now, today;
+    var aDay, amonthAgo, buildLists, dayMS, end, indent, m, now;
     m = moment();
     dayMS = m.diff(moment().startOf('day'));
     scope.historyFilter = '';
@@ -20,9 +20,7 @@
         return scope.namesList.push(e.get('name'));
       });
       scope.tagsList = _.uniq(scope.tagsList);
-      scope.namesList = _.uniq(scope.namesList);
-      console.log(scope.tagsList);
-      return console.log(scope.namesList);
+      return scope.namesList = _.uniq(scope.namesList);
     };
     now = new Date();
     Service.list(now, new Date(now - dayMS), function(results) {
@@ -149,16 +147,16 @@
       data = _.sortBy(data, 'key');
       return data;
     };
-    amonthAgo = +(moment().subtract('days', 31).startOf('day'));
+    amonthAgo = +(moment().subtract('days', 30).startOf('day'));
     aDay = 86400000;
-    today = +(moment().startOf('day')) + aDay;
-    scope.lastMonth = _.range(amonthAgo, today, aDay);
+    end = +(moment().add('days', 2).startOf('day'));
+    scope.lastMonth = _.range(amonthAgo, end, aDay);
     indent = function(arr) {
       var a, day, i, index, lastMonth, _i, _len;
       lastMonth = (function() {
         var _i, _ref, _results;
         _results = [];
-        for (i = _i = 0, _ref = scope.lastMonth.length; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+        for (i = _i = 0, _ref = scope.lastMonth.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
           _results.push(0);
         }
         return _results;
@@ -188,18 +186,23 @@
     scope.showReports = function() {
       var graph;
       scope.tab = 'reports';
-      graph = function(historyData, type) {
-        var chart, data;
-        if (type == null) {
-          type = "bar";
-        }
+      graph = function(historyData) {
+        var chart, columns, config, data, monthStrings, type, types;
         data = scope.c3BuildData(historyData);
-        return chart = c3.generate({
+        type = 'bar';
+        types = scope.isBar ? _.zipObject(_.map(data, function(d) {
+          return [d[0], type];
+        })) : [];
+        monthStrings = _.map(scope.lastMonth, function(d) {
+          return moment(d).format('MM DD');
+        });
+        columns = [['date'].concat(monthStrings)].concat(data);
+        config = {
           data: {
-            columns: data,
-            types: _.zipObject(_.map(data, function(d) {
-              return [d[0], type];
-            })),
+            x: 'date',
+            x_format: '%m %d',
+            columns: columns,
+            types: types,
             groups: [
               _.map(data, function(d) {
                 return d[0];
@@ -208,10 +211,14 @@
           },
           axis: {
             x: {
-              type: "categorized"
+              type: 'timeseries'
             }
+          },
+          subchart: {
+            show: true
           }
-        });
+        };
+        return chart = c3.generate(config);
       };
       if (scope.history.length > 0) {
         return graph(scope.history);

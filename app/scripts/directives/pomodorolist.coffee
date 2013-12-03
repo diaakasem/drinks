@@ -19,8 +19,6 @@ controller = (scope, Service, timeout)->
       scope.namesList.push e.get('name')
     scope.tagsList = _.uniq scope.tagsList
     scope.namesList = _.uniq scope.namesList
-    console.log scope.tagsList
-    console.log scope.namesList
   #
   # Listing today
   now = new Date()
@@ -113,13 +111,13 @@ controller = (scope, Service, timeout)->
     data = _.sortBy data, 'key'
     return data
 
-  amonthAgo = +(moment().subtract('days', 31).startOf('day'))
+  amonthAgo = +(moment().subtract('days', 30).startOf('day'))
   aDay = 86400000
-  today = +(moment().startOf('day')) + aDay
-  scope.lastMonth = _.range(amonthAgo, today, aDay)
+  end = +(moment().add('days', 2).startOf('day'))
+  scope.lastMonth = _.range(amonthAgo, end, aDay)
 
   indent = (arr)->
-    lastMonth = (0 for i in [0..scope.lastMonth.length])
+    lastMonth = (0 for i in [0...scope.lastMonth.length])
     for a in arr
       day = +(moment(a.createdAt).startOf('day'))
       index = _.indexOf scope.lastMonth, day
@@ -136,19 +134,31 @@ controller = (scope, Service, timeout)->
 
   scope.showReports = ->
     scope.tab = 'reports'
-    graph = (historyData, type="bar")->
+    graph = (historyData)->
       data = scope.c3BuildData historyData
-      chart = c3.generate
+      type = 'bar'
+      types = if scope.isBar then _.zipObject _.map(data, (d)->[d[0], type]) else []
+      monthStrings = _.map scope.lastMonth, (d)->
+        moment(d).format 'MM DD'
+      columns = [['date'].concat monthStrings].concat data
+      config =
         data:
-          columns: data
-          types: _.zipObject _.map(data, (d)->[d[0], type])
+          x: 'date'
+          x_format: '%m %d'
+          columns: columns
+          types: types
           groups: [_.map(data, (d)->d[0])]
         axis:
           x:
-            type: "categorized"
+            #type: "categorized"
+            type : 'timeseries'
+        subchart:
+          show: yes
+
+      chart = c3.generate config
 
     if scope.history.length > 0
-      graph(scope.history)
+      graph scope.history
     else
       scope.showHistory no, graph
 
