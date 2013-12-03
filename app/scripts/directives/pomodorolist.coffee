@@ -163,9 +163,8 @@ controller = (scope, Service, timeout)->
 
   scope.filtered = (e)->
     regex = new RegExp ".*#{scope.historyFilter}.*", 'i'
-    if scope.historyFilter
-      return regex.test(e.get('name'))
-    return yes
+    return yes unless scope.historyFilter
+    regex.test(e.get('name')) or regex.test(e.get('tags'))
 
   scope.switch = ->
     $('#chart').empty()

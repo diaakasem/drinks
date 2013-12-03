@@ -225,10 +225,10 @@
     scope.filtered = function(e) {
       var regex;
       regex = new RegExp(".*" + scope.historyFilter + ".*", 'i');
-      if (scope.historyFilter) {
-        return regex.test(e.get('name'));
+      if (!scope.historyFilter) {
+        return true;
       }
-      return true;
+      return regex.test(e.get('name')) || regex.test(e.get('tags'));
     };
     scope["switch"] = function() {
       $('#chart').empty();
