@@ -1,0 +1,31 @@
+<navcontainer>
+<div class="row">
+  <form role="form" class="row form-inline"
+    ng-submit="add(form)" name="form" novalidate>
+
+    <div class="form-group col-xs-12 col-sm-4 col-md-3 col-lg-3">
+      <input type="text" id="name" class="form-control pull-right"
+      placeholder="Full Name" ng-model="model.name" required>
+    </div>
+
+    <div class="form-group col-xs-12 col-sm-8 col-md-9 col-lg-9" >
+      <div class="input-group pull-right">
+        <input type="text" id="email" class="form-control"
+        placeholder="Contact Email Address..." ng-model="model.email" required>
+        <span class="input-group-btn">
+          <button class="btn btn-default pull-right" type="submit">
+            <i class="glyphicon glyphicon-plus"></i> Add </button>
+        </span>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="well contacts">
+  <ul>
+    <li ng-repeat="c in contacts">
+    <a href="#/contacts/mail/{{c.get('email')}}">{{c.get('name')}}</a>
+    </li>
+  </ul>
+</div>
+</navcontainer>

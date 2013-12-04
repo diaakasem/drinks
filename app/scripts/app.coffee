@@ -53,6 +53,14 @@ config = ($routeProvider, $compileProvider) ->
     controller: 'TodoCtrl'
     access: 'user'
 
+  .when '/contacts',
+    templateUrl: 'views/contacts.html',
+    controller: 'ContactsCtrl'
+    access: 'user'
+
+  .when '/contacts/mail/:email',
+    templateUrl: 'views/contacts/mail.html',
+    controller: 'ContactsMailCtrl'
   $routeProvider.otherwise redirectTo: '/'
 
 dependencies = ['ui.bootstrap', 'ngRoute', 'dng.parse']

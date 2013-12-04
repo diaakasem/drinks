@@ -49,6 +49,13 @@
       templateUrl: 'views/todo.html',
       controller: 'TodoCtrl',
       access: 'user'
+    }).when('/contacts', {
+      templateUrl: 'views/contacts.html',
+      controller: 'ContactsCtrl',
+      access: 'user'
+    }).when('/contacts/mail/:email', {
+      templateUrl: 'views/contacts/mail.html',
+      controller: 'ContactsMailCtrl'
     });
     return $routeProvider.otherwise({
       redirectTo: '/'

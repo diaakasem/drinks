@@ -1,0 +1,35 @@
+<navcontainer>
+<div class="well">
+  <form role="form" class="row"
+    ng-submit="send(form)" name="form" novalidate>
+
+    <div class="form-group">
+      <label for="email" class="col-sm-2 control-label">To</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="email" ng-model="model.email" disabled="disabled"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="subject" class="col-sm-2 control-label">Subject</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="subject"
+        placeholder="Email Subject..." ng-model="model.subject"/>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="content" class="col-sm-2 control-label">Content</label>
+      <div class="col-sm-10">
+        <textarea id="content" class="form-control" rows="3" ng-model="model.content"></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-scucess pull-right">Send</button>
+      </div>
+    </div>
+
+  </form>
+</div>
+</navcontainer>
