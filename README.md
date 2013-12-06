@@ -1,4 +1,4 @@
-drinks
+Manage.im
 ======
 
-Drinks counter app
+Manage Personal Life

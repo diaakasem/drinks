@@ -10,8 +10,6 @@
       redirectTo: '/pomodoro'
     });
     entities = {
-      'Drink': ['Add', '_Edit', 'List', '_View'],
-      'Todo': [],
       'Cash': [],
       'Idea': ['List']
     };
@@ -55,7 +53,12 @@
       access: 'user'
     }).when('/contacts/mail/:email', {
       templateUrl: 'views/contacts/mail.html',
-      controller: 'ContactsMailCtrl'
+      controller: 'ContactsMailCtrl',
+      access: 'user'
+    }).when('/fitness', {
+      templateUrl: 'views/fitness.html',
+      controller: 'FitnessCtrl',
+      access: 'user'
     });
     return $routeProvider.otherwise({
       redirectTo: '/'
@@ -70,16 +73,12 @@
     root.go = function(url) {
       return location.path('/' + url);
     };
-    root.$on('$routeChangeStart', function(event, next) {
+    root.user = Parse.User.current();
+    return root.$on('$routeChangeStart', function(event, next) {
       if (next.access !== 'public' && !root.user) {
         return root.go('signin');
       }
     });
-    if (Parse.User.current()) {
-      return root.user = Parse.User.current();
-    } else {
-      return root.user = null;
-    }
   };
 
   app.run(['$rootScope', '$location', rootController]);

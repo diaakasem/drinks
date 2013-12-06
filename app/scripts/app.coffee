@@ -16,8 +16,8 @@ config = ($routeProvider, $compileProvider) ->
   # Temporary
 
   entities =
-    'Drink':['Add', '_Edit', 'List', '_View']
-    'Todo':[]
+    #'Drink':['Add', '_Edit', 'List', '_View']
+    #'Todo':[]
     'Cash':[]
     'Idea':['List']
 
@@ -61,6 +61,13 @@ config = ($routeProvider, $compileProvider) ->
   .when '/contacts/mail/:email',
     templateUrl: 'views/contacts/mail.html',
     controller: 'ContactsMailCtrl'
+    access: 'user'
+
+  .when '/fitness',
+    templateUrl: 'views/fitness.html',
+    controller: 'FitnessCtrl'
+    access: 'user'
+
   $routeProvider.otherwise redirectTo: '/'
 
 dependencies = ['ui.bootstrap', 'ngRoute', 'dng.parse']
@@ -71,13 +78,11 @@ rootController = (root, location)->
   root.go = (url)->
     location.path('/' + url)
 
+  root.user = Parse.User.current()
+
   root.$on '$routeChangeStart', (event, next)->
     if next.access isnt 'public' and not root.user
       root.go 'signin'
 
-  if Parse.User.current()
-    root.user = Parse.User.current()
-  else
-    root.user = null
 
 app.run ['$rootScope', '$location', rootController]

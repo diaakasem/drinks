@@ -114,6 +114,15 @@ body.drinks .nav-tabs li a {
 body.drinks .nav-tabs li a:hover {
   color: white;
 }
+body.drinks nav ul.dropdown-menu li a {
+  height: 35px;
+  vertical-align: middle;
+  padding-top: 8px;
+}
+body.drinks nav ul.dropdown-menu li a:hover {
+  color: black;
+  text-shadow-color: white;
+}
 .active > a {
   color: #ff5a7d !important;
 }

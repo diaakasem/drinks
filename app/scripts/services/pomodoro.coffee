@@ -5,7 +5,7 @@ class service
   constructor: ->
     @Pomodoro = Parse.Object.extend "Pomodoro"
 
-  list: (end=new Date(), start=0, cb)->
+  list: (end=new Date(), start=new Date(0), cb)->
     query = new Parse.Query @Pomodoro
     query.lessThan 'createdAt', new Date(end.getTime())
     query.greaterThan 'createdAt', new Date(start.getTime())
@@ -18,7 +18,6 @@ class service
     model.destroy
       success: cb
       error: onError
-
 
   add: (cb, name='', tags='', sprint=25*60, rest=5*60)->
     pomodoro = new @Pomodoro()
@@ -38,6 +37,5 @@ class service
       success: cb
       error: onError
 
-  
 angular.module('manageApp')
   .service 'Pomodoro', service

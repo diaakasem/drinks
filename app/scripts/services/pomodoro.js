@@ -17,7 +17,7 @@
         end = new Date();
       }
       if (start == null) {
-        start = 0;
+        start = new Date(0);
       }
       query = new Parse.Query(this.Pomodoro);
       query.lessThan('createdAt', new Date(end.getTime()));

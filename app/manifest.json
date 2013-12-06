@@ -1,6 +1,6 @@
 {
   "name": "__MSG_appName__",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "description": "__MSG_appDescription__",
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
@@ -16,7 +16,7 @@
   },
   "options_page": "options.html",
   "omnibox": {
-    "keyword": "drinks"
+    "keyword": "manage"
   },
   "content_scripts": [
     {
