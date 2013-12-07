@@ -1,0 +1,28 @@
+<div class="row">
+
+  <div class="input-group pull-right col-lg-6 col-md-6 col-sm-6 col-xs-6">
+    <span class="input-group-addon">
+      <i class="glyphicon glyphicon-search"></i>
+    </span>
+    <input type="text" class="form-control" placeholder="Filter consumed items..."
+    ng-model="consumptionFilter">
+  </div>
+
+  <ul class="nav nav-tabs">
+    <li ng-class="{active: selectedtab == 'consumption'}">
+    <a href="#/fitness/consumption"> Consumption </a>
+    </li>
+    <li ng-class="{active: selectedtab == 'items'}">
+    <a href="#/fitness/item/mine"> Item </a>
+    </li>
+    <li ng-class="{active: selectedtab == 'reports'}">
+    <a href="#/fitness/reports"> Reports </a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" ng-transclude>
+    </div>
+  </div>
+
+</div>

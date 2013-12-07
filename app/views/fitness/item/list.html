@@ -1,0 +1,17 @@
+<fitness selectedtab="item">
+<div class="row">
+  <div class="col-lg-2 col-md-3 col-sm-4 col-xs-5">
+    <ul class="nav nav-pills nav-stacked">
+      <li> <a href="#/fitness/item/mine">Mine</a> </li>
+      <li> <a href="#/fitness/item/add">Add</a> </li>
+      <li class="active"> <a href="#/fitness/item/list">Repository</a> </li>
+    </ul>
+  </div>
+
+  <div class="col-lg-10 col-md-9 col-sm-8 col-xs-7 well">
+    <div ng-repeat="e in entities">
+      <item model="e"></item>
+    </div>
+  </div>
+</div>
+</fitness>

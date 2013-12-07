@@ -56,8 +56,26 @@
       controller: 'ContactsMailCtrl',
       access: 'user'
     }).when('/fitness', {
-      templateUrl: 'views/fitness.html',
-      controller: 'FitnessCtrl',
+      redirectTo: '/fitness/consumption'
+    }).when('/fitness/item/mine', {
+      templateUrl: 'views/fitness/item/mine.html',
+      controller: 'FitnessItemMineCtrl',
+      access: 'user'
+    }).when('/fitness/item/add', {
+      templateUrl: 'views/fitness/item/add.html',
+      controller: 'FitnessItemAddCtrl',
+      access: 'user'
+    }).when('/fitness/item/list', {
+      templateUrl: 'views/fitness/item/list.html',
+      controller: 'FitnessItemListCtrl',
+      access: 'user'
+    }).when('/fitness/consumption', {
+      templateUrl: 'views/fitness/consumption.html',
+      controller: 'FitnessConsumptionCtrl',
+      access: 'user'
+    }).when('/fitness/reports', {
+      templateUrl: 'views/fitness/resports.html',
+      controller: 'FitnessResportsCtrl',
       access: 'user'
     });
     return $routeProvider.otherwise({

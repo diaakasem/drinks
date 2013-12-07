@@ -9,3 +9,5 @@ test/bower_components
 test/components
 package
 *~
+*.map
+*.jade
