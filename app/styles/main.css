@@ -123,6 +123,24 @@ body.drinks nav ul.dropdown-menu li a:hover {
   color: black;
   text-shadow-color: white;
 }
+body.drinks .images-viewer {
+  height: 120px;
+  overflow-y: auto;
+}
+body.drinks .images-viewer .images-list .image {
+  float: left;
+  padding: 5px;
+  display: inline-block;
+}
+body.drinks .image-selected img {
+  margin-top: 30px;
+  float: right;
+}
+body.drinks .item .media {
+  border: 1px solid #5a5a51;
+  border-radius: 5px;
+  padding: 10px;
+}
 .active > a {
   color: #ff5a7d !important;
 }

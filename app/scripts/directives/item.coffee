@@ -9,4 +9,5 @@ angular.module('manageApp')
     transclude: yes
     scope:
       model: '=model'
+      withControls: '=controls'
     controller: ['$scope', controller]

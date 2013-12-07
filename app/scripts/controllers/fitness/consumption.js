@@ -3,9 +3,26 @@
   'use strict';
   var controller;
 
-  controller = function(scope) {};
+  controller = function(scope, ParseCrud) {
+    var Items, error, success;
+    Items = new ParseCrud('Items');
+    scope.error = scope.success = '';
+    success = function(res) {
+      console.log(res);
+      return scope.$apply(function() {
+        return scope.entities = res;
+      });
+    };
+    error = function(e) {
+      console.log(e);
+      return scope.$apply(function() {
+        return scope.error = 'Error occured';
+      });
+    };
+    return Items.list(success, error);
+  };
 
-  angular.module('manageApp').controller('FitnessConsumptionCtrl', ['$scope', controller]);
+  angular.module('manageApp').controller('FitnessConsumptionCtrl', ['$scope', 'ParseCrud', controller]);
 
 }).call(this);
 

@@ -13,7 +13,8 @@
       restrict: 'E',
       transclude: true,
       scope: {
-        model: '=model'
+        model: '=model',
+        withControls: '=controls'
       },
       controller: ['$scope', controller]
     };
