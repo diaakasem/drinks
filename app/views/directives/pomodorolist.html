@@ -41,7 +41,13 @@
     <i class="glyphicon glyphicon-question-sign"></i>
   </button>
 
-  <button class="btn btn-default pull-right withtooltip" ng-click="continus=!continus"
+  <button class="btn btn-default pull-right visible-xs" ng-click="continus=!continus"
+    style="margin-right: 5px; margin-left: 5px;" ng-show="tab == 'today'">
+    <i ng-class="{'glyphicon-align-center': !continus, 'glyphicon-link': continus}"
+       class="glyphicon"></i>
+  </button>
+
+  <button class="btn btn-default pull-right withtooltip hidden-xs" ng-click="continus=!continus"
     style="margin-right: 5px; margin-left: 5px;"
     ng-show="tab == 'today'"
     data-toggle="tooltip"
