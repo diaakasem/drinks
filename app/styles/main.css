@@ -4,39 +4,40 @@
     A set of useful LESS mixins
     More info at: http://lesselements.com
   ---------------------------------------------------*/
-/** Grey **//** Redish **//** Bluish **//** Yellowish **//** Whitish **/body.drinks {
+/** Grey **//** Redish **//** Bluish **//** Yellowish **//** Whitish **/body.manage {
   background: #f6f6f1 url('/images/bgpattern.png') 0 0 repeat;
   font: 'Open Sans';
   min-width: 320px;
+  min-height: 400px;
 }
-body.drinks h1,
-body.drinks h2,
-body.drinks h3,
-body.drinks h4,
-body.drinks h5,
-body.drinks h6,
-body.drinks h7 {
+body.manage h1,
+body.manage h2,
+body.manage h3,
+body.manage h4,
+body.manage h5,
+body.manage h6,
+body.manage h7 {
   margin-top: 0;
   font-family: 'Ropa Sans', sans-serif;
   /*color: @white;*/
   color: #464646;
 }
-body.drinks .well h1,
-body.drinks .well h2,
-body.drinks .well h3,
-body.drinks .well h4,
-body.drinks .well h5,
-body.drinks .well h6,
-body.drinks .well h7 {
+body.manage .well h1,
+body.manage .well h2,
+body.manage .well h3,
+body.manage .well h4,
+body.manage .well h5,
+body.manage .well h6,
+body.manage .well h7 {
   color: #f3f3f3;
 }
-body.drinks .alert-danger {
+body.manage .alert-danger {
   color: #500000;
 }
-body.drinks .btn {
+body.manage .btn {
   height: 35px;
 }
-body.drinks .well {
+body.manage .well {
   background: #f3f3f3;
   background: #464646;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, rgba(0, 0, 0, 0.7)), color-stop(1, rgba(0, 0, 0, 0.8)));
@@ -45,26 +46,26 @@ body.drinks .well {
   background: -o-linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7));
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(0, 0, 0, 0.8)', endColorstr='rgba(0, 0, 0, 0.7)', GradientType=0);
 }
-body.drinks .row {
+body.manage .row {
   margin: 10px auto;
   margin-top: 2px;
 }
-body.drinks .signin {
+body.manage .signin {
   border: 1px solid #464646;
 }
-body.drinks .media-list {
+body.manage .media-list {
   clear: both;
 }
-body.drinks .media-list .media {
+body.manage .media-list .media {
   border: 1px solid #5a5a51;
   border-radius: 5px;
   overflow: visible;
 }
-body.drinks .media-list .media .counter {
+body.manage .media-list .media .counter {
   margin: 5px;
   display: inline-block;
 }
-body.drinks .media-list .media .counter span {
+body.manage .media-list .media .counter span {
   display: inline-block;
   border-radius: 5px;
   color: #4b96b2;
@@ -74,69 +75,69 @@ body.drinks .media-list .media .counter span {
   padding: 5px;
   min-width: 40px;
 }
-body.drinks .media-list .media .media-body {
+body.manage .media-list .media .media-body {
   color: #4b96b2;
 }
-body.drinks .media-list .media .media-body h1,
-body.drinks .media-list .media .media-body h2,
-body.drinks .media-list .media .media-body h3,
-body.drinks .media-list .media .media-body h4,
-body.drinks .media-list .media .media-body h5,
-body.drinks .media-list .media .media-body h6,
-body.drinks .media-list .media .media-body h7 {
+body.manage .media-list .media .media-body h1,
+body.manage .media-list .media .media-body h2,
+body.manage .media-list .media .media-body h3,
+body.manage .media-list .media .media-body h4,
+body.manage .media-list .media .media-body h5,
+body.manage .media-list .media .media-body h6,
+body.manage .media-list .media .media-body h7 {
   color: #f3f3f3;
 }
-body.drinks .media-list .media .media-body form {
+body.manage .media-list .media .media-body form {
   margin-top: 5px;
 }
-body.drinks .media-list .media .media-body .media-heading {
+body.manage .media-list .media .media-body .media-heading {
   padding-top: 10px;
 }
-body.drinks .media-list .media .media-body .tags {
+body.manage .media-list .media .media-body .tags {
   color: #ccc87f;
 }
-body.drinks .media-list .media .media-actions > * {
+body.manage .media-list .media .media-actions > * {
   margin: 5px;
 }
-body.drinks .media-list .media.rest .counter > span {
+body.manage .media-list .media.rest .counter > span {
   background-color: #ff5a7d;
   color: #f3f3f3;
 }
-body.drinks .media-list .media.done .counter > span {
+body.manage .media-list .media.done .counter > span {
   background-color: #f3f3f3;
 }
-body.drinks .media-list .media.done .media-body {
+body.manage .media-list .media.done .media-body {
   text-decoration: line-through;
 }
-body.drinks .nav-tabs li a {
+body.manage .nav-tabs li a {
   color: #3e444c;
 }
-body.drinks .nav-tabs li a:hover {
+body.manage .nav-tabs li a:hover {
   color: white;
 }
-body.drinks nav ul.dropdown-menu li a {
+body.manage nav ul.dropdown-menu li a {
   height: 35px;
   vertical-align: middle;
   padding-top: 8px;
 }
-body.drinks nav ul.dropdown-menu li a:hover {
+body.manage nav ul.dropdown-menu li a:hover {
   color: black;
   text-shadow-color: white;
 }
-body.drinks .images-viewer {
+body.manage .images-viewer {
   height: 120px;
   overflow-y: auto;
 }
-body.drinks .images-viewer .images-list .image {
+body.manage .images-viewer .images-list .image {
   float: left;
   padding: 5px;
   display: inline-block;
 }
-body.drinks .image-selected img {
+body.manage .image-selected img {
   margin-top: 30px;
   float: right;
 }
-body.drinks .item .media {
+body.manage .item .media {
   border: 1px solid #5a5a51;
   border-radius: 5px;
   padding: 10px;
