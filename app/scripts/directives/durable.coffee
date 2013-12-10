@@ -84,11 +84,13 @@ controller =  (scope, timeout) ->
     scope.again() scope.model
 
   everyPeriod = 1000 # 1 second
+  alreadyDone = yes
   runInterval = ->
     timer = timeout runInterval, everyPeriod
     pause = scope.model.get('pause')
     unless pause.start
       if scope.model.get('status') isnt 'done'
+        alreadyDone = no
         if count() > 0
           unless scope.mute
             play sounds.tick
@@ -105,8 +107,9 @@ controller =  (scope, timeout) ->
             scope.onChange() scope.model
       else
         timeout.cancel timer
-        scope.onChange() scope.model
-        scope.onDone() scope.model
+        unless alreadyDone
+          scope.onChange() scope.model
+          scope.onDone() scope.model
     else
       sounds.current?.pause()
 

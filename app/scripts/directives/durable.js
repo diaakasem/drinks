@@ -22,7 +22,7 @@
   };
 
   controller = function(scope, timeout) {
-    var count, everyPeriod, originalCount, pausesTime, play, runInterval, sounds, timePassed, timer;
+    var alreadyDone, count, everyPeriod, originalCount, pausesTime, play, runInterval, sounds, timePassed, timer;
     if (!scope.show) {
       return;
     }
@@ -116,12 +116,14 @@
       return scope.again()(scope.model);
     };
     everyPeriod = 1000;
+    alreadyDone = true;
     runInterval = function() {
       var pause, _ref, _ref1;
       timer = timeout(runInterval, everyPeriod);
       pause = scope.model.get('pause');
       if (!pause.start) {
         if (scope.model.get('status') !== 'done') {
+          alreadyDone = false;
           if (count() > 0) {
             if (!scope.mute) {
               play(sounds.tick);
@@ -142,8 +144,10 @@
           }
         } else {
           timeout.cancel(timer);
-          scope.onChange()(scope.model);
-          return scope.onDone()(scope.model);
+          if (!alreadyDone) {
+            scope.onChange()(scope.model);
+            return scope.onDone()(scope.model);
+          }
         }
       } else {
         return (_ref1 = sounds.current) != null ? _ref1.pause() : void 0;
