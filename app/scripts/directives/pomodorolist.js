@@ -40,26 +40,38 @@
       })();
     };
     graphBieChart = function(data) {
-      var arc, color, colors, g, height, pie, radius, svg, width;
+      var angle, arc, color, g, height, pie, r, svg, width;
       width = 960;
       height = 500;
-      radius = Math.min(width, height) / 2;
-      colors = ["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"];
+      r = Math.min(width, height) / 2;
+      m = 10;
       color = d3.scale.category20();
-      arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(0);
+      arc = d3.svg.arc().innerRadius(r / 2).outerRadius(r - m);
       pie = d3.layout.pie().sort(null).value(function(d) {
         return d.value;
       });
-      svg = d3.select("#piechart svg").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-      g = svg.selectAll(".arc").data(pie(data)).enter().append("g").attr("class", "arc");
+      angle = function(d) {
+        var a;
+        a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90;
+        if (a > 90) {
+          return a - 180;
+        } else {
+          return a;
+        }
+      };
+      svg = d3.select("#piechart svg").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + (width / 2) + ", " + (height / 2) + ")");
+      g = svg.selectAll(".arc").data(pie(data)).enter().append("g");
       g.append("path").attr("d", arc).style("fill", function(d) {
         return color(d.data.value);
       });
-      return g.append("text").attr("transform", function(d) {
-        return "translate(" + (arc.centroid(d)) + ")";
+      g.append("svg:text").attr("transform", function(d) {
+        var c;
+        c = arc.centroid(d);
+        return "translate(" + c[0] + ", " + c[1] + ")rotate(" + (angle(d)) + ")";
       }).attr("dy", ".35em").style("text-anchor", "middle").text(function(d) {
         return d.data.label;
       });
+      return svg.append("svg:text").attr("dy", ".35em").attr("text-anchor", "middle").text('Monthly shares');
     };
     buildLists = function(entities) {
       _.each(entities, function(e) {

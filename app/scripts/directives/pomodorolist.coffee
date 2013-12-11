@@ -28,36 +28,44 @@ controller = (scope, Service, timeout)->
     width = 960
     height = 500
 
-    radius = Math.min(width, height) / 2
-    colors = ["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]
+    r = Math.min(width, height) / 2
+    m = 10
     color = d3.scale.category20()
-    arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(0)
+    arc = d3.svg.arc().innerRadius(r/2).outerRadius(r - m)
     pie = d3.layout.pie().sort(null).value((d) -> d.value)
+
+    angle = (d)->
+      a = (d.startAngle + d.endAngle) * 90 / Math.PI - 90
+      if a > 90 then a - 180 else a
 
     svg = d3.select("#piechart svg")
       .attr("width", width)
       .attr("height", height)
       .append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
-
-    #data.forEach (d) ->
-      #d.label = +d.label
+      .attr("transform", "translate(#{width / 2}, #{height / 2})")
 
     g = svg.selectAll(".arc")
       .data(pie(data))
       .enter()
       .append("g")
-      .attr("class", "arc")
+      #.attr("class", "arc")
 
     g.append("path")
       .attr("d", arc)
       .style "fill", (d) -> color d.data.value
 
-    g.append("text")
-      .attr("transform", (d) -> "translate(#{arc.centroid(d)})")
-      .attr("dy", ".35em")
+    g.append("svg:text")
+      .attr("transform", (d) ->
+        c = arc.centroid(d)
+        "translate(#{c[0]}, #{c[1]})rotate(#{angle(d)})"
+      ).attr("dy", ".35em")
       .style("text-anchor", "middle")
       .text (d) -> d.data.label
+
+    svg.append("svg:text")
+      .attr("dy", ".35em")
+      .attr("text-anchor", "middle")
+      .text 'Monthly shares'
 
 
   # Building the titles list

@@ -142,6 +142,10 @@ body.manage .item .media {
   border-radius: 5px;
   padding: 10px;
 }
+body.manage #piechart path,
+body.manage #piechart line {
+  stroke: none;
+}
 .active > a {
   color: #ff5a7d !important;
 }
