@@ -25,7 +25,7 @@ controller = (scope, Service, timeout)->
     #[ { key: "Cumulative Return", values: results }]
     
   graphBieChart = (data)->
-    width = 960
+    width = $(window).width() - 100
     height = 500
 
     r = Math.min(width, height) / 2
@@ -57,6 +57,9 @@ controller = (scope, Service, timeout)->
     g.append("svg:text")
       .attr("transform", (d) ->
         c = arc.centroid(d)
+        if r < 50
+          c[0] = c[0] * 3
+          c[1] = c[1] * 3
         "translate(#{c[0]}, #{c[1]})rotate(#{angle(d)})"
       ).attr("dy", ".35em")
       .style("text-anchor", "middle")

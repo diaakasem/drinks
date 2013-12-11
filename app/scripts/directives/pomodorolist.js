@@ -41,7 +41,7 @@
     };
     graphBieChart = function(data) {
       var angle, arc, color, g, height, pie, r, svg, width;
-      width = 960;
+      width = $(window).width() - 100;
       height = 500;
       r = Math.min(width, height) / 2;
       m = 10;
@@ -67,6 +67,10 @@
       g.append("svg:text").attr("transform", function(d) {
         var c;
         c = arc.centroid(d);
+        if (r < 50) {
+          c[0] = c[0] * 3;
+          c[1] = c[1] * 3;
+        }
         return "translate(" + c[0] + ", " + c[1] + ")rotate(" + (angle(d)) + ")";
       }).attr("dy", ".35em").style("text-anchor", "middle").text(function(d) {
         return "" + d.data.label + " (" + d.data.value + ")";
