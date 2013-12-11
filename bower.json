@@ -18,7 +18,8 @@
     "underscore.string": "~2.3.3",
     "dng": "zxeem/dng",
     "nvd3": "~1.1.14-beta",
-    "c3": "masayuki0812/c3"
+    "c3": "masayuki0812/c3",
+    "bootstrap-glyphicons-fonts": "jmak/bootstrap-glyphicons-fonts"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0-rc.1",

@@ -13,13 +13,61 @@ controller = (scope, Service, timeout)->
   scope.tagsList = []
   scope.namesList = []
 
+  buildBieChartData = (entities)->
+    biedata = {}
+    result = []
+    _.each entities, (e)->
+      biedata[e.get('tags')] ?= 0
+      biedata[e.get('tags')] += 1
+
+    console.log biedata
+    results = ({'label': k, 'value': v} for k, v of biedata)
+    #[ { key: "Cumulative Return", values: results }]
+    
+  graphBieChart = (data)->
+    width = 960
+    height = 500
+
+    radius = Math.min(width, height) / 2
+    colors = ["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]
+    color = d3.scale.category20()
+    arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(0)
+    pie = d3.layout.pie().sort(null).value((d) -> d.value)
+
+    svg = d3.select("#piechart svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+
+    #data.forEach (d) ->
+      #d.label = +d.label
+
+    g = svg.selectAll(".arc")
+      .data(pie(data))
+      .enter()
+      .append("g")
+      .attr("class", "arc")
+
+    g.append("path")
+      .attr("d", arc)
+      .style "fill", (d) -> color d.data.value
+
+    g.append("text")
+      .attr("transform", (d) -> "translate(#{arc.centroid(d)})")
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .text (d) -> d.data.label
+
+
+  # Building the titles list
   buildLists = (entities)->
     _.each entities, (e)->
       scope.tagsList.push e.get('tags')
       scope.namesList.push e.get('name')
     scope.tagsList = _.uniq scope.tagsList
     scope.namesList = _.uniq scope.namesList
-  #
+
   # Listing today
   now = new Date()
   Service.list now, new Date(now - dayMS), (results)->
@@ -66,6 +114,7 @@ controller = (scope, Service, timeout)->
       cb?(scope.history)
     else
       Service.list new Date(now - dayMS), new Date(0), (results)->
+        graphBieChart buildBieChartData(results)
         scope.$apply ->
           console.log "Pomodoros count last month: #{results.length}"
           scope.history = results
@@ -73,44 +122,6 @@ controller = (scope, Service, timeout)->
           cb?(results)
 
   scope.isBar = yes
-
-  scope.buildGraph = (data)->
-    d3.select('svg g').remove()
-    data = scope.buildData(scope.isBar, data)
-    if scope.isBar
-      chart = nv.models.multiBarChart()
-    else
-      chart = nv.models.cumulativeLineChart()
-                .x((d)->d[0])
-                .y((d)->d[1])
-                .clipEdge(yes)
-    chart.xAxis
-      .axisLabel('Dates')
-      .tickFormat((d)-> moment(d).format('MMM Do'))
-    chart.yAxis
-      .axisLabel('Pomodoris')
-      .tickFormat d3.format(",.1f")
-    d3.select("#reports svg").datum(data)
-      .transition().duration(500).call chart
-    nv.utils.windowResize chart.update
-    chart
-
-  scope.buildData = (isBar, historyData)->
-    data = scope.entities.concat(historyData)
-    data = _.groupBy data, (d)-> d.get('tags')
-    data = _.map data, (arr, tag)->
-      days = _.groupBy(arr, (d)->moment(d.createdAt).startOf('day').unix()*1000)
-      v = _.map(days, (pomodoros, day)->
-        count = if pomodoros then pomodoros.length else 0
-        day = parseInt day
-        if isBar then {x: day, y: count} else [day, count]
-      )
-      v = _.sortBy v, (d)->
-        ret = if isBar then d.x else d[0]
-        ret
-      {key: tag, values: v}
-    data = _.sortBy data, 'key'
-    return data
 
   amonthAgo = +(moment().subtract('days', 30).startOf('day'))
   aDay = 86400000

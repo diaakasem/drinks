@@ -3,7 +3,7 @@
   var controller;
 
   controller = function(scope, Service, timeout) {
-    var aDay, amonthAgo, buildLists, dayMS, end, indent, m, now;
+    var aDay, amonthAgo, buildBieChartData, buildLists, dayMS, end, graphBieChart, indent, m, now;
     m = moment();
     dayMS = m.diff(moment().startOf('day'));
     scope.historyFilter = '';
@@ -14,6 +14,53 @@
     scope.tags = '';
     scope.tagsList = [];
     scope.namesList = [];
+    buildBieChartData = function(entities) {
+      var biedata, k, result, results, v;
+      biedata = {};
+      result = [];
+      _.each(entities, function(e) {
+        var _name;
+        if (biedata[_name = e.get('tags')] == null) {
+          biedata[_name] = 0;
+        }
+        return biedata[e.get('tags')] += 1;
+      });
+      console.log(biedata);
+      return results = (function() {
+        var _results;
+        _results = [];
+        for (k in biedata) {
+          v = biedata[k];
+          _results.push({
+            'label': k,
+            'value': v
+          });
+        }
+        return _results;
+      })();
+    };
+    graphBieChart = function(data) {
+      var arc, color, colors, g, height, pie, radius, svg, width;
+      width = 960;
+      height = 500;
+      radius = Math.min(width, height) / 2;
+      colors = ["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"];
+      color = d3.scale.category20();
+      arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(0);
+      pie = d3.layout.pie().sort(null).value(function(d) {
+        return d.value;
+      });
+      svg = d3.select("#piechart svg").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+      g = svg.selectAll(".arc").data(pie(data)).enter().append("g").attr("class", "arc");
+      g.append("path").attr("d", arc).style("fill", function(d) {
+        return color(d.data.value);
+      });
+      return g.append("text").attr("transform", function(d) {
+        return "translate(" + (arc.centroid(d)) + ")";
+      }).attr("dy", ".35em").style("text-anchor", "middle").text(function(d) {
+        return d.data.label;
+      });
+    };
     buildLists = function(entities) {
       _.each(entities, function(e) {
         scope.tagsList.push(e.get('tags'));
@@ -78,6 +125,7 @@
         return typeof cb === "function" ? cb(scope.history) : void 0;
       } else {
         return Service.list(new Date(now - dayMS), new Date(0), function(results) {
+          graphBieChart(buildBieChartData(results));
           return scope.$apply(function() {
             console.log("Pomodoros count last month: " + results.length);
             scope.history = results;
@@ -90,64 +138,6 @@
       }
     };
     scope.isBar = true;
-    scope.buildGraph = function(data) {
-      var chart;
-      d3.select('svg g').remove();
-      data = scope.buildData(scope.isBar, data);
-      if (scope.isBar) {
-        chart = nv.models.multiBarChart();
-      } else {
-        chart = nv.models.cumulativeLineChart().x(function(d) {
-          return d[0];
-        }).y(function(d) {
-          return d[1];
-        }).clipEdge(true);
-      }
-      chart.xAxis.axisLabel('Dates').tickFormat(function(d) {
-        return moment(d).format('MMM Do');
-      });
-      chart.yAxis.axisLabel('Pomodoris').tickFormat(d3.format(",.1f"));
-      d3.select("#reports svg").datum(data).transition().duration(500).call(chart);
-      nv.utils.windowResize(chart.update);
-      return chart;
-    };
-    scope.buildData = function(isBar, historyData) {
-      var data;
-      data = scope.entities.concat(historyData);
-      data = _.groupBy(data, function(d) {
-        return d.get('tags');
-      });
-      data = _.map(data, function(arr, tag) {
-        var days, v;
-        days = _.groupBy(arr, function(d) {
-          return moment(d.createdAt).startOf('day').unix() * 1000;
-        });
-        v = _.map(days, function(pomodoros, day) {
-          var count;
-          count = pomodoros ? pomodoros.length : 0;
-          day = parseInt(day);
-          if (isBar) {
-            return {
-              x: day,
-              y: count
-            };
-          } else {
-            return [day, count];
-          }
-        });
-        v = _.sortBy(v, function(d) {
-          var ret;
-          ret = isBar ? d.x : d[0];
-          return ret;
-        });
-        return {
-          key: tag,
-          values: v
-        };
-      });
-      data = _.sortBy(data, 'key');
-      return data;
-    };
     amonthAgo = +(moment().subtract('days', 30).startOf('day'));
     aDay = 86400000;
     end = +(moment().add('days', 2).startOf('day'));
