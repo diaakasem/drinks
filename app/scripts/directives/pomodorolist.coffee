@@ -67,6 +67,7 @@ controller = (scope, Service, timeout)->
     else
       Service.list new Date(now - dayMS), new Date(0), (results)->
         scope.$apply ->
+          console.log "Pomodoros count last month: #{results.length}"
           scope.history = results
           timeout -> buildLists results
           cb?(results)

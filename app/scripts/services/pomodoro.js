@@ -23,6 +23,7 @@
       query.lessThan('createdAt', new Date(end.getTime()));
       query.greaterThan('createdAt', new Date(start.getTime()));
       query.descending('createdAt');
+      query.limit(1000);
       return query.find({
         success: cb,
         error: onError

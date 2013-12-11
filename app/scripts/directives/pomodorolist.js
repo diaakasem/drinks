@@ -79,6 +79,7 @@
       } else {
         return Service.list(new Date(now - dayMS), new Date(0), function(results) {
           return scope.$apply(function() {
+            console.log("Pomodoros count last month: " + results.length);
             scope.history = results;
             timeout(function() {
               return buildLists(results);
