@@ -60,7 +60,7 @@
         }
       };
       svg = d3.select("#piechart svg").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + (width / 2) + ", " + (height / 2) + ")");
-      g = svg.selectAll(".arc").data(pie(data)).enter().append("g");
+      g = svg.selectAll(".arc").data(pie(data)).enter().append("g").attr("class", "arc");
       g.append("path").attr("d", arc).style("fill", function(d) {
         return color(d.data.value);
       });
@@ -69,9 +69,9 @@
         c = arc.centroid(d);
         return "translate(" + c[0] + ", " + c[1] + ")rotate(" + (angle(d)) + ")";
       }).attr("dy", ".35em").style("text-anchor", "middle").text(function(d) {
-        return d.data.label;
+        return "" + d.data.label + " (" + d.data.value + ")";
       });
-      return svg.append("svg:text").attr("dy", ".35em").attr("text-anchor", "middle").text('Monthly shares');
+      return svg.append("svg:text").attr("dy", ".35em").attr("text-anchor", "middle").text("Monthly shares \n " + scope.history.length);
     };
     buildLists = function(entities) {
       _.each(entities, function(e) {
@@ -137,10 +137,12 @@
         return typeof cb === "function" ? cb(scope.history) : void 0;
       } else {
         return Service.list(new Date(now - dayMS), new Date(0), function(results) {
-          graphBieChart(buildBieChartData(results));
           return scope.$apply(function() {
             console.log("Pomodoros count last month: " + results.length);
             scope.history = results;
+            timeout(function() {
+              return graphBieChart(buildBieChartData(results));
+            });
             timeout(function() {
               return buildLists(results);
             });

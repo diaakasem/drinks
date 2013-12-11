@@ -48,7 +48,7 @@ controller = (scope, Service, timeout)->
       .data(pie(data))
       .enter()
       .append("g")
-      #.attr("class", "arc")
+      .attr("class", "arc")
 
     g.append("path")
       .attr("d", arc)
@@ -60,12 +60,12 @@ controller = (scope, Service, timeout)->
         "translate(#{c[0]}, #{c[1]})rotate(#{angle(d)})"
       ).attr("dy", ".35em")
       .style("text-anchor", "middle")
-      .text (d) -> d.data.label
+      .text (d)-> "#{d.data.label} (#{d.data.value})"
 
     svg.append("svg:text")
       .attr("dy", ".35em")
       .attr("text-anchor", "middle")
-      .text 'Monthly shares'
+      .text "Monthly shares \n #{scope.history.length}"
 
 
   # Building the titles list
@@ -122,10 +122,10 @@ controller = (scope, Service, timeout)->
       cb?(scope.history)
     else
       Service.list new Date(now - dayMS), new Date(0), (results)->
-        graphBieChart buildBieChartData(results)
         scope.$apply ->
           console.log "Pomodoros count last month: #{results.length}"
           scope.history = results
+          timeout -> graphBieChart buildBieChartData(results)
           timeout -> buildLists results
           cb?(results)
 
