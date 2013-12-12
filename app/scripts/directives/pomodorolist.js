@@ -145,9 +145,9 @@
             console.log("Pomodoros count last month: " + results.length);
             scope.history = results;
             timeout(function() {
-              return graphBieChart(buildBieChartData(results));
-            });
-            timeout(function() {
+              var chartData;
+              chartData = scope.entities.concat(results);
+              graphBieChart(buildBieChartData(chartData));
               return buildLists(results);
             });
             return typeof cb === "function" ? cb(results) : void 0;

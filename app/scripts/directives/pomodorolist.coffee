@@ -128,8 +128,11 @@ controller = (scope, Service, timeout)->
         scope.$apply ->
           console.log "Pomodoros count last month: #{results.length}"
           scope.history = results
-          timeout -> graphBieChart buildBieChartData(results)
-          timeout -> buildLists results
+          
+          timeout ->
+            chartData = scope.entities.concat(results)
+            graphBieChart buildBieChartData(chartData)
+            buildLists results
           cb?(results)
 
   scope.isBar = yes
