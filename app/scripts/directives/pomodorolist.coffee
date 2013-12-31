@@ -165,12 +165,12 @@ controller = (scope, Service, timeout)->
       type = 'bar'
       types = if scope.isBar then _.zipObject _.map(data, (d)->[d[0], type]) else []
       monthStrings = _.map scope.lastMonth, (d)->
-        moment(d).format 'MM DD'
+        moment(d).format 'MM DD YY'
       columns = [['date'].concat monthStrings].concat data
       config =
         data:
           x: 'date'
-          x_format: '%m %d'
+          x_format: '%m %d %y'
           columns: columns
           types: types
           groups: [_.map(data, _.first)]

@@ -203,13 +203,13 @@
           return [d[0], type];
         })) : [];
         monthStrings = _.map(scope.lastMonth, function(d) {
-          return moment(d).format('MM DD');
+          return moment(d).format('MM DD YY');
         });
         columns = [['date'].concat(monthStrings)].concat(data);
         config = {
           data: {
             x: 'date',
-            x_format: '%m %d',
+            x_format: '%m %d %y',
             columns: columns,
             types: types,
             groups: [_.map(data, _.first)]
